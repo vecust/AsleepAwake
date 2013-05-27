@@ -1,5 +1,6 @@
 package edu.uci.asleepawake;
 
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,6 +31,11 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		final Button settingsButton = (Button) findViewById(R.id.MainSettings);
+		final Button goingToBedButton = (Button) findViewById(R.id.MainGoingToBed);
+		final Button wokeUpButton = (Button) findViewById(R.id.MainWokeUp);
+
+		wokeUpButton.setEnabled(false);
 
 //		Calendar test = Calendar.getInstance();
 //		System.out.println("Test time:"+test.getTime());
@@ -44,7 +50,6 @@ public class MainActivity extends Activity {
 		
         dates = new ArrayList<MyEntry<String,String>>();
 		
-		final Button settingsButton = (Button) findViewById(R.id.MainSettings);
 		settingsButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -55,7 +60,6 @@ public class MainActivity extends Activity {
 			}
 		});
 		
-		final Button goingToBedButton = (Button) findViewById(R.id.MainGoingToBed);
 		goingToBedButton.setOnClickListener(new View.OnClickListener() {
 			
 			@SuppressLint("SimpleDateFormat")
@@ -97,7 +101,15 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				loadPrefs();
+				//loadPrefs();
+				Thread t = new Thread(new Runnable() {
+					@Override
+					public void run() {
+					postData();
+
+					}
+					});
+					t.start();
 			}
 		});
 		
@@ -105,8 +117,28 @@ public class MainActivity extends Activity {
 
 	}
 	
+	public void postData() {
+
+		String fullUrl = "https://docs.google.com/a/uci.edu/forms/d/1x-YIb5tAnkImWDLaw0YtNIyqa0AXCroq26ogf_2yS9o/formResponse";
+		HttpRequest mReq = new HttpRequest();
+		String date = "Hello";
+		String sleep = "World";
+		String wake = "Testing";
+		String watch = "Let's see!";
+
+		String data = "entry_2034720707=" + URLEncoder.encode(date) + "&" +
+					"entry_2032879505=" + URLEncoder.encode(sleep) + "&" +
+					"entry_1085709803=" + URLEncoder.encode(wake) + "&" +
+					"entry_2052787681=" + URLEncoder.encode(watch);
+		String response = mReq.sendPost(fullUrl, data);
+		System.out.println("postData response: "+response);
+	}
+	
 	@SuppressLint("SimpleDateFormat")
 	private void loadPrefs() {
+		final Button goingToBedButton = (Button) findViewById(R.id.MainGoingToBed);
+		final Button wokeUpButton = (Button) findViewById(R.id.MainWokeUp);
+		
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         String isLogIgnored = sp.getString("logIgnored", "");
         String lastTimeStamp = sp.getString("timeStamp", "");
@@ -123,7 +155,8 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}
         
-        if(timeStampDate != null && today.after(timeStampDate) && isLogIgnored.equals("YES")){
+        if(timeStampDate != null && today.after(timeStampDate)){
+        	if(isLogIgnored.equals("YES")){
         	AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 			builder.setMessage("Log your sleep now")
 			       .setCancelable(false)
@@ -138,6 +171,23 @@ public class MainActivity extends Activity {
 			     
 			AlertDialog alert = builder.create();
 			alert.show();
+        	}
+        	else if(isLogIgnored.equals("NO")){
+        	AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+			builder.setMessage("Log your wake time now")
+			       .setCancelable(false)
+			       .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			           public void onClick(DialogInterface dialog, int id) {
+			                //do things
+			        	   goingToBedButton.setEnabled(false);
+			        	   wokeUpButton.setEnabled(true);
+			        	   dialog.cancel();
+			           }
+			       });    
+			     
+			AlertDialog alert = builder.create();
+			alert.show();
+        }
         }
 	}
 	
