@@ -26,6 +26,8 @@ public class MainActivity extends Activity {
     public ArrayList<MyEntry<String, String>> dates = new ArrayList<MyEntry<String,String>>();
     String logIgnored;
     String timeStamp;
+    String sleepTime;
+    String wearingWatch;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,9 +73,13 @@ public class MainActivity extends Activity {
 				Calendar temp = Calendar.getInstance();
 	        	SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 				timeStamp = dateFormat.format(temp.getTime());
+				DateFormat timeFormat = DateFormat.getTimeInstance(3);
+				sleepTime = timeFormat.format(temp.getTime());
 	        	System.out.println("timeStamp: "+timeStamp);
+	        	System.out.println("sleepTime: "+sleepTime);
 	        	savePrefs("logIgnored",logIgnored);
 	        	savePrefs("timeStamp",timeStamp);
+	        	savePrefs("sleepTime",sleepTime);
 	        	   
 				AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 				builder.setMessage("Are You Wearing the Watch?")
@@ -81,18 +87,41 @@ public class MainActivity extends Activity {
 				       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 				           public void onClick(DialogInterface dialog, int id) {
 				                //do things
+				        	   wearingWatch = "YES";
+				        	   savePrefs("wearingWatch",wearingWatch);
 				        	   dialog.cancel();
 				           }
 				       })    
 				           
 				       .setNegativeButton("No", new DialogInterface.OnClickListener() {
 				    	   public void onClick(DialogInterface dialog, int id)	{
+				    		   wearingWatch = "NO";
+				        	   savePrefs("wearingWatch",wearingWatch);
 				    		   dialog.cancel();
 				       }
 				       });
 				AlertDialog alert = builder.create();
 				alert.show();
+				
+	        	goingToBedButton.setEnabled(false);
+	        	//wokeUpButton.setEnabled(true);
 			}
+		});
+		
+		wokeUpButton.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Calendar temp = Calendar.getInstance();
+				DateFormat timeFormat = DateFormat.getTimeInstance(3);
+				String wakeTime = timeFormat.format(temp.getTime());
+	        	System.out.println("wakeTime: "+wakeTime);
+	        	savePrefs("wakeTime",wakeTime);
+	        	
+	        	postData();
+			}
+			
 		});
         
 		final Button testSettingsButton = (Button)findViewById(R.id.testSettings);
@@ -118,20 +147,47 @@ public class MainActivity extends Activity {
 	}
 	
 	public void postData() {
-
+		final Button goingToBedButton = (Button) findViewById(R.id.MainGoingToBed);
+		final Button wokeUpButton = (Button) findViewById(R.id.MainWokeUp);
 		String fullUrl = "https://docs.google.com/a/uci.edu/forms/d/1x-YIb5tAnkImWDLaw0YtNIyqa0AXCroq26ogf_2yS9o/formResponse";
 		HttpRequest mReq = new HttpRequest();
-		String date = "Hello";
-		String sleep = "World";
-		String wake = "Testing";
-		String watch = "Let's see!";
+		
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        String participant = sp.getString("Participant", "");
+		String date = sp.getString("timeStamp", "");
+		String sleep = sp.getString("sleepTime", "");
+		String wake = sp.getString("wakeTime", "");
+		String watch = sp.getString("wearingWatch", "");
+		
+		if (participant.equals("")) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+			builder.setMessage("Please enter settings data first")
+			       .setCancelable(false)
+			       .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			           public void onClick(DialogInterface dialog, int id) {
+			                //do things
+			        	   dialog.cancel();
+			           }
+			       });
+			AlertDialog alert = builder.create();
+			alert.show();
+		} else {
 
-		String data = "entry_2034720707=" + URLEncoder.encode(date) + "&" +
-					"entry_2032879505=" + URLEncoder.encode(sleep) + "&" +
-					"entry_1085709803=" + URLEncoder.encode(wake) + "&" +
-					"entry_2052787681=" + URLEncoder.encode(watch);
-		String response = mReq.sendPost(fullUrl, data);
-		System.out.println("postData response: "+response);
+			String data = "entry_1794600332=" + URLEncoder.encode(participant) + "&"
+					+"entry_2034720707=" + URLEncoder.encode(date) + "&"
+					+ "entry_2032879505=" + URLEncoder.encode(sleep) + "&"
+					+ "entry_1085709803=" + URLEncoder.encode(wake) + "&"
+					+ "entry_2052787681=" + URLEncoder.encode(watch);
+			String response = mReq.sendPost(fullUrl, data);
+			System.out.println("postData response: " + response);
+
+			timeStamp = null;
+			
+			goingToBedButton.setEnabled(true);
+			wokeUpButton.setEnabled(false);
+			logIgnored = "";
+			savePrefs("logIgnored","");
+		}
 	}
 	
 	@SuppressLint("SimpleDateFormat")
@@ -155,7 +211,7 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}
         
-        if(timeStampDate != null && today.after(timeStampDate)){
+        if(lastTimeStamp != "" && today.after(timeStampDate)){
         	if(isLogIgnored.equals("YES")){
         	AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 			builder.setMessage("Log your sleep now")
