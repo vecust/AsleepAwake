@@ -33,7 +33,7 @@
         android:text="Woke Up" />
 
     <Button
-        android:id="@+id/testSettings"
+        android:id="@+id/formSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/MainSettings"

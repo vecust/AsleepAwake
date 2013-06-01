@@ -4,40 +4,29 @@
     android:layout_height="match_parent"
     tools:context=".Form" >
 
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="102dp"
-        android:ems="10"
-        android:inputType="date" />
-
     <CheckBox
-        android:id="@+id/checkBox2"
+        android:id="@+id/formWatch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
-        android:layout_below="@+id/editText1"
+        android:layout_alignLeft="@+id/formWake"
+        android:layout_below="@+id/formWake"
         android:text="Wearing Watch" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/formSleep"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/editText3"
+        android:layout_below="@+id/formDate"
         android:ems="10"
-        android:inputType="time" 
-        />
+        android:inputType="time" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/formWake"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/editText2"
+        android:layout_below="@+id/formSleep"
         android:ems="10"
         android:inputType="time" >
 
@@ -47,8 +36,8 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/editText2"
-        android:layout_alignBottom="@+id/editText2"
+        android:layout_alignBaseline="@+id/formSleep"
+        android:layout_alignBottom="@+id/formSleep"
         android:layout_alignParentLeft="true"
         android:text="Went to Bed"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -57,8 +46,8 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/editText1"
-        android:layout_alignBottom="@+id/editText1"
+        android:layout_alignBaseline="@+id/formWake"
+        android:layout_alignBottom="@+id/formWake"
         android:layout_alignRight="@+id/textView1"
         android:text="Woke Up"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -67,20 +56,33 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/editText3"
-        android:layout_alignBottom="@+id/editText3"
+        android:layout_alignBaseline="@+id/formDate"
+        android:layout_alignBottom="@+id/formDate"
         android:layout_alignRight="@+id/textView1"
         android:text="Date"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:id="@+id/testSettings"
+        android:id="@+id/formSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/checkBox2"
-        android:layout_below="@+id/checkBox2"
+        android:layout_alignLeft="@+id/formWatch"
+        android:layout_below="@+id/formWatch"
         android:layout_marginTop="20dp"
         android:onClick="sendMessage"
         android:text="Submit" />
+
+    <EditText
+        android:id="@+id/formDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="102dp"
+        android:ems="10"
+        android:inputType="date" >
+
+        <requestFocus />
+    </EditText>
 
 </RelativeLayout>

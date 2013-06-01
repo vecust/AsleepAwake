@@ -55,11 +55,12 @@ public final class R {
         public static final int TextView04=0x7f080040;
         public static final int TextView05=0x7f080042;
         public static final int TextView07=0x7f080044;
-        public static final int checkBox2=0x7f080001;
-        public static final int editText1=0x7f080002;
-        public static final int editText2=0x7f080003;
-        public static final int editText3=0x7f080000;
         public static final int footer=0x7f080033;
+        public static final int formDate=0x7f080003;
+        public static final int formSleep=0x7f080002;
+        public static final int formSubmit=0x7f080007;
+        public static final int formWake=0x7f080001;
+        public static final int formWatch=0x7f080000;
         public static final int header=0x7f080035;
         public static final int loginButton=0x7f080009;
         public static final int loginText=0x7f080008;
@@ -80,7 +81,6 @@ public final class R {
         public static final int tableRow7=0x7f080023;
         public static final int tableRow8=0x7f080027;
         public static final int tableRow9=0x7f08002b;
-        public static final int testSettings=0x7f080007;
         public static final int textView1=0x7f080004;
         public static final int textView10=0x7f08002c;
         public static final int textView11=0x7f080030;

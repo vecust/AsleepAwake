@@ -80,6 +80,8 @@ public class MainActivity extends Activity {
 	        	savePrefs("logIgnored",logIgnored);
 	        	savePrefs("timeStamp",timeStamp);
 	        	savePrefs("sleepTime",sleepTime);
+	        	savePrefs("sleepLogged","YES");
+	        	savePrefs("wakeLogged","NO");
 	        	   
 				AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 				builder.setMessage("Are You Wearing the Watch?")
@@ -118,13 +120,14 @@ public class MainActivity extends Activity {
 				String wakeTime = timeFormat.format(temp.getTime());
 	        	System.out.println("wakeTime: "+wakeTime);
 	        	savePrefs("wakeTime",wakeTime);
+	        	savePrefs("wakeLogged","YES");
 	        	
 	        	postData();
 			}
 			
 		});
         
-		final Button testSettingsButton = (Button)findViewById(R.id.testSettings);
+		final Button testSettingsButton = (Button)findViewById(R.id.formSubmit);
 		testSettingsButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -187,6 +190,8 @@ public class MainActivity extends Activity {
 			wokeUpButton.setEnabled(false);
 			logIgnored = "";
 			savePrefs("logIgnored","");
+			savePrefs("sleepLogged","");
+			savePrefs("wakeLogged","");
 		}
 	}
 	

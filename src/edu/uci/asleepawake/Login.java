@@ -37,17 +37,11 @@ public class Login extends Activity {
 					AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
 					builder.setMessage("Please enter correct password")
 					       .setCancelable(false)
-					       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+					       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
 					           public void onClick(DialogInterface dialog, int id) {
 					                //do things
 					        	   dialog.cancel();
 					           }
-					       })    
-					           
-					       .setNegativeButton("No", new DialogInterface.OnClickListener() {
-					    	   public void onClick(DialogInterface dialog, int id)	{
-					    		   dialog.cancel();
-					       }
 					       });
 					AlertDialog alert = builder.create();
 					alert.show();
