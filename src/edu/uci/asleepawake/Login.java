@@ -33,6 +33,7 @@ public class Login extends Activity {
 				if(password.equals("password")) {
 					Intent settings = new Intent(Login.this,Settings.class);
 					Login.this.startActivity(settings);
+					finish();
 				} else {
 					AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
 					builder.setMessage("Please enter correct password")

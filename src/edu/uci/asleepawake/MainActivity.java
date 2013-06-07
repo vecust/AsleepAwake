@@ -28,6 +28,11 @@ public class MainActivity extends Activity {
     String timeStamp;
     String sleepTime;
     String wearingWatch;
+    
+    String sleepIgnored;
+    String wakeIgnored;
+    String sleepLogged;
+    String wakeLogged;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +41,18 @@ public class MainActivity extends Activity {
 		final Button settingsButton = (Button) findViewById(R.id.MainSettings);
 		final Button goingToBedButton = (Button) findViewById(R.id.MainGoingToBed);
 		final Button wokeUpButton = (Button) findViewById(R.id.MainWokeUp);
+		final Button manualEntryButton = (Button) findViewById(R.id.manualForm);
 
-		wokeUpButton.setEnabled(false);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        sleepLogged = sp.getString("sleepLogged", "");
+        wakeLogged = sp.getString("wakeLogged", "");
+        
+		if(sleepLogged.equals("YES")) {
+			goingToBedButton.setEnabled(false);
+			wokeUpButton.setEnabled(true);
+		} else {
+			wokeUpButton.setEnabled(false);
+		}
 
 //		Calendar test = Calendar.getInstance();
 //		System.out.println("Test time:"+test.getTime());
@@ -48,10 +63,22 @@ public class MainActivity extends Activity {
 //		DateFormat testFormat = DateFormat.getTimeInstance(3);
 //		System.out.println("Test Time format:"+testFormat.format(test.getTime()));
 		
-		loadPrefs();
+		//loadPrefs();
 		
         dates = new ArrayList<MyEntry<String,String>>();
 		
+        manualEntryButton.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+	        	   Intent formPage = new Intent(MainActivity.this,Form.class);
+	        	   MainActivity.this.startActivity(formPage);
+				
+			}
+        	
+        });
+        
 		settingsButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -69,15 +96,15 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				logIgnored = "NO";
-				System.out.println("logIgnored: "+logIgnored);
+				//System.out.println("logIgnored: "+logIgnored);
 				Calendar temp = Calendar.getInstance();
 	        	SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 				timeStamp = dateFormat.format(temp.getTime());
 				DateFormat timeFormat = DateFormat.getTimeInstance(3);
 				sleepTime = timeFormat.format(temp.getTime());
-	        	System.out.println("timeStamp: "+timeStamp);
-	        	System.out.println("sleepTime: "+sleepTime);
-	        	savePrefs("logIgnored",logIgnored);
+	        	//System.out.println("timeStamp: "+timeStamp);
+	        	//System.out.println("sleepTime: "+sleepTime);
+	        	//savePrefs("logIgnored",logIgnored);
 	        	savePrefs("timeStamp",timeStamp);
 	        	savePrefs("sleepTime",sleepTime);
 	        	savePrefs("sleepLogged","YES");
@@ -106,7 +133,7 @@ public class MainActivity extends Activity {
 				alert.show();
 				
 	        	goingToBedButton.setEnabled(false);
-	        	//wokeUpButton.setEnabled(true);
+	        	wokeUpButton.setEnabled(true);
 			}
 		});
 		
@@ -118,7 +145,7 @@ public class MainActivity extends Activity {
 				Calendar temp = Calendar.getInstance();
 				DateFormat timeFormat = DateFormat.getTimeInstance(3);
 				String wakeTime = timeFormat.format(temp.getTime());
-	        	System.out.println("wakeTime: "+wakeTime);
+	        	//System.out.println("wakeTime: "+wakeTime);
 	        	savePrefs("wakeTime",wakeTime);
 	        	savePrefs("wakeLogged","YES");
 	        	
@@ -137,8 +164,8 @@ public class MainActivity extends Activity {
 				Thread t = new Thread(new Runnable() {
 					@Override
 					public void run() {
-					postData();
-
+					//postData();
+					
 					}
 					});
 					t.start();
@@ -148,6 +175,8 @@ public class MainActivity extends Activity {
 			sleepLogReminder();
 
 	}
+	
+
 	
 	public void postData() {
 		final Button goingToBedButton = (Button) findViewById(R.id.MainGoingToBed);
@@ -190,8 +219,10 @@ public class MainActivity extends Activity {
 			wokeUpButton.setEnabled(false);
 			logIgnored = "";
 			savePrefs("logIgnored","");
-			savePrefs("sleepLogged","");
-			savePrefs("wakeLogged","");
+			savePrefs("sleepLogged","NO");
+			savePrefs("wakeLogged","NO");
+			savePrefs("sleepIgnored","NO");
+			savePrefs("wakeIgnored","NO");
 		}
 	}
 	
@@ -297,6 +328,9 @@ public class MainActivity extends Activity {
 	
 	@SuppressLint("SimpleDateFormat")
 	private void sleepLogReminder() {
+		final Button goingToBedButton = (Button) findViewById(R.id.MainGoingToBed);
+		final Button wokeUpButton = (Button) findViewById(R.id.MainWokeUp);
+		
 		getDates();
 //		int count = dates.size();
 		String nowTime = "";
@@ -318,22 +352,44 @@ public class MainActivity extends Activity {
 		for(int i=0;i<7;i++){
 	        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 	        String sleepVar = "Day"+(i+1)+"Sleep";
-	        System.out.println("dateVar: "+sleepVar);
+	        String wakeVar = "Day"+(i+1)+"Wake";
+	        //System.out.println("dateVar: "+sleepVar);
 	        String tempSleep = sp.getString(sleepVar, "");
+	        String tempWake = sp.getString(wakeVar, "");
+	        sleepLogged = sp.getString("sleepLogged", "");
+	        wakeLogged = sp.getString("wakeLogged", "");
+	        sleepIgnored = sp.getString("sleepIgnored", "");
+	        wakeIgnored = sp.getString("wakeIgnored", "");
+	        Date nowTimeDate = null;
+	        Date prefSleepDate = null;
+	        Date prefWakeDate = null;
+	        
 	        System.out.println("Getting Sleep from Prefs: "+tempSleep);
+	        System.out.println("Getting Wake from Prefs: "+tempWake);
 			
-			System.out.println("Getting DAY from array: "+dates.get(i).getKey());
-			System.out.println("Getting DATE from array: "+dates.get(i).getValue().toString());
+			//System.out.println("Getting DAY from array: "+dates.get(i).getKey());
+			//System.out.println("Getting DATE from array: "+dates.get(i).getValue().toString());
 	        Calendar today = Calendar.getInstance();
 	        DateFormat timeFormat = DateFormat.getTimeInstance(3);
 	        nowTime = timeFormat.format(today.getTime());
 	        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 	        String todaysDate = dateFormat.format(today.getTime());
 	        
-	        System.out.println("todaysDate: "+todaysDate);
-	        System.out.println("dates array["+i+"]: "+dates.get(i).getValue().toString());
+	        try {
+				 nowTimeDate = timeFormat.parse(nowTime);
+				 prefSleepDate = timeFormat.parse(tempSleep);
+				 prefWakeDate = timeFormat.parse(tempWake);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 	        
-			if(tempSleep != null && dates.get(i).getValue().toString().contains(todaysDate)){
+	        //System.out.println("todaysDate: "+todaysDate);
+	        //System.out.println("dates array["+i+"]: "+dates.get(i).getValue().toString());
+	        
+			//if today is in dates[i]	        
+			if(tempSleep != null && tempWake != null && dates.get(i).getValue().toString().contains(todaysDate)){
+		        System.out.println("todaysDate: "+todaysDate);
 				System.out.println("Found Date: "+todaysDate);
 //				String prefHour = tempSleep.substring(0,1);
 
@@ -341,41 +397,124 @@ public class MainActivity extends Activity {
 				String thisHour = String.valueOf(today.get(Calendar.HOUR));
 				if(thisHour.equals("0"))
 					thisHour = "12";
-				Date tempHour = null;
+				Date tempSleepHour = null;
+				Date tempWakeHour = null;
+				
 				try {
-					tempHour = hourFormat.parse(tempSleep);
+					tempSleepHour = hourFormat.parse(tempSleep);
+					tempWakeHour = hourFormat.parse(tempWake);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				String prefHour = String.valueOf(tempHour.getHours());
-				System.out.println("prefHour: "+prefHour);
-				System.out.println("thisHour: "+thisHour);
-				
-				System.out.println("nowTime: "+nowTime);
-				System.out.println("tempSleep: "+tempSleep);
-				if(prefHour.equals(thisHour) && (nowTime.endsWith("AM") && tempSleep.endsWith("AM")) || (nowTime.endsWith("PM") && tempSleep.endsWith("PM"))){
+				String prefSleepHour = String.valueOf(tempSleepHour.getHours());
+				String prefWakeHour = String.valueOf(tempWakeHour.getHours());
+
+				//if this hour is sleepTime of dates[i] || this hour is after sleepTime of dates[i] && !sleeplogged show sleep reminder
+				if (((prefSleepHour.equals(thisHour)
+						&& (nowTime.endsWith("AM") && tempSleep.endsWith("AM")) || (nowTime
+						.endsWith("PM") && tempSleep.endsWith("PM"))) || nowTimeDate
+						.after(prefSleepDate))
+						&& (sleepLogged.equals("NO") || sleepLogged.equals(""))) {
+					
+					System.out.println("Matching sleep data:");
+					System.out.println("prefSleepHour: "+prefSleepHour);
+					System.out.println("thisHour: "+thisHour);					
+					System.out.println("nowTime: "+nowTime);
+					System.out.println("tempSleep: "+tempSleep);
+					System.out.println("nowTimeDate: "+nowTimeDate);
+					System.out.println("prefSleepDate: "+prefSleepDate);
+					
+					
 		        	AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 					builder.setMessage("Don't Forget to Log Your Sleep")
 					       .setCancelable(false)
-					       .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+					       .setPositiveButton("Log Sleep", new DialogInterface.OnClickListener() {
 					           public void onClick(DialogInterface dialog, int id) {
 					                //do things
-					        	   logIgnored = "YES";
-					        	   System.out.println("logIgnored: "+logIgnored);
-									Calendar temp = Calendar.getInstance();
-						        	SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-									timeStamp = dateFormat.format(temp.getTime());
-					        	   System.out.println("timeStamp: "+timeStamp);
-					        	   savePrefs("logIgnored",logIgnored);
-					        	   savePrefs("timeStamp",timeStamp);
+
+					        	   goingToBedButton.performClick();
 					        	   dialog.cancel();
 					           }
-					       });    
+					       })
+					       .setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								// TODO Auto-generated method stub
+					        	   sleepIgnored = "YES";
+					        	   System.out.println("sleepIgnored: "+sleepIgnored);
+					        	   savePrefs("sleepIgnored",sleepIgnored);
+					        	   dialog.cancel();
+							}
+					    	   
+					       });
+						  
 					     
 					AlertDialog alert = builder.create();
 					alert.show();
 
+				//if this hour is wakeTime of dates[i] || this hour is after wakeTime of dates[i]  && !wakelogged show wake reminder
+				} else if (((prefWakeHour.equals(thisHour)
+						&& (nowTime.endsWith("AM") && tempSleep.endsWith("AM")) || (nowTime
+						.endsWith("PM") && tempSleep.endsWith("PM"))) || nowTimeDate
+						.after(prefWakeDate))
+						&& (wakeLogged.equals("NO") || wakeLogged.equals(""))) {
+
+					System.out.println("Matching wake data:");
+					System.out.println("prefWakeHour: "+prefWakeHour);
+					System.out.println("thisHour: "+thisHour);					
+					System.out.println("nowTime: "+nowTime);
+					System.out.println("tempWake: "+tempWake);
+					System.out.println("nowTimeDate: "+nowTimeDate);
+					System.out.println("prefWakeDate: "+prefWakeDate);
+
+					
+					//if wakeignored || sleepignored show form
+					if(wakeIgnored.equals("YES") || sleepIgnored.equals("YES")) {
+			        	AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+						builder.setMessage("Log sleep and wake time now")
+						       .setCancelable(false)
+						       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+						           public void onClick(DialogInterface dialog, int id) {
+						                //do things
+
+						        	   Intent formPage = new Intent(MainActivity.this,Form.class);
+						        	   MainActivity.this.startActivity(formPage);
+						        	   dialog.cancel();
+						           }
+						       });
+					} else {
+			        	AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+						builder.setMessage("Don't Forget to Log Your Wake Time")
+						       .setCancelable(false)
+						       .setPositiveButton("Log Wake Time", new DialogInterface.OnClickListener() {
+						           public void onClick(DialogInterface dialog, int id) {
+						                //do things
+
+						        	   wokeUpButton.performClick();
+						        	   dialog.cancel();
+						           }
+						       })
+						       .setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									// TODO Auto-generated method stub
+						        	   wakeIgnored = "YES";
+						        	   System.out.println("wakeIgnored: "+wakeIgnored);
+						        	   savePrefs("wakeIgnored",wakeIgnored);
+						        	   dialog.cancel();
+								}
+						    	   
+						       });
+							  
+						     
+						AlertDialog alert = builder.create();
+						alert.show();						
+					}
 				}
 			}
 

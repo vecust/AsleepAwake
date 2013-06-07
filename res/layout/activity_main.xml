@@ -42,4 +42,13 @@
         android:layout_marginLeft="20dp"
         android:text="Test Settings" />
 
+    <Button
+        android:id="@+id/manualForm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/formSubmit"
+        android:layout_alignLeft="@+id/formSubmit"
+        android:layout_marginBottom="19dp"
+        android:text="Manual Entry" />
+
 </RelativeLayout>
