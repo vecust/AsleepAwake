@@ -148,7 +148,7 @@ public class Form extends Activity implements OnClickListener {
 		 }
 	 });
    	 
-     submit = (Button)findViewById(R.id.formSubmit);
+     submit = (Button)findViewById(R.id.sleepSchoolSubmit);
      submit.setOnClickListener(this);
    	 
 	}

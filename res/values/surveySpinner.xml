@@ -2,8 +2,9 @@
 <resources>
     <string-array
         name="survey_spinner">
+        <item>""</item>
         <item>Yes</item>
         <item>No</item>
-        <item>Not Applicable</item>
+        <item>N/A</item>
     </string-array>    
 </resources>

@@ -33,7 +33,7 @@
         android:text="Woke Up" />
 
     <Button
-        android:id="@+id/formSubmit"
+        android:id="@+id/sleepSchoolSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/MainSettings"
@@ -46,8 +46,8 @@
         android:id="@+id/manualForm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/formSubmit"
-        android:layout_alignLeft="@+id/formSubmit"
+        android:layout_above="@+id/sleepSchoolSubmit"
+        android:layout_alignLeft="@+id/sleepSchoolSubmit"
         android:layout_marginBottom="19dp"
         android:text="Manual Entry" />
 

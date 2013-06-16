@@ -33,7 +33,8 @@ public class MainActivity extends Activity {
     String wakeIgnored;
     String sleepLogged;
     String wakeLogged;
-
+    String sleepinessSurveyIgnored;
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -46,6 +47,7 @@ public class MainActivity extends Activity {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         sleepLogged = sp.getString("sleepLogged", "");
         wakeLogged = sp.getString("wakeLogged", "");
+        sleepinessSurveyIgnored = sp.getString("sleepinessSurveyIgnored","");
         
 		if(sleepLogged.equals("YES")) {
 			goingToBedButton.setEnabled(false);
@@ -154,7 +156,7 @@ public class MainActivity extends Activity {
 			
 		});
         
-		final Button testSettingsButton = (Button)findViewById(R.id.formSubmit);
+		final Button testSettingsButton = (Button)findViewById(R.id.sleepSchoolSubmit);
 		testSettingsButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -171,6 +173,48 @@ public class MainActivity extends Activity {
 					t.start();
 			}
 		});
+		
+        Calendar today = Calendar.getInstance();
+		//SimpleDateFormat hourFormat = new SimpleDateFormat("HH");
+		String thisHour = String.valueOf(today.get(Calendar.HOUR));
+		String ampm = String.valueOf(today.get(Calendar.AM_PM));
+		System.out.println("ampm: "+ampm);
+		System.out.println("sleepinessSurveyIgnored: "+sleepinessSurveyIgnored);
+		
+		//bring up survey alerts
+		//check if sleepiness survey is ignored
+		System.out.println("thisHour: "+thisHour);					
+		if(thisHour.equals("4") && ampm.equals("1") && sleepinessSurveyIgnored.equals("")) {
+			System.out.println("Met Condition - thisHour: "+thisHour);					
+
+        	AlertDialog.Builder sleepSurveySchoolAlert = new AlertDialog.Builder(MainActivity.this);
+        	sleepSurveySchoolAlert.setMessage("Take Sleepiness Survey")
+			       .setCancelable(false)
+			       .setPositiveButton("Take Survey", new DialogInterface.OnClickListener() {
+			           public void onClick(DialogInterface dialog, int id) {
+			        	   //check if the participant type is general or school
+			        	   
+			        	   Intent surveyPage = new Intent(MainActivity.this,Sleepiness.class);
+			        	   MainActivity.this.startActivity(surveyPage);					        	   
+			        	   dialog.cancel();
+			           }
+			       })
+			       .setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog,
+							int which) {
+						// TODO Auto-generated method stub
+			        	   savePrefs("sleepinessSurveyIgnored","YES");
+			        	   dialog.cancel();
+					}
+			    	   
+			       });
+				  
+			     
+			AlertDialog alert = sleepSurveySchoolAlert.create();
+			alert.show();					
+		}
 		
 			sleepLogReminder();
 
@@ -296,6 +340,8 @@ public class MainActivity extends Activity {
 			       .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			           public void onClick(DialogInterface dialog, int id) {
 			                //do things
+							Intent settingLogin = new Intent(MainActivity.this,Login.class);
+							MainActivity.this.startActivity(settingLogin);
 			        	   dialog.cancel();
 			           }
 			       });    
@@ -341,6 +387,8 @@ public class MainActivity extends Activity {
 				       .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 				           public void onClick(DialogInterface dialog, int id) {
 				                //do things
+								Intent settingLogin = new Intent(MainActivity.this,Login.class);
+								MainActivity.this.startActivity(settingLogin);
 				        	   dialog.cancel();
 				           }
 				       });    
@@ -395,6 +443,7 @@ public class MainActivity extends Activity {
 
 				SimpleDateFormat hourFormat = new SimpleDateFormat("HH");
 				String thisHour = String.valueOf(today.get(Calendar.HOUR));
+				
 				if(thisHour.equals("0"))
 					thisHour = "12";
 				Date tempSleepHour = null;

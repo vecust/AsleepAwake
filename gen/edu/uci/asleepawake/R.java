@@ -58,7 +58,6 @@ public final class R {
         public static final int footer=0x7f080034;
         public static final int formDate=0x7f080003;
         public static final int formSleep=0x7f080002;
-        public static final int formSubmit=0x7f080007;
         public static final int formWake=0x7f080001;
         public static final int formWatch=0x7f080000;
         public static final int header=0x7f080036;
@@ -68,6 +67,7 @@ public final class R {
         public static final int menu_settings=0x7f08004b;
         public static final int preferences=0x7f080013;
         public static final int savePrefs=0x7f080035;
+        public static final int sleepSchoolSubmit=0x7f080007;
         public static final int startDate=0x7f080016;
         public static final int survey=0x7f080037;
         public static final int tableRow1=0x7f08000e;
