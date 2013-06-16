@@ -10,6 +10,7 @@
     <string name="title_activity_form">Form</string>
     <string name="title_activity_sleepiness">Sleepiness</string>
     <string name="title_activity_relationship">Relationship</string>
-
+    <string name="title_activity_sleepiness_general">SleepinessGeneral</string>
+    
 
 </resources>

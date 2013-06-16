@@ -45,6 +45,10 @@
             android:label="@string/title_activity_sleepiness" >
         </activity>
         <activity
+            android:name="edu.uci.asleepawake.SleepinessGeneral"
+            android:label="@string/title_activity_sleepiness_general" >
+        </activity>
+        <activity
             android:name="edu.uci.asleepawake.Relationship"
             android:label="@string/title_activity_relationship" >
         </activity>

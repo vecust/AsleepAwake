@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
     String timeStamp;
     String sleepTime;
     String wearingWatch;
-    
+    String type;
     String sleepIgnored;
     String wakeIgnored;
     String sleepLogged;
@@ -48,6 +48,7 @@ public class MainActivity extends Activity {
         sleepLogged = sp.getString("sleepLogged", "");
         wakeLogged = sp.getString("wakeLogged", "");
         sleepinessSurveyIgnored = sp.getString("sleepinessSurveyIgnored","");
+        type = sp.getString("Type", "");
         
 		if(sleepLogged.equals("YES")) {
 			goingToBedButton.setEnabled(false);
@@ -183,8 +184,12 @@ public class MainActivity extends Activity {
 		
 		//bring up survey alerts
 		//check if sleepiness survey is ignored
-		System.out.println("thisHour: "+thisHour);					
-		if(thisHour.equals("4") && ampm.equals("1") && sleepinessSurveyIgnored.equals("")) {
+		System.out.println("thisHour: "+thisHour);
+		if(!thisHour.equals("3")){
+			//System.out.println("It's not time for the sleepiness survey");
+			savePrefs("sleepinessSurveyIgnored","");
+		}
+		if(thisHour.equals("3") && ampm.equals("1") && sleepinessSurveyIgnored.equals("")) {
 			System.out.println("Met Condition - thisHour: "+thisHour);					
 
         	AlertDialog.Builder sleepSurveySchoolAlert = new AlertDialog.Builder(MainActivity.this);
@@ -193,9 +198,13 @@ public class MainActivity extends Activity {
 			       .setPositiveButton("Take Survey", new DialogInterface.OnClickListener() {
 			           public void onClick(DialogInterface dialog, int id) {
 			        	   //check if the participant type is general or school
-			        	   
+			        	   if(type.equals("School")){
 			        	   Intent surveyPage = new Intent(MainActivity.this,Sleepiness.class);
-			        	   MainActivity.this.startActivity(surveyPage);					        	   
+			        	   MainActivity.this.startActivity(surveyPage);	
+			        	   } else if(type.equals("General")){
+				        	   Intent surveyPage = new Intent(MainActivity.this,SleepinessGeneral.class);
+				        	   MainActivity.this.startActivity(surveyPage);				        		   
+			        	   }
 			        	   dialog.cancel();
 			           }
 			       })

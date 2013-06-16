@@ -55,7 +55,7 @@ public class Sleepiness extends Activity implements OnClickListener{
 		lastClass.setAdapter(adapter);
 		lastClass.setPrompt("I fell asleep during the last class of the day");
 		
-		 car = (Spinner) findViewById(R.id.Car);
+		 car = (Spinner) findViewById(R.id.CarGen);
 		car.setAdapter(adapter);
 		car.setPrompt("I felt drowsy when I rode in a car for longer than 5 minutes");
 		
@@ -145,7 +145,7 @@ public class Sleepiness extends Activity implements OnClickListener{
 					+ "entry_860282205=" + URLEncoder.encode(realized.getSelectedItem().toString()) ;
 			String response = mReq.sendPost(fullUrl, data);
 			System.out.println("postData response: " + response);
-     	   savePrefs("sleepinessSurveyIgnored","");
+     	   savePrefs("sleepinessSurveyIgnored","NO");
 			
 			finish();
 

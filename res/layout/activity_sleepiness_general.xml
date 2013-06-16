@@ -1,10 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Relationship" >
-
-
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".SleepinessGeneral" >
 
     <LinearLayout
         android:id="@+id/header"
@@ -16,26 +14,10 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Relationship Survey"
+            android:text="Sleepiness Survey"
             android:textAppearance="?android:attr/textAppearanceMedium" />
         
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/description"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/header"
-        >
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Please answer the following questions about your interactions or feelings with the parent who is participating in this study with you for TODAY ONLY." />
-        
-    </LinearLayout>
-    
     <LinearLayout
         android:id="@+id/footer"
         android:layout_width="fill_parent"
@@ -58,17 +40,11 @@
         android:layout_above="@id/footer"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/description" >
+        android:layout_below="@id/header" >
 
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
-
-            <TableRow
-                android:id="@+id/tableRow8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-            </TableRow>
 
             <TableRow
                 android:id="@+id/tableRow1"
@@ -83,99 +59,16 @@
                         android:id="@+id/textView2"
                         android:layout_width="225dp"
                         android:layout_height="match_parent"
-                        android:text="How often did you spend fun time with this person today?"
+                        android:text="I fell asleep during the morning."
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
+                    <Spinner
+                        android:id="@+id/MorningGen"
+                        android:layout_width="95dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1" />
+
                 </LinearLayout>
-
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/tableRow7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_margin="5dp" >
- 
-
- 
-        <SeekBar
-            android:id="@+id/volume_bar"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:progress="0"
-            android:max="100"
-            android:secondaryProgress="0" />
- 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:visibility="visible"
-            android:weightSum="12" >
- 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="center_horizontal"
-                android:text="0"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
- 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="center_horizontal"
-                android:text="20"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
- 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="center_horizontal"
-                android:text="40"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
- 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="center_horizontal"
-                android:text="60"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
- 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="center_horizontal"
-                android:text="80"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
- 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="center_horizontal"
-                android:text="100"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </LinearLayout>
-                
 
             </TableRow>
 
@@ -192,8 +85,14 @@
                         android:id="@+id/TextView01"
                         android:layout_width="225dp"
                         android:layout_height="match_parent"
-                        android:text="How often did you turn to this person for support with personal problems today?"
+                        android:text="I got through the whole day without feeling tired."
                         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/WholeDayGen"
+                        android:layout_width="95dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1" />
                 </LinearLayout>
 
             </TableRow>
@@ -211,8 +110,14 @@
                         android:id="@+id/TextView01"
                         android:layout_width="225dp"
                         android:layout_height="match_parent"
-                        android:text="How often did this person point out your faults or put you down today?"
+                        android:text="I fell asleep later in the day."
                         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/LaterDayGen"
+                        android:layout_width="95dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1" />
                 </LinearLayout>
             </TableRow>
 
@@ -229,8 +134,14 @@
                         android:id="@+id/TextView01"
                         android:layout_width="225dp"
                         android:layout_height="match_parent"
-                        android:text="How often did you tell this person everything that you are going through today?"
+                        android:text="I felt drowsy when I rode in a car for longer than 5 minutes."
                         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/CarGen"
+                        android:layout_width="95dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1" />
                 </LinearLayout>
             </TableRow>
 
@@ -247,8 +158,14 @@
                         android:id="@+id/TextView02"
                         android:layout_width="225dp"
                         android:layout_height="match_parent"
-                        android:text="How often did you and this person get mad at or get in fights with each other today?"
+                        android:text="I felt wide awake the whole day."
                         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/AwakeWholeDayGen"
+                        android:layout_width="95dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1" />
                 </LinearLayout>
             </TableRow>
 
@@ -265,8 +182,14 @@
                         android:id="@+id/TextView03"
                         android:layout_width="225dp"
                         android:layout_height="match_parent"
-                        android:text="How often did this person criticize you today?"
+                        android:text="I felt alert all day."
                         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/AlertAllDayGen"
+                        android:layout_width="95dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1" />
                 </LinearLayout>
 
             </TableRow>
@@ -284,8 +207,14 @@
                         android:id="@+id/TextView07"
                         android:layout_width="225dp"
                         android:layout_height="match_parent"
-                        android:text="How often did you share secrets and private feelings with this person today?"
+                        android:text="I fell asleep when I rode in a bus, car, or train."
                         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/BusCarTrainGen"
+                        android:layout_width="95dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1" />
                 </LinearLayout>
                 
             </TableRow>
@@ -303,49 +232,20 @@
                         android:id="@+id/TextView07"
                         android:layout_width="225dp"
                         android:layout_height="match_parent"
-                        android:text="How often did this person pressure you to do the things that he or she wants today?"
+                        android:text="During the day, there were times when I realized that I had just fallen asleep."
                         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/RealizedGen"
+                        android:layout_width="95dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1" />
                 </LinearLayout>
                 
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/TableRow01"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/TextView04"
-                        android:layout_width="225dp"
-                        android:layout_height="match_parent"
-                        android:text="How often did you and this person argue with each other today?"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
-                </LinearLayout>
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/TableRow02"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/TextView05"
-                        android:layout_width="225dp"
-                        android:layout_height="match_parent"
-                        android:text="When you were feeling down or upset today, how often did you depend on this person to cheer things up?"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
-                </LinearLayout>
             </TableRow>
 
         </TableLayout>
         
     </ScrollView>
+    
 </RelativeLayout>
