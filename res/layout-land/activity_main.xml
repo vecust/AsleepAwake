@@ -1,0 +1,66 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity" >
+
+    <Button
+        android:id="@+id/MainWokeUp"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_below="@+id/MainGoingToBed"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Woke Up" />
+
+    <Button
+        android:id="@+id/manualForm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/RelationshipSurveyButton"
+        android:text="Manual Entry" />
+
+    <Button
+        android:id="@+id/MainSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="Settings" />
+
+    <Button
+        android:id="@+id/MainGoingToBed"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_alignLeft="@+id/MainWokeUp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:text="Going to Bed" />
+
+    <Button
+        android:id="@+id/HowDoYouFeelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="How Do You Feel?" />
+
+    <Button
+        android:id="@+id/SleepinessSurveyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/HowDoYouFeelButton"
+        android:text="Sleepiness Survey" />
+
+    <Button
+        android:id="@+id/RelationshipSurveyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/SleepinessSurveyButton"
+        android:text="Relationship Survey" />
+
+</RelativeLayout>

@@ -1,0 +1,87 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Form" >
+
+    <CheckBox
+        android:id="@+id/formWatch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/formWake"
+        android:layout_below="@+id/formWake"
+        android:text="Wearing Watch" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/formWake"
+        android:layout_alignBottom="@+id/formWake"
+        android:layout_alignRight="@+id/textView1"
+        android:text="Woke Up"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/formSleep"
+        android:layout_alignBottom="@+id/formSleep"
+        android:layout_alignRight="@+id/textView3"
+        android:text="Went to Bed"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/formDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="48dp"
+        android:layout_marginTop="18dp"
+        android:ems="10"
+        android:inputType="date" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/formDate"
+        android:layout_alignBottom="@+id/formDate"
+        android:layout_marginRight="46dp"
+        android:layout_toLeftOf="@+id/formDate"
+        android:text="Date"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/formSleep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/formDate"
+        android:layout_toRightOf="@+id/textView3"
+        android:ems="10"
+        android:inputType="time" />
+
+    <EditText
+        android:id="@+id/formWake"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/formSleep"
+        android:layout_below="@+id/formSleep"
+        android:ems="10"
+        android:inputType="time" />
+
+    <Button
+        android:id="@+id/RelationshipSurveyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/formWatch"
+        android:layout_centerHorizontal="true"
+        android:onClick="sendMessage"
+        android:text="Submit" />
+
+</RelativeLayout>

@@ -46,7 +46,7 @@
         >
 
         <Button
-            android:id="@+id/Submit"
+            android:id="@+id/RelationshipSurveyButton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Submit" />

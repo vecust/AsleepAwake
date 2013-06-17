@@ -160,21 +160,47 @@ public class MainActivity extends Activity {
 			
 		});
         
-		final Button testSettingsButton = (Button)findViewById(R.id.Submit);
+		final Button testSettingsButton = (Button)findViewById(R.id.RelationshipSurveyButton);
 		testSettingsButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				//loadPrefs();
-	
-					//postData();
-					
+				// TODO Auto-generated method stub					
 				Intent testRelationship = new Intent(MainActivity.this,Relationship.class);
 				MainActivity.this.startActivity(testRelationship);
 
 			}
 		});
+
+
+		final Button howDoYouFeelButton = (Button)findViewById(R.id.HowDoYouFeelButton);
+		howDoYouFeelButton.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent feelRightNowIntent = new Intent(MainActivity.this,FeelRightNow.class);
+				MainActivity.this.startActivity(feelRightNowIntent);
+
+			}
+		});		
+
+		final Button sleepinessButton = (Button)findViewById(R.id.SleepinessSurveyButton);
+		sleepinessButton.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+	        	   if(type.equals("School")){
+	        	   Intent surveyPage = new Intent(MainActivity.this,Sleepiness.class);
+	        	   MainActivity.this.startActivity(surveyPage);	
+	        	   } else if(type.equals("General")){
+		        	   Intent surveyPage = new Intent(MainActivity.this,SleepinessGeneral.class);
+		        	   MainActivity.this.startActivity(surveyPage);				        		   
+	        	   }
+
+			}
+		});		
 		
         Calendar today = Calendar.getInstance();
 		//SimpleDateFormat hourFormat = new SimpleDateFormat("HH");
@@ -186,11 +212,11 @@ public class MainActivity extends Activity {
 		//bring up survey alerts
 		//check if sleepiness survey is ignored
 		System.out.println("thisHour: "+thisHour);
-		if(!thisHour.equals("4")){
+		if(!thisHour.equals("0")){
 			//System.out.println("It's not time for the sleepiness survey");
 			savePrefs("sleepinessSurveyIgnored","");
 		}
-		if(thisHour.equals("4") && ampm.equals("1") && sleepinessSurveyIgnored.equals("")) {
+		if(thisHour.equals("0") && ampm.equals("0") && sleepinessSurveyIgnored.equals("")) {
 			System.out.println("Met Condition - thisHour: "+thisHour);					
 
         	AlertDialog.Builder sleepSurveySchoolAlert = new AlertDialog.Builder(MainActivity.this);

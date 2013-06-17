@@ -52,6 +52,10 @@
             android:name="edu.uci.asleepawake.Relationship"
             android:label="@string/title_activity_relationship" >
         </activity>
+        <activity
+            android:name="edu.uci.asleepawake.FeelRightNow"
+            android:label="@string/title_activity_feel_right_now" >
+        </activity>   
     </application>
 
 </manifest>

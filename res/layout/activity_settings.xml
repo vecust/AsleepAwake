@@ -15,7 +15,7 @@
             android:layout_height="match_parent" >
 
             <TableRow
-                android:id="@+id/FunTimeRow"
+                android:id="@+id/SittingReadingRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -49,7 +49,7 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/SupportRow"
+                android:id="@+id/WatchingTVRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -79,7 +79,7 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/SecretsRow"
+                android:id="@+id/AfterLunchRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -110,7 +110,7 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/FaultsRow"
+                android:id="@+id/PublicPlaceRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -143,7 +143,7 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/EverythingRow"
+                android:id="@+id/PassengerRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -182,7 +182,7 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/MadRow"
+                android:id="@+id/AfternoonRestRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -221,7 +221,7 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/CriticizeRow"
+                android:id="@+id/SittingTalkingRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -260,7 +260,7 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/FunTimeSlider"
+                android:id="@+id/SittingReadingSlider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -299,7 +299,7 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/FunTimeLabels"
+                android:id="@+id/SittingReadingLabels"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 

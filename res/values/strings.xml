@@ -11,6 +11,7 @@
     <string name="title_activity_sleepiness">Sleepiness</string>
     <string name="title_activity_relationship">Relationship</string>
     <string name="title_activity_sleepiness_general">SleepinessGeneral</string>
+    <string name="title_activity_feel_right_now">FeelRightNow</string>
     
 
 </resources>

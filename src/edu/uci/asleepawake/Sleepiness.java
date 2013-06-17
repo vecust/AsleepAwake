@@ -55,7 +55,7 @@ public class Sleepiness extends Activity implements OnClickListener{
 		lastClass.setAdapter(adapter);
 		lastClass.setPrompt("I fell asleep during the last class of the day");
 		
-		 car = (Spinner) findViewById(R.id.CarGen);
+		 car = (Spinner) findViewById(R.id.Car);
 		car.setAdapter(adapter);
 		car.setPrompt("I felt drowsy when I rode in a car for longer than 5 minutes");
 		
@@ -90,9 +90,8 @@ public class Sleepiness extends Activity implements OnClickListener{
 		 realized = (Spinner) findViewById(R.id.Realized);
 		realized.setAdapter(adapter);
 		realized.setPrompt("During the school day, there were times when I realized that I had just fallen asleep");
-	
-	
-	     submit = (Button)findViewById(R.id.Submit);
+		
+	     submit = (Button)findViewById(R.id.SleepinessSchoolButton);
 	     submit.setOnClickListener(this);
 	}
 

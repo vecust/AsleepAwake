@@ -148,7 +148,7 @@ public class Form extends Activity implements OnClickListener {
 		 }
 	 });
    	 
-     submit = (Button)findViewById(R.id.Submit);
+     submit = (Button)findViewById(R.id.RelationshipSurveyButton);
      submit.setOnClickListener(this);
    	 
 	}

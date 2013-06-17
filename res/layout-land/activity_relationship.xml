@@ -1,0 +1,936 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Relationship" >
+
+
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Relationship Survey"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/description"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header"
+        >
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:background="@android:color/darker_gray"
+            android:text="Please answer the following questions about your interactions or feelings with the parent who is participating in this study with you for TODAY ONLY." />
+        
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        >
+
+        <Button
+            android:id="@+id/RelationshipSurveyButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit" />
+        
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/survey"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_above="@id/footer"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/description" >
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TableRow
+                android:id="@+id/bar1"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@android:color/darker_gray" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/FunTimeRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="225dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.84"
+                        android:text="How often did you spend fun time with this person today?"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/FunTimeSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:padding="5dip" >
+
+                    <TextView
+                        android:id="@+id/FunTime"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="10dip"
+                        android:text="Slide left or right"
+                        android:textSize="16sp" />
+
+                    <SeekBar
+                        android:id="@+id/FunTimeSeekBar"
+                        android:layout_width="397dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:max="19"
+                        android:paddingTop="10dip"
+                        android:progress="0"
+                        android:progressDrawable="@xml/progress_drawable"
+                        android:secondaryProgress="0"
+                        android:thumb="@xml/thumb_drawable" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/FunTimeLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Never" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Always" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/Bar2"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@android:color/darker_gray" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="@android:color/darker_gray"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/SupportRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/TextView01"
+                        android:layout_width="225dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.84"
+                        android:text="How often did you turn to this person for support with personal problems today?"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/SupportSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:padding="5dip" >
+
+                    <TextView
+                        android:id="@+id/Support"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="10dip"
+                        android:text="Slide left or right"
+                        android:textSize="16sp" />
+
+                    <SeekBar
+                        android:id="@+id/SupportSeekBar"
+                        android:layout_width="397dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:max="19"
+                        android:paddingTop="10dip"
+                        android:progress="0"
+                        android:progressDrawable="@xml/progress_drawable"
+                        android:secondaryProgress="0"
+                        android:thumb="@xml/thumb_drawable" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/SupportLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView06"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Never" />
+
+                <TextView
+                    android:id="@+id/TextView09"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Always" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/Bar3"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@android:color/darker_gray" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="@android:color/darker_gray"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/FaultsRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/TextView01"
+                        android:layout_width="225dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.84"
+                        android:text="How often did this person point out your faults or put you down today?"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/FaultsSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:padding="5dip" >
+
+                    <TextView
+                        android:id="@+id/Faults"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="10dip"
+                        android:text="Slide left or right"
+                        android:textSize="16sp" />
+
+                    <SeekBar
+                        android:id="@+id/FaultsSeekBar"
+                        android:layout_width="397dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:max="19"
+                        android:paddingTop="10dip"
+                        android:progress="0"
+                        android:progressDrawable="@xml/progress_drawable"
+                        android:secondaryProgress="0"
+                        android:thumb="@xml/thumb_drawable" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/FaultsLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Never" />
+
+                <TextView
+                    android:id="@+id/TextView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Always" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/Bar4"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@android:color/darker_gray" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="@android:color/darker_gray"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/EverythingRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/TextView01"
+                        android:layout_width="225dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.84"
+                        android:text="How often did you tell this person everything that you are going through today?"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/EverythingSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:padding="5dip" >
+
+                    <TextView
+                        android:id="@+id/Everything"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="10dip"
+                        android:text="Slide left or right"
+                        android:textSize="16sp" />
+
+                    <SeekBar
+                        android:id="@+id/EverythingSeekBar"
+                        android:layout_width="397dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:max="19"
+                        android:paddingTop="10dip"
+                        android:progress="0"
+                        android:progressDrawable="@xml/progress_drawable"
+                        android:secondaryProgress="0"
+                        android:thumb="@xml/thumb_drawable" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/EverythingLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Never" />
+
+                <TextView
+                    android:id="@+id/TextView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Always" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/Bar5"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@android:color/darker_gray" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="@android:color/darker_gray"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/MadRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/TextView02"
+                        android:layout_width="225dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.84"
+                        android:text="How often did you and this person get mad at or get in fights with each other today?"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/MadSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:padding="5dip" >
+
+                    <TextView
+                        android:id="@+id/Mad"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="10dip"
+                        android:text="Slide left or right"
+                        android:textSize="16sp" />
+
+                    <SeekBar
+                        android:id="@+id/MadSeekBar"
+                        android:layout_width="397dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:max="19"
+                        android:paddingTop="10dip"
+                        android:progress="0"
+                        android:progressDrawable="@xml/progress_drawable"
+                        android:secondaryProgress="0"
+                        android:thumb="@xml/thumb_drawable" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/MadLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Never" />
+
+                <TextView
+                    android:id="@+id/TextView18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Always" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/Bar6"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@android:color/darker_gray" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="@android:color/darker_gray"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/CriticizeRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/TextView03"
+                        android:layout_width="225dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.84"
+                        android:text="How often did this person criticize you today?"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/CriticizeSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:padding="5dip" >
+
+                    <TextView
+                        android:id="@+id/Criticize"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="10dip"
+                        android:text="Slide left or right"
+                        android:textSize="16sp" />
+
+                    <SeekBar
+                        android:id="@+id/CriticizeSeekBar"
+                        android:layout_width="397dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:max="19"
+                        android:paddingTop="10dip"
+                        android:progress="0"
+                        android:progressDrawable="@xml/progress_drawable"
+                        android:secondaryProgress="0"
+                        android:thumb="@xml/thumb_drawable" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/CriticizeLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Never" />
+
+                <TextView
+                    android:id="@+id/TextView21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Always" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/Bar7"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@android:color/darker_gray" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="@android:color/darker_gray"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/SecretsRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/TextView07"
+                        android:layout_width="225dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.84"
+                        android:text="How often did you share secrets and private feelings with this person today?"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/SecretsSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:padding="5dip" >
+
+                    <TextView
+                        android:id="@+id/Secrets"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="10dip"
+                        android:text="Slide left or right"
+                        android:textSize="16sp" />
+
+                    <SeekBar
+                        android:id="@+id/SecretsSeekBar"
+                        android:layout_width="397dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:max="19"
+                        android:paddingTop="10dip"
+                        android:progress="0"
+                        android:progressDrawable="@xml/progress_drawable"
+                        android:secondaryProgress="0"
+                        android:thumb="@xml/thumb_drawable" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/SecretsLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Never" />
+
+                <TextView
+                    android:id="@+id/TextView24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Always" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/Bar8"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@android:color/darker_gray" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="@android:color/darker_gray"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/PressureRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/TextView07"
+                        android:layout_width="225dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.84"
+                        android:text="How often did this person pressure you to do the things that he or she wants today?"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/PressureSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:padding="5dip" >
+
+                    <TextView
+                        android:id="@+id/Pressure"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="10dip"
+                        android:text="Slide left or right"
+                        android:textSize="16sp" />
+
+                    <SeekBar
+                        android:id="@+id/PressureSeekBar"
+                        android:layout_width="397dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:max="19"
+                        android:paddingTop="10dip"
+                        android:progress="0"
+                        android:progressDrawable="@xml/progress_drawable"
+                        android:secondaryProgress="0"
+                        android:thumb="@xml/thumb_drawable" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/PressureLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Never" />
+
+                <TextView
+                    android:id="@+id/TextView27"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Always" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/Bar9"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@android:color/darker_gray" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="@android:color/darker_gray"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/ArgueRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="225dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.84"
+                        android:text="How often did you and this person argue with each other today?"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/ArgueSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:padding="5dip" >
+
+                    <TextView
+                        android:id="@+id/Argue"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="10dip"
+                        android:text="Slide left or right"
+                        android:textSize="16sp" />
+
+                    <SeekBar
+                        android:id="@+id/ArgueSeekBar"
+                        android:layout_width="397dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:max="19"
+                        android:paddingTop="10dip"
+                        android:progress="0"
+                        android:progressDrawable="@xml/progress_drawable"
+                        android:secondaryProgress="0"
+                        android:thumb="@xml/thumb_drawable" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/ArgueLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Never" />
+
+                <TextView
+                    android:id="@+id/TextView30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Always" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/Bar10"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@android:color/darker_gray" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="@android:color/darker_gray"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/CheerUpRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/TextView05"
+                        android:layout_width="225dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.84"
+                        android:text="When you were feeling down or upset today, how often did you depend on this person to cheer things up?"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/CheerUpSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:padding="5dip" >
+
+                    <TextView
+                        android:id="@+id/CheerUp"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="10dip"
+                        android:text="Slide left or right"
+                        android:textSize="16sp" />
+
+                    <SeekBar
+                        android:id="@+id/CheerUpSeekBar"
+                        android:layout_width="397dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:max="19"
+                        android:paddingTop="10dip"
+                        android:progress="0"
+                        android:progressDrawable="@xml/progress_drawable"
+                        android:secondaryProgress="0"
+                        android:thumb="@xml/thumb_drawable" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/CheerUpLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView31"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Never" />
+
+                <TextView
+                    android:id="@+id/TextView33"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Always" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/Bar11"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@android:color/darker_gray" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="@android:color/darker_gray"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </TableRow>
+        </TableLayout>
+        
+    </ScrollView>
+</RelativeLayout>

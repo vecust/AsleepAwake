@@ -96,7 +96,7 @@ public class Relationship extends Activity implements OnSeekBarChangeListener, O
 		cheerUpSeekBar.setProgress(50);
 		cheerUpSeekBar.setOnSeekBarChangeListener(this);
 
-	     submit = (Button)findViewById(R.id.Submit);
+	     submit = (Button)findViewById(R.id.RelationshipSurveyButton);
 	     submit.setOnClickListener(this);
 	}
 

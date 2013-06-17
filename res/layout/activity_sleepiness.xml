@@ -26,7 +26,7 @@
         >
 
         <Button
-            android:id="@+id/Submit"
+            android:id="@+id/SleepinessSchoolButton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Submit" />
@@ -47,7 +47,7 @@
             android:layout_height="match_parent" >
 
             <TableRow
-                android:id="@+id/FunTimeRow"
+                android:id="@+id/MorningClassesRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -73,7 +73,7 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/SupportRow"
+                android:id="@+id/SchoolDayRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -98,7 +98,7 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/FaultsRow"
+                android:id="@+id/LastClassRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
                 
@@ -122,7 +122,7 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/EverythingRow"
+                android:id="@+id/CarRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
                 
@@ -146,7 +146,7 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/MadRow"
+                android:id="@+id/AwakeWholeDayRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -170,7 +170,7 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/CriticizeRow"
+                android:id="@+id/AfternoonClassesRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -195,7 +195,7 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/FunTimeSlider"
+                android:id="@+id/AlertAllClassesRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -220,7 +220,7 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/FunTimeLabels"
+                android:id="@+id/AsleepMorningRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -245,7 +245,7 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/bar1"
+                android:id="@+id/AwakeInClassRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -270,7 +270,7 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/tableRow10"
+                android:id="@+id/AwakeLastClassRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
                 
@@ -295,7 +295,7 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/SecretsRow"
+                android:id="@+id/BusCarTrainRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
                 
@@ -320,7 +320,7 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/PressureRow"
+                android:id="@+id/RealizedRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
                 

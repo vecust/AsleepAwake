@@ -1,0 +1,387 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".Sleepiness" >
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sleepiness Survey"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        >
+
+        <Button
+            android:id="@+id/SleepinessSchoolButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit" />
+        
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/survey"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_above="@id/footer"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/header" >
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TableRow
+                android:id="@+id/MorningClassesRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="390dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.20"
+                        android:textSize="24px"
+                        android:text="I fell asleep during my morning classes."
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/MorningClasses"
+                        android:layout_width="95dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/SchoolDayRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        android:id="@+id/TextView01"
+                        android:layout_width="390dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.20"
+                        android:textSize="24px"
+                        android:text="I got through the whole school day without feeling tired."
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/SchoolDay"
+                        android:layout_width="95dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/LastClassRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+                
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        android:id="@+id/TextView01"
+                        android:layout_width="390dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.20"
+                        android:textSize="24px"
+                        android:text="I fell asleep during the last class of the day."
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/LastClass"
+                        android:layout_width="95dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/CarRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+                
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        android:id="@+id/TextView01"
+                        android:layout_width="390dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.20"
+                        android:textSize="24px"
+                        android:text="I felt drowsy when I rode in a car for longer than 5 minutes."
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/Car"
+                        android:layout_width="95dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/AwakeWholeDayRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        android:id="@+id/TextView02"
+                        android:layout_width="390dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.20"
+                        android:textSize="24px"
+                        android:text="I felt wide awake the whole day."
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/AwakeWholeDay"
+                        android:layout_width="95dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/AfternoonClassesRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        android:id="@+id/TextView03"
+                        android:layout_width="390dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.20"
+                        android:textSize="24px"
+                        android:text="I fell asleep at school in my afternoon classes."
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/AfternoonClasses"
+                        android:layout_width="95dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/AlertAllClassesRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="390dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.20"
+                        android:textSize="24px"
+                        android:text="I felt alert during my classes."
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/AlertAllClasses"
+                        android:layout_width="95dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/AsleepMorningRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        android:id="@+id/TextView05"
+                        android:layout_width="390dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.20"
+                        android:textSize="24px"
+                        android:text="In the morning when I was in school I fell asleep."
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/AsleepMorning"
+                        android:layout_width="95dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/AwakeInClassRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        android:id="@+id/TextView07"
+                        android:layout_width="390dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.20"
+                        android:textSize="24px"
+                        android:text="When I was in class, I felt wide-awake."
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/AwakeInClass"
+                        android:layout_width="95dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/AwakeLastClassRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+                
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        android:id="@+id/TextView07"
+                        android:layout_width="390dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.20"
+                        android:textSize="24px"
+                        android:text="I felt wide-awake during the last class of the day."
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/AwakeLastClass"
+                        android:layout_width="95dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+                
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/BusCarTrainRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+                
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        android:id="@+id/TextView07"
+                        android:layout_width="390dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.20"
+                        android:textSize="24px"
+                        android:text="I fell asleep when I rode in a bus, car, or train."
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/BusCarTrain"
+                        android:layout_width="95dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+                
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/RealizedRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+                
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" >
+
+                    <TextView
+                        android:id="@+id/TextView07"
+                        android:layout_width="390dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.20"
+                        android:textSize="24px"
+                        android:text="During the school day, there were times when I realized that I had just fallen asleep."
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/Realized"
+                        android:layout_width="95dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+                
+            </TableRow>
+
+        </TableLayout>
+        
+    </ScrollView>
+    
+</RelativeLayout>
