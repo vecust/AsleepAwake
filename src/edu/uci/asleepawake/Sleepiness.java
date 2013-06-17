@@ -92,7 +92,7 @@ public class Sleepiness extends Activity implements OnClickListener{
 		realized.setPrompt("During the school day, there were times when I realized that I had just fallen asleep");
 	
 	
-	     submit = (Button)findViewById(R.id.sleepSchoolSubmit);
+	     submit = (Button)findViewById(R.id.Submit);
 	     submit.setOnClickListener(this);
 	}
 

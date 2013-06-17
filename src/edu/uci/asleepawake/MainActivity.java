@@ -34,6 +34,8 @@ public class MainActivity extends Activity {
     String sleepLogged;
     String wakeLogged;
     String sleepinessSurveyIgnored;
+    String relationshipSurveyIgnored;
+    String ampm;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class MainActivity extends Activity {
         sleepLogged = sp.getString("sleepLogged", "");
         wakeLogged = sp.getString("wakeLogged", "");
         sleepinessSurveyIgnored = sp.getString("sleepinessSurveyIgnored","");
+        relationshipSurveyIgnored = sp.getString("relationshipSurveyIgnored","");
         type = sp.getString("Type", "");
         
 		if(sleepLogged.equals("YES")) {
@@ -157,39 +160,37 @@ public class MainActivity extends Activity {
 			
 		});
         
-		final Button testSettingsButton = (Button)findViewById(R.id.sleepSchoolSubmit);
+		final Button testSettingsButton = (Button)findViewById(R.id.Submit);
 		testSettingsButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				//loadPrefs();
-				Thread t = new Thread(new Runnable() {
-					@Override
-					public void run() {
+	
 					//postData();
 					
-					}
-					});
-					t.start();
+				Intent testRelationship = new Intent(MainActivity.this,Relationship.class);
+				MainActivity.this.startActivity(testRelationship);
+
 			}
 		});
 		
         Calendar today = Calendar.getInstance();
 		//SimpleDateFormat hourFormat = new SimpleDateFormat("HH");
 		String thisHour = String.valueOf(today.get(Calendar.HOUR));
-		String ampm = String.valueOf(today.get(Calendar.AM_PM));
+		ampm = String.valueOf(today.get(Calendar.AM_PM));
 		System.out.println("ampm: "+ampm);
 		System.out.println("sleepinessSurveyIgnored: "+sleepinessSurveyIgnored);
 		
 		//bring up survey alerts
 		//check if sleepiness survey is ignored
 		System.out.println("thisHour: "+thisHour);
-		if(!thisHour.equals("3")){
+		if(!thisHour.equals("4")){
 			//System.out.println("It's not time for the sleepiness survey");
 			savePrefs("sleepinessSurveyIgnored","");
 		}
-		if(thisHour.equals("3") && ampm.equals("1") && sleepinessSurveyIgnored.equals("")) {
+		if(thisHour.equals("4") && ampm.equals("1") && sleepinessSurveyIgnored.equals("")) {
 			System.out.println("Met Condition - thisHour: "+thisHour);					
 
         	AlertDialog.Builder sleepSurveySchoolAlert = new AlertDialog.Builder(MainActivity.this);
@@ -385,6 +386,7 @@ public class MainActivity extends Activity {
 	private void sleepLogReminder() {
 		final Button goingToBedButton = (Button) findViewById(R.id.MainGoingToBed);
 		final Button wokeUpButton = (Button) findViewById(R.id.MainWokeUp);
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 		
 		getDates();
 //		int count = dates.size();
@@ -407,7 +409,6 @@ public class MainActivity extends Activity {
 				return;
 		}
 		for(int i=0;i<7;i++){
-	        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 	        String sleepVar = "Day"+(i+1)+"Sleep";
 	        String wakeVar = "Day"+(i+1)+"Wake";
 	        //System.out.println("dateVar: "+sleepVar);
@@ -468,6 +469,9 @@ public class MainActivity extends Activity {
 				String prefSleepHour = String.valueOf(tempSleepHour.getHours());
 				String prefWakeHour = String.valueOf(tempWakeHour.getHours());
 
+				ampm = String.valueOf(today.get(Calendar.AM_PM));
+				if(!thisHour.equals(prefSleepHour) && !ampm.equals("1"))
+					savePrefs("relationshipSurveyIgnored","NO");
 				//if this hour is sleepTime of dates[i] || this hour is after sleepTime of dates[i] && !sleeplogged show sleep reminder
 				if (((prefSleepHour.equals(thisHour)
 						&& (nowTime.endsWith("AM") && tempSleep.endsWith("AM")) || (nowTime
@@ -483,6 +487,34 @@ public class MainActivity extends Activity {
 					System.out.println("nowTimeDate: "+nowTimeDate);
 					System.out.println("prefSleepDate: "+prefSleepDate);
 					
+					if(relationshipSurveyIgnored.equals("")){
+					AlertDialog.Builder relationshipAlert = new AlertDialog.Builder(MainActivity.this);
+					relationshipAlert.setMessage("Please take the relationship survey")
+					       .setCancelable(false)
+					       .setPositiveButton("Take Survey", new DialogInterface.OnClickListener() {
+					           public void onClick(DialogInterface dialog, int id) {
+					                //do things
+					        	   Intent reltationshipIntent = new Intent(MainActivity.this,Relationship.class);
+					        	   MainActivity.this.startActivity(reltationshipIntent);
+					        	   dialog.cancel();
+					           }
+					       })
+					       .setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								// TODO Auto-generated method stub
+					        	   savePrefs("relationshipSurveyIgnored","YES");
+					        	   dialog.cancel();
+							}
+					    	   
+					       });
+						  
+					     
+					AlertDialog alert = relationshipAlert.create();
+					alert.show();
+					}
 					
 		        	AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 					builder.setMessage("Don't Forget to Log Your Sleep")

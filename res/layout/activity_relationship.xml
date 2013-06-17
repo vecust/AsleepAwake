@@ -32,6 +32,8 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:background="@android:color/darker_gray"
             android:text="Please answer the following questions about your interactions or feelings with the parent who is participating in this study with you for TODAY ONLY." />
         
     </LinearLayout>
@@ -44,7 +46,7 @@
         >
 
         <Button
-            android:id="@+id/sleepSchoolSubmit"
+            android:id="@+id/Submit"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Submit" />
@@ -65,13 +67,21 @@
             android:layout_height="match_parent" >
 
             <TableRow
-                android:id="@+id/tableRow8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:id="@+id/bar1"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@android:color/darker_gray" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:background="@android:color/darker_gray"
+                    android:orientation="vertical" >
+                </LinearLayout>
             </TableRow>
 
             <TableRow
-                android:id="@+id/tableRow1"
+                android:id="@+id/FunTimeRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -85,102 +95,77 @@
                         android:layout_height="match_parent"
                         android:text="How often did you spend fun time with this person today?"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
-
                 </LinearLayout>
-
             </TableRow>
 
             <TableRow
-                android:id="@+id/tableRow7"
+                android:id="@+id/FunTimeSlider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
                     android:orientation="vertical"
-                    android:layout_margin="5dp" >
- 
+                    android:padding="5dip" >
 
- 
-        <SeekBar
-            android:id="@+id/volume_bar"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:progress="0"
-            android:max="100"
-            android:secondaryProgress="0" />
- 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:visibility="visible"
-            android:weightSum="12" >
- 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="center_horizontal"
-                android:text="0"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
- 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="center_horizontal"
-                android:text="20"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
- 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="center_horizontal"
-                android:text="40"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
- 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="center_horizontal"
-                android:text="60"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
- 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="center_horizontal"
-                android:text="80"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
- 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="center_horizontal"
-                android:text="100"
-                android:textColor="@android:color/white"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </LinearLayout>
-                
+                    <TextView
+                        android:id="@+id/FunTime"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="10dip"
+                        android:text="Slide left or right"
+                        android:textSize="16sp" />
 
+                    <SeekBar
+                        android:id="@+id/FunTimeSeekBar"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:max="19"
+                        android:paddingTop="10dip"
+                        android:progress="0"
+                        android:progressDrawable="@xml/progress_drawable"
+                        android:secondaryProgress="0"
+                        android:thumb="@xml/thumb_drawable" />
+                </LinearLayout>
             </TableRow>
 
             <TableRow
-                android:id="@+id/tableRow2"
+                android:id="@+id/FunTimeLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Never" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Always" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/Bar2"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@android:color/darker_gray" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="@android:color/darker_gray"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/SupportRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -195,14 +180,79 @@
                         android:text="How often did you turn to this person for support with personal problems today?"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
                 </LinearLayout>
-
             </TableRow>
 
             <TableRow
-                android:id="@+id/tableRow3"
+                android:id="@+id/SupportSlider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
-                
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:padding="5dip" >
+
+                    <TextView
+                        android:id="@+id/Support"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="10dip"
+                        android:text="Slide left or right"
+                        android:textSize="16sp" />
+
+                    <SeekBar
+                        android:id="@+id/SupportSeekBar"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:max="19"
+                        android:paddingTop="10dip"
+                        android:progress="0"
+                        android:progressDrawable="@xml/progress_drawable"
+                        android:secondaryProgress="0"
+                        android:thumb="@xml/thumb_drawable" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/SupportLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView06"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Never" />
+
+                <TextView
+                    android:id="@+id/TextView09"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Always" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/Bar3"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@android:color/darker_gray" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="@android:color/darker_gray"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/FaultsRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" >
@@ -217,10 +267,76 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/tableRow4"
+                android:id="@+id/FaultsSlider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
-                
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:padding="5dip" >
+
+                    <TextView
+                        android:id="@+id/Faults"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="10dip"
+                        android:text="Slide left or right"
+                        android:textSize="16sp" />
+
+                    <SeekBar
+                        android:id="@+id/FaultsSeekBar"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:max="19"
+                        android:paddingTop="10dip"
+                        android:progress="0"
+                        android:progressDrawable="@xml/progress_drawable"
+                        android:secondaryProgress="0"
+                        android:thumb="@xml/thumb_drawable" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/FaultsLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Never" />
+
+                <TextView
+                    android:id="@+id/TextView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Always" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/Bar4"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@android:color/darker_gray" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="@android:color/darker_gray"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/EverythingRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" >
@@ -235,7 +351,73 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/tableRow5"
+                android:id="@+id/EverythingSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:padding="5dip" >
+
+                    <TextView
+                        android:id="@+id/Everything"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="10dip"
+                        android:text="Slide left or right"
+                        android:textSize="16sp" />
+
+                    <SeekBar
+                        android:id="@+id/EverythingSeekBar"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:max="19"
+                        android:paddingTop="10dip"
+                        android:progress="0"
+                        android:progressDrawable="@xml/progress_drawable"
+                        android:secondaryProgress="0"
+                        android:thumb="@xml/thumb_drawable" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/EverythingLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Never" />
+
+                <TextView
+                    android:id="@+id/TextView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Always" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/Bar5"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@android:color/darker_gray" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="@android:color/darker_gray"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/MadRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -253,7 +435,73 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/tableRow6"
+                android:id="@+id/MadSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:padding="5dip" >
+
+                    <TextView
+                        android:id="@+id/Mad"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="10dip"
+                        android:text="Slide left or right"
+                        android:textSize="16sp" />
+
+                    <SeekBar
+                        android:id="@+id/MadSeekBar"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:max="19"
+                        android:paddingTop="10dip"
+                        android:progress="0"
+                        android:progressDrawable="@xml/progress_drawable"
+                        android:secondaryProgress="0"
+                        android:thumb="@xml/thumb_drawable" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/MadLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Never" />
+
+                <TextView
+                    android:id="@+id/TextView18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Always" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/Bar6"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@android:color/darker_gray" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="@android:color/darker_gray"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/CriticizeRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -268,14 +516,79 @@
                         android:text="How often did this person criticize you today?"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
                 </LinearLayout>
-
             </TableRow>
 
             <TableRow
-                android:id="@+id/tableRow11"
+                android:id="@+id/CriticizeSlider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
-                
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:padding="5dip" >
+
+                    <TextView
+                        android:id="@+id/Criticize"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="10dip"
+                        android:text="Slide left or right"
+                        android:textSize="16sp" />
+
+                    <SeekBar
+                        android:id="@+id/CriticizeSeekBar"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:max="19"
+                        android:paddingTop="10dip"
+                        android:progress="0"
+                        android:progressDrawable="@xml/progress_drawable"
+                        android:secondaryProgress="0"
+                        android:thumb="@xml/thumb_drawable" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/CriticizeLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Never" />
+
+                <TextView
+                    android:id="@+id/TextView21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Always" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/Bar7"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@android:color/darker_gray" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="@android:color/darker_gray"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/SecretsRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" >
@@ -287,14 +600,79 @@
                         android:text="How often did you share secrets and private feelings with this person today?"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
                 </LinearLayout>
-                
             </TableRow>
 
             <TableRow
-                android:id="@+id/tableRow12"
+                android:id="@+id/SecretsSlider"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
-                
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:padding="5dip" >
+
+                    <TextView
+                        android:id="@+id/Secrets"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="10dip"
+                        android:text="Slide left or right"
+                        android:textSize="16sp" />
+
+                    <SeekBar
+                        android:id="@+id/SecretsSeekBar"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:max="19"
+                        android:paddingTop="10dip"
+                        android:progress="0"
+                        android:progressDrawable="@xml/progress_drawable"
+                        android:secondaryProgress="0"
+                        android:thumb="@xml/thumb_drawable" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/SecretsLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Never" />
+
+                <TextView
+                    android:id="@+id/TextView24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Always" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/Bar8"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@android:color/darker_gray" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="@android:color/darker_gray"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/PressureRow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" >
@@ -306,11 +684,76 @@
                         android:text="How often did this person pressure you to do the things that he or she wants today?"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
                 </LinearLayout>
-                
             </TableRow>
 
             <TableRow
-                android:id="@+id/TableRow01"
+                android:id="@+id/PressureSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:padding="5dip" >
+
+                    <TextView
+                        android:id="@+id/Pressure"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="10dip"
+                        android:text="Slide left or right"
+                        android:textSize="16sp" />
+
+                    <SeekBar
+                        android:id="@+id/PressureSeekBar"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:max="19"
+                        android:paddingTop="10dip"
+                        android:progress="0"
+                        android:progressDrawable="@xml/progress_drawable"
+                        android:secondaryProgress="0"
+                        android:thumb="@xml/thumb_drawable" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/PressureLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Never" />
+
+                <TextView
+                    android:id="@+id/TextView27"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Always" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/Bar9"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@android:color/darker_gray" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="@android:color/darker_gray"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/ArgueRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -328,7 +771,73 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/TableRow02"
+                android:id="@+id/ArgueSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:padding="5dip" >
+
+                    <TextView
+                        android:id="@+id/Argue"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="10dip"
+                        android:text="Slide left or right"
+                        android:textSize="16sp" />
+
+                    <SeekBar
+                        android:id="@+id/ArgueSeekBar"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:max="19"
+                        android:paddingTop="10dip"
+                        android:progress="0"
+                        android:progressDrawable="@xml/progress_drawable"
+                        android:secondaryProgress="0"
+                        android:thumb="@xml/thumb_drawable" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/ArgueLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Never" />
+
+                <TextView
+                    android:id="@+id/TextView30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Always" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/Bar10"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@android:color/darker_gray" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="@android:color/darker_gray"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/CheerUpRow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
@@ -345,6 +854,71 @@
                 </LinearLayout>
             </TableRow>
 
+            <TableRow
+                android:id="@+id/CheerUpSlider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical"
+                    android:padding="5dip" >
+
+                    <TextView
+                        android:id="@+id/CheerUp"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingTop="10dip"
+                        android:text="Slide left or right"
+                        android:textSize="16sp" />
+
+                    <SeekBar
+                        android:id="@+id/CheerUpSeekBar"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:max="19"
+                        android:paddingTop="10dip"
+                        android:progress="0"
+                        android:progressDrawable="@xml/progress_drawable"
+                        android:secondaryProgress="0"
+                        android:thumb="@xml/thumb_drawable" />
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/CheerUpLabels"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/TextView31"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Never" />
+
+                <TextView
+                    android:id="@+id/TextView33"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Always" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/Bar11"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@android:color/darker_gray" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="3dp"
+                    android:background="@android:color/darker_gray"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </TableRow>
         </TableLayout>
         
     </ScrollView>
