@@ -1,5 +1,8 @@
 package edu.uci.asleepawake;
 
+//This class reads in the answers to the relationship survey
+//and sends them to the Google Form via the HttpRequest class
+
 import java.net.URLEncoder;
 
 import android.os.Bundle;
@@ -34,6 +37,7 @@ public class Relationship extends Activity implements OnSeekBarChangeListener, O
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_relationship);
 
+		//Assign ids of views on layout to local TextView objects
 		funTimeTextView = (TextView)findViewById(R.id.FunTime);
 		supportTextView = (TextView)findViewById(R.id.Support);
 		faultsTextView = (TextView)findViewById(R.id.Faults);
@@ -45,11 +49,11 @@ public class Relationship extends Activity implements OnSeekBarChangeListener, O
 		argueTextView = (TextView)findViewById(R.id.Argue);
 		cheerUpTextView = (TextView)findViewById(R.id.CheerUp);
 
-		
+		//Assign ids of seekbars (sliders) on layout to local SeekBar objects		
 		SeekBar funTimeSeekBar = (SeekBar)findViewById(R.id.FunTimeSeekBar);
-		funTimeSeekBar.setMax(100);
-		funTimeSeekBar.setProgress(50);
-		funTimeSeekBar.setOnSeekBarChangeListener(this);
+		funTimeSeekBar.setMax(100); //This is how far the slider can go
+		funTimeSeekBar.setProgress(50); //This is the default setting for the slider
+		funTimeSeekBar.setOnSeekBarChangeListener(this); //Setting listener
 
 		SeekBar supportSeekBar = (SeekBar)findViewById(R.id.SupportSeekBar);
 		supportSeekBar.setMax(100);
@@ -96,6 +100,7 @@ public class Relationship extends Activity implements OnSeekBarChangeListener, O
 		cheerUpSeekBar.setProgress(50);
 		cheerUpSeekBar.setOnSeekBarChangeListener(this);
 
+		//Assign id to submit button and set listener
 	     submit = (Button)findViewById(R.id.RelationshipSurveyButton);
 	     submit.setOnClickListener(this);
 	}
@@ -111,6 +116,9 @@ public class Relationship extends Activity implements OnSeekBarChangeListener, O
 	public void onProgressChanged(SeekBar v, int progress, boolean isUser) {
 		TextView tv = null;
 
+		//This is the listener for when the slider has been changed
+		//Associate the seekbar that was touched and its accompanying TextView
+		//to a local TextView object
 		if(v.getId() == R.id.FunTimeSeekBar){
 			tv = (TextView)findViewById(R.id.FunTime);
 		} else if(v.getId() == R.id.SupportSeekBar){
@@ -132,6 +140,8 @@ public class Relationship extends Activity implements OnSeekBarChangeListener, O
 		} else if(v.getId() == R.id.CheerUpSeekBar){
 			tv = (TextView)findViewById(R.id.CheerUp);
 		}
+		//So long as the local TextView object has been assigned,
+		//Output the answer onto the layout
 		if (tv != null) {
 			if (progress >= 0 && progress <= 19)
 				tv.setText("Never or hardly at all");
@@ -161,6 +171,10 @@ public class Relationship extends Activity implements OnSeekBarChangeListener, O
 	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
+		
+		//This is the listener for the submit button
+		//If at least one of the questions haven't been answered,
+		//display an alert telling the user to answer all the questions
 		if(funTimeTextView.getText().equals("Slide left or right")
 				|| supportTextView.getText().equals("Slide left or right")	
 				|| faultsTextView.getText().equals("Slide left or right")	
@@ -185,6 +199,13 @@ public class Relationship extends Activity implements OnSeekBarChangeListener, O
 			     
 			AlertDialog alert = builder.create();
 			alert.show();
+			
+			//With all the questions answered, make a connection to the Google Form and 
+			//send the answers to the spreadsheet
+			
+			//Instructions for getting Google Form URL and entry code can be found here:
+			//http://www.youtube.com/watch?v=GyuJ2GtpZd0
+
 		} else {
 			String fullUrl = "https://docs.google.com/a/uci.edu/forms/d/1x-YIb5tAnkImWDLaw0YtNIyqa0AXCroq26ogf_2yS9o/formResponse";
 			HttpRequest mReq = new HttpRequest();
@@ -206,7 +227,7 @@ public class Relationship extends Activity implements OnSeekBarChangeListener, O
 			String response = mReq.sendPost(fullUrl, data);
 			System.out.println("postData response: " + response);
 			
-			savePrefs("relationshipSurveyIgnored","NO");
+			savePrefs("relationshipSurveyIgnored","");
 			
 			finish();
 		}

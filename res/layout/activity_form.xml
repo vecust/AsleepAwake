@@ -63,7 +63,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:id="@+id/RelationshipSurveyButton"
+        android:id="@+id/FormSubmitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/formWatch"

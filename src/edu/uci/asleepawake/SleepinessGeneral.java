@@ -1,5 +1,8 @@
 package edu.uci.asleepawake;
 
+//This class reads in the answers to the sleepiness survey (general version)
+//and sends them to the Google Form via the HttpRequest class
+
 import java.net.URLEncoder;
 
 import android.app.Activity;
@@ -33,6 +36,7 @@ public class SleepinessGeneral extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sleepiness_general);
 		
+		//Assign ids of spinners (dropdown menus) on layout to local Spinner objects
 		morningGen = (Spinner) findViewById(R.id.MorningGen);
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -71,13 +75,17 @@ public class SleepinessGeneral extends Activity implements OnClickListener{
 		realizedGen.setAdapter(adapter);
 		realizedGen.setPrompt("During the day, there were times when I realized that I had just fallen asleep");
 	
-	
+		//Assign id to submit button and set listener	
 	     submit = (Button)findViewById(R.id.SleepinessGenSubmitButton);
 	     submit.setOnClickListener(this);
 	}
 
 	public void onClick(View arg0) {
-		
+
+		//This is the listener for the submit button
+		//If at least one of the questions haven't been answered,
+		//display an alert telling the user to answer all the questions
+
 		if (morningGen.getSelectedItem().toString().equals("")
 				|| wholeDayGen.getSelectedItem().toString().equals("")
 				|| laterDayGen.getSelectedItem().toString().equals("")
@@ -99,6 +107,13 @@ public class SleepinessGeneral extends Activity implements OnClickListener{
 				     
 				AlertDialog alert = builder.create();
 				alert.show();
+				
+				//With all the questions answered, make a connection to the Google Form and 
+				//send the answers to the spreadsheet
+				
+				//Instructions for getting Google Form URL and entry code can be found here:
+				//http://www.youtube.com/watch?v=GyuJ2GtpZd0
+
 		} else {
 			String fullUrl = "https://docs.google.com/a/uci.edu/forms/d/1x-YIb5tAnkImWDLaw0YtNIyqa0AXCroq26ogf_2yS9o/formResponse";
 			HttpRequest mReq = new HttpRequest();

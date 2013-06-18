@@ -1,5 +1,8 @@
 package edu.uci.asleepawake;
 
+//This class reads in the manual entry of the sleep log
+//and sends the entry to the Google Form via the HttpRequest class
+
 import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -45,15 +48,15 @@ public class Form extends Activity implements OnClickListener {
 	
     protected Dialog onCreateDialog(int id) {
 		
-        c = Calendar.getInstance();
+    	//Get today's date info
+    	c = Calendar.getInstance();
         int cyear = c.get(Calendar.YEAR);
         int cmonth = c.get(Calendar.MONTH);
-        int cday = c.get(Calendar.DAY_OF_MONTH);
-        
+        int cday = c.get(Calendar.DAY_OF_MONTH);        
         int chour = c.get(Calendar.HOUR_OF_DAY);
         int cminute = c.get(Calendar.MINUTE);
 
-        
+        //create dialogs (pickers) for time and date
         switch (id) {
         case DATE_DIALOG_ID:
             return new DatePickerDialog(this,  mDateSetListener,  cyear, cmonth, cday);
@@ -66,10 +69,7 @@ public class Form extends Activity implements OnClickListener {
         // onDateSet method
         @SuppressLint("SimpleDateFormat")
 		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            //String date_selected = String.valueOf(monthOfYear+1)+"/"+String.valueOf(dayOfMonth)+"/"+String.valueOf(year);
-            //Toast.makeText(getApplicationContext(), "Selected Date is ="+date_selected, Toast.LENGTH_SHORT).show();
-            //startDate.setText(date_selected);
-            //Save date to local var to be input into sharedprefs
+            //Save date to local var
         	SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 //    		DateFormat dateFormat = DateFormat.getDateInstance(3);
         	c.set(Calendar.YEAR,year);
@@ -82,24 +82,7 @@ public class Form extends Activity implements OnClickListener {
     private TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
         // onTimeSet method
         public void onTimeSet(TimePicker view, int hour, int minute) {
-//        	String ampm = "AM";
-//        	int adjustedHour = hour;
-//        	if(hour >= 12){
-//        		ampm = "PM";
-//        		if(hour > 12)
-//        			adjustedHour = hour-12;
-//        	}
-//        	String stringAdjustedHour = String.valueOf(adjustedHour);
-//        	stringAdjustedHour = "0"+stringAdjustedHour;
-//        	String adjustedMinute = String.valueOf(minute);
-//        	if(minute < 10)
-//        		adjustedMinute = "0"+adjustedMinute;
-//        	
-//            String time_selected = stringAdjustedHour+":"+adjustedMinute+" "+ampm;
-//            System.out.println(time_selected);
-            //Toast.makeText(getApplicationContext(), "Selected Date is ="+date_selected, Toast.LENGTH_SHORT).show();
-            //time.setText(time_selected);
-        	
+        	//Save time to local var
         	DateFormat timeFormat = DateFormat.getTimeInstance(3);
         	c.set(Calendar.HOUR_OF_DAY,hour);
         	c.set(Calendar.MINUTE,minute);
@@ -114,6 +97,7 @@ public class Form extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_form);
 		
+		//Assign ids of views in layout to local objects
 		date = (EditText)findViewById(R.id.formDate);
     	sleepTime = (EditText)findViewById(R.id.formSleep);
     	wakeTime = (EditText)findViewById(R.id.formWake);
@@ -148,7 +132,8 @@ public class Form extends Activity implements OnClickListener {
 		 }
 	 });
    	 
-     submit = (Button)findViewById(R.id.RelationshipSurveyButton);
+     //Assign id of submit button and set listener
+   	 submit = (Button)findViewById(R.id.FormSubmitButton);
      submit.setOnClickListener(this);
    	 
 	}
@@ -163,12 +148,21 @@ public class Form extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
+		
+		//Instructions for getting Google Form URL and entry code can be found here:
+		//http://www.youtube.com/watch?v=GyuJ2GtpZd0
+		
+		//Create connection to Google Form
 		String fullUrl = "https://docs.google.com/a/uci.edu/forms/d/1x-YIb5tAnkImWDLaw0YtNIyqa0AXCroq26ogf_2yS9o/formResponse";
 		HttpRequest mReq = new HttpRequest();
 		
+		//Get participant number from sharedPrefs
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         String participant = sp.getString("Participant", "");
         
+        //If the participant number is blank, it is assumed that
+        //the rest of the settings are not set yet.
+        //An alert is issued.
 		if (participant.equals("")) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(Form.this);
 			builder.setMessage("Please enter settings data first")
@@ -181,6 +175,9 @@ public class Form extends Activity implements OnClickListener {
 			       });
 			AlertDialog alert = builder.create();
 			alert.show();
+		
+		//If the fields on the form are empty, an alert is issued
+		//to tell the user to fill out the form before submitting
 		} else if (date.getText().toString().equals("") || sleepTime.getText().toString().equals("") || wakeTime.getText().toString().equals("")) {
 			AlertDialog.Builder formBuilder = new AlertDialog.Builder(Form.this);
 			formBuilder.setMessage("Please fill out form before submitting")
@@ -193,6 +190,9 @@ public class Form extends Activity implements OnClickListener {
 			       });
 			AlertDialog alert = formBuilder.create();
 			alert.show();
+			
+		//Once all the fields have been filled, grab the watch checkbox status
+		//and send all the manual entry data to the Google form
 		} else {
 			String watch = "";
 			if(wearingWatch.isChecked()) {

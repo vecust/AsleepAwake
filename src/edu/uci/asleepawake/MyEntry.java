@@ -1,5 +1,8 @@
 package edu.uci.asleepawake;
 
+//This object is used to store dates into an arraylist
+//example: Key:Day1Sleep Value:9:00PM
+
 import java.util.Map;
 
 final class MyEntry<K, V> implements Map.Entry<K, V> {

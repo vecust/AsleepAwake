@@ -1,5 +1,8 @@
 package edu.uci.asleepawake;
 
+//This class handles the login for access to the settings
+//Current password is "password"
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -17,6 +20,7 @@ public class Login extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		
+		//Assign the login button and set listener
 		final Button loginButton = (Button) findViewById(R.id.loginButton);
 		loginButton.setOnClickListener(new View.OnClickListener() {
 
@@ -24,12 +28,15 @@ public class Login extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				
-				
+				//Assign text field for password
 				EditText editText = (EditText) findViewById(R.id.loginText);
 				final String password = editText.getText().toString();
-				System.out.print(password);
+				//System.out.print(password);
 				
-				
+				//Check if password entered equals "password"
+				//If so, open the settings view
+				//Otherwise issue and alert asking for the 
+				//correct password
 				if(password.equals("password")) {
 					Intent settings = new Intent(Login.this,Settings.class);
 					Login.this.startActivity(settings);

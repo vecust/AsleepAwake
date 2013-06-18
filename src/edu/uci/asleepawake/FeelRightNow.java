@@ -1,5 +1,8 @@
 package edu.uci.asleepawake;
 
+//This class reads in the answers to the "How Do You Feel Right Now" (Epworth)
+//survey and sends them to the Google Form via the HttpRequest class
+
 import java.net.URLEncoder;
 
 import android.os.Bundle;
@@ -34,6 +37,7 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener, O
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_feel_right_now);
 
+		//Assign ids of views on layout to local TextView objects
 		sittingReadingTextView = (TextView)findViewById(R.id.SittingReading);
 		watchingTVTextView = (TextView)findViewById(R.id.WatchingTV);
 		publicPlaceTextView = (TextView)findViewById(R.id.PublicPlace);
@@ -43,10 +47,11 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener, O
 		afterLunchTextView = (TextView)findViewById(R.id.AfterLunch);
 		carTrafficTextView = (TextView)findViewById(R.id.CarTraffic);
 		
+		//Assign ids of seekbars (sliders) on layout to local SeekBar objects		
 		SeekBar sittingReadingSeekBar = (SeekBar)findViewById(R.id.SittingReadingSeekBar);
-		sittingReadingSeekBar.setMax(100);
-		sittingReadingSeekBar.setProgress(50);
-		sittingReadingSeekBar.setOnSeekBarChangeListener(this);
+		sittingReadingSeekBar.setMax(100); //This is how far the slider can go
+		sittingReadingSeekBar.setProgress(50); //This is the default setting for the slider
+		sittingReadingSeekBar.setOnSeekBarChangeListener(this); //Setting listener
 
 		SeekBar watchingTVSeekBar = (SeekBar)findViewById(R.id.WatchingTVSeekBar);
 		watchingTVSeekBar.setMax(100);
@@ -98,6 +103,9 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener, O
 	public void onProgressChanged(SeekBar v, int progress, boolean isUser) {
 		TextView tv = null;
 
+		//This is the listener for when the slider has been changed
+		//Associate the seekbar that was touched and its accompanying TextView
+		//to a local TextView object
 		if(v.getId() == R.id.SittingReadingSeekBar){
 			tv = (TextView)findViewById(R.id.SittingReading);
 		} else if(v.getId() == R.id.WatchingTVSeekBar){
@@ -115,6 +123,8 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener, O
 		} else if(v.getId() == R.id.CarTrafficSeekBar){
 			tv = (TextView)findViewById(R.id.CarTraffic);
 		}
+		//So long as the local TextView object has been assigned,
+		//Output the answer onto the layout
 		if (tv != null) {
 			if (progress >= 0 && progress <= 24)
 				tv.setText("Would Never Doze");
@@ -143,6 +153,10 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener, O
 	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
+
+		//This is the listener for the submit button
+		//If at least one of the questions haven't been answered,
+		//display an alert telling the user to answer all the questions
 		if(sittingReadingTextView.getText().equals("Slide left or right")
 				|| watchingTVTextView.getText().equals("Slide left or right")	
 				|| publicPlaceTextView.getText().equals("Slide left or right")	
@@ -166,6 +180,12 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener, O
 			     
 			AlertDialog alert = builder.create();
 			alert.show();
+			//With all the questions answered, make a connection to the Google Form and 
+			//send the answers to the spreadsheet
+			
+			//Instructions for getting Google Form URL and entry code can be found here:
+			//http://www.youtube.com/watch?v=GyuJ2GtpZd0
+
 		} else {
 			String fullUrl = "https://docs.google.com/a/uci.edu/forms/d/1x-YIb5tAnkImWDLaw0YtNIyqa0AXCroq26ogf_2yS9o/formResponse";
 			HttpRequest mReq = new HttpRequest();

@@ -1,5 +1,7 @@
 package edu.uci.asleepawake;
 
+//This class reads in the settings and saves them to the system sharedprefs
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -59,15 +61,15 @@ public class Settings extends Activity implements OnClickListener{
 	@Override
     protected Dialog onCreateDialog(int id) {
 				
+    	//Get today's date info
         c = Calendar.getInstance();
         int cyear = c.get(Calendar.YEAR);
         int cmonth = c.get(Calendar.MONTH);
         int cday = c.get(Calendar.DAY_OF_MONTH);
-        
         int chour = c.get(Calendar.HOUR_OF_DAY);
         int cminute = c.get(Calendar.MINUTE);
-
         
+        //create dialogs (pickers) for time and date
         switch (id) {
         case DATE_DIALOG_ID:
             return new DatePickerDialog(this,  mDateSetListener,  cyear, cmonth, cday);
@@ -80,9 +82,6 @@ public class Settings extends Activity implements OnClickListener{
         // onDateSet method
         @SuppressLint("SimpleDateFormat")
 		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            //String date_selected = String.valueOf(monthOfYear+1)+"/"+String.valueOf(dayOfMonth)+"/"+String.valueOf(year);
-            //Toast.makeText(getApplicationContext(), "Selected Date is ="+date_selected, Toast.LENGTH_SHORT).show();
-            //startDate.setText(date_selected);
             //Save date to local var to be input into sharedprefs
         	SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 //    		DateFormat dateFormat = DateFormat.getDateInstance(3);
@@ -96,23 +95,6 @@ public class Settings extends Activity implements OnClickListener{
     private TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
         // onTimeSet method
         public void onTimeSet(TimePicker view, int hour, int minute) {
-//        	String ampm = "AM";
-//        	int adjustedHour = hour;
-//        	if(hour >= 12){
-//        		ampm = "PM";
-//        		if(hour > 12)
-//        			adjustedHour = hour-12;
-//        	}
-//        	String stringAdjustedHour = String.valueOf(adjustedHour);
-//        	stringAdjustedHour = "0"+stringAdjustedHour;
-//        	String adjustedMinute = String.valueOf(minute);
-//        	if(minute < 10)
-//        		adjustedMinute = "0"+adjustedMinute;
-//        	
-//            String time_selected = stringAdjustedHour+":"+adjustedMinute+" "+ampm;
-//            System.out.println(time_selected);
-            //Toast.makeText(getApplicationContext(), "Selected Date is ="+date_selected, Toast.LENGTH_SHORT).show();
-            //time.setText(time_selected);
         	
         	DateFormat timeFormat = DateFormat.getTimeInstance(3);
         	c.set(Calendar.HOUR_OF_DAY,hour);
@@ -128,6 +110,7 @@ public class Settings extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings);
 		
+		//Assign ids of views in layout to local objects
     	day1WakeTime = (EditText)findViewById(R.id.Day1Wake);
     	day2WakeTime = (EditText)findViewById(R.id.Day2Wake);
     	day3WakeTime = (EditText)findViewById(R.id.Day3Wake);
@@ -147,6 +130,7 @@ public class Settings extends Activity implements OnClickListener{
 		
 		participantVar = (EditText)findViewById(R.id.Participant);
 		
+		//This spinner (dropdown) sets the participant type (school or general)
 		spinner = (Spinner) findViewById(R.id.Participant_Type);
 		// Create an ArrayAdapter using the string array and a default spinner layout
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -166,7 +150,8 @@ public class Settings extends Activity implements OnClickListener{
                      return false;              
                  }
              });
-             
+
+     //Get all views for time and add them to the timeFields arrayList        
      timeFields = getViewsByTag((ViewGroup)findViewById(android.R.id.content),"time");
      
      for(final EditText timeField : timeFields) {
@@ -183,13 +168,18 @@ public class Settings extends Activity implements OnClickListener{
     	 });
      }
      
+     //Assign id of submit button and set listener
      submit = (Button)findViewById(R.id.savePrefs);
      submit.setOnClickListener(this);
+     
+     //Call this function to get all the saved sharedPreferences
      loadPrefs();
      
 	}
 	
 	private void loadPrefs() {
+		//Create sharedpreferences object and get all the preferences then
+		//assign them to local variables
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         String participant = sp.getString("Participant", "");
         String type = sp.getString("Type", "");
@@ -209,12 +199,16 @@ public class Settings extends Activity implements OnClickListener{
         String gotDay6SleepTime = sp.getString("Day6Sleep", "");
         String gotDay7SleepTime = sp.getString("Day7Sleep", "");
         
+        //If the type is set to school or general,
+        //show it on the view
         participantVar.setText(participant);
         if(type.equals("School")){
         	spinner.setSelection(0);
         } else {
         	spinner.setSelection(1);
         }
+        
+        //Show the rest of the settings onto the view layout
         startDate.setText(start);
         
     	day1WakeTime.setText(gotDay1WakeTime);
@@ -234,21 +228,16 @@ public class Settings extends Activity implements OnClickListener{
 
 
 	}
-	
+
+	//This method saves the preferences
     private void savePrefs(String key, String value) {
 	        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 	        Editor edit = sp.edit();
 	        edit.putString(key, value);
 	        edit.commit();
 	    }
-    
-//    private void savePrefs(String key, Date date) {
-//        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-//        Editor edit = sp.edit();
-//        edit.putLong(key, date.getTime());
-//        edit.commit();    	
-//    }
 	
+    //This method helps get all the views by tag
 	 private static ArrayList<EditText> getViewsByTag(ViewGroup root, String tag){
 		    ArrayList<EditText> views = new ArrayList<EditText>();
 		    final int childCount = root.getChildCount();
@@ -279,6 +268,11 @@ public class Settings extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
+		
+		//This is the listener for the submit button
+		//The savePrefs() method is used to save all the preferences
+		//that were input by the user
+		
 		savePrefs("Participant",participantVar.getText().toString());
 		savePrefs("Type",spinner.getSelectedItem().toString());
 		savePrefs("Start",startDate.getText().toString());
