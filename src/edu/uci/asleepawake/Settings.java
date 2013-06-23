@@ -56,6 +56,8 @@ public class Settings extends Activity implements OnClickListener{
 	private EditText day7SleepTime;
     static final int DATE_DIALOG_ID = 0;
     static final int TIME_DIALOG_ID = 1;
+    static final int SLEEP_TIME_DIALOG_ID = 2;
+    static final int WAKE_TIME_DIALOG_ID = 3;
     Button submit;
 //    public ArrayList<MyEntry<Date, Date>> dates = new ArrayList<MyEntry<Date,Date>>();
 
@@ -77,6 +79,10 @@ public class Settings extends Activity implements OnClickListener{
             return new DatePickerDialog(this,  mDateSetListener,  cyear, cmonth, cday);
         case TIME_DIALOG_ID:
         	return new TimePickerDialog(this, mTimeSetListener, chour, cminute, false);
+        case SLEEP_TIME_DIALOG_ID:
+        	return new TimePickerDialog(this, mSleepTimeSetListener, 22, 0, false);
+        case WAKE_TIME_DIALOG_ID:
+        	return new TimePickerDialog(this, mWakeTimeSetListener, 7, 0, false);
         }
         return null;
     }
@@ -106,6 +112,90 @@ public class Settings extends Activity implements OnClickListener{
         }
     };
 
+    private TimePickerDialog.OnTimeSetListener mSleepTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+        // onTimeSet method
+        public void onTimeSet(TimePicker view, int hour, int minute) {
+        	        	
+        	final DateFormat timeFormat = DateFormat.getTimeInstance(3);
+        	c.set(Calendar.HOUR_OF_DAY,hour);
+        	c.set(Calendar.MINUTE,minute);
+        	time.setText(timeFormat.format(c.getTime()));
+//        	tempTime = c.getTime();
+        	
+			AlertDialog.Builder builder = new AlertDialog.Builder(Settings.this);
+			builder.setMessage("Set same time for all days?")
+			       .setCancelable(false)
+			       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			           public void onClick(DialogInterface dialog, int id) {
+			                //do things
+			           	day1SleepTime.setText(timeFormat.format(c.getTime()));
+			        	day2SleepTime.setText(timeFormat.format(c.getTime()));
+			        	day3SleepTime.setText(timeFormat.format(c.getTime()));
+			        	day4SleepTime.setText(timeFormat.format(c.getTime()));
+			        	day5SleepTime.setText(timeFormat.format(c.getTime()));
+			        	day6SleepTime.setText(timeFormat.format(c.getTime()));
+			        	day7SleepTime.setText(timeFormat.format(c.getTime()));
+			        	   
+			        	   dialog.cancel();
+			           }   
+			       })
+			       .setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int id) {
+						// TODO Auto-generated method stub
+						dialog.cancel();
+					}
+			    	   
+			       });    
+			     
+			AlertDialog alert = builder.create();
+			alert.show();
+        	
+        }
+    };
+    private TimePickerDialog.OnTimeSetListener mWakeTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+        // onTimeSet method
+        public void onTimeSet(TimePicker view, int hour, int minute) {
+        	
+        	final DateFormat timeFormat = DateFormat.getTimeInstance(3);
+        	c.set(Calendar.HOUR_OF_DAY,hour);
+        	c.set(Calendar.MINUTE,minute);
+        	time.setText(timeFormat.format(c.getTime()));
+//        	tempTime = c.getTime();
+        	
+			AlertDialog.Builder builder = new AlertDialog.Builder(Settings.this);
+			builder.setMessage("Set same time for all days?")
+			       .setCancelable(false)
+			       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			           public void onClick(DialogInterface dialog, int id) {
+			                //do things
+			           	day1WakeTime.setText(timeFormat.format(c.getTime()));
+			        	day2WakeTime.setText(timeFormat.format(c.getTime()));
+			        	day3WakeTime.setText(timeFormat.format(c.getTime()));
+			        	day4WakeTime.setText(timeFormat.format(c.getTime()));
+			        	day5WakeTime.setText(timeFormat.format(c.getTime()));
+			        	day6WakeTime.setText(timeFormat.format(c.getTime()));
+			        	day7WakeTime.setText(timeFormat.format(c.getTime()));
+			        	   
+			        	   dialog.cancel();
+			           }   
+			       })
+			       .setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int id) {
+						// TODO Auto-generated method stub
+						dialog.cancel();
+					}
+			    	   
+			       });    
+			     
+			AlertDialog alert = builder.create();
+			alert.show();
+
+        }
+    };
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -161,6 +251,27 @@ public class Settings extends Activity implements OnClickListener{
     	 
     	 timeField.setOnTouchListener(new OnTouchListener(){
     		 public boolean onTouch(View v, MotionEvent event) {
+    			 if(timeField == day1WakeTime 
+    				|| timeField == day2WakeTime	 
+    				|| timeField == day3WakeTime	 
+    				|| timeField == day4WakeTime	 
+    				|| timeField == day5WakeTime	 
+    				|| timeField == day6WakeTime	 
+    				|| timeField == day7WakeTime){
+    				 time = timeField;    				 
+    				 showDialog(WAKE_TIME_DIALOG_ID);
+
+    			 } else if(timeField == day1SleepTime 
+    				|| timeField == day2SleepTime	 
+    				|| timeField == day3SleepTime	 
+    				|| timeField == day4SleepTime	 
+    				|| timeField == day5SleepTime	 
+    				|| timeField == day6SleepTime	 
+    				|| timeField == day7SleepTime){
+    				 time = timeField;    				 
+    				 showDialog(SLEEP_TIME_DIALOG_ID);
+    				 
+    			 } else
     			 if(v == timeField){
     				 time = timeField;    				 
     				 showDialog(TIME_DIALOG_ID);
