@@ -39,6 +39,7 @@ public class MainActivity extends Activity {
     String sleepinessSurveyIgnored;
     String relationshipSurveyIgnored;
     String ampm;
+    SharedPreferences sp;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class MainActivity extends Activity {
 		final Button sleepinessButton = (Button)findViewById(R.id.SleepinessSurveyButton);
 
 		//Get shared preferences for use later
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
         sleepLogged = sp.getString("sleepLogged", "");
         wakeLogged = sp.getString("wakeLogged", "");
         sleepinessSurveyIgnored = sp.getString("sleepinessSurveyIgnored","");
@@ -257,7 +258,7 @@ public class MainActivity extends Activity {
 			alert.show();					
 		}
 		
-		//Call this method to compare current date and time to info in sharedPreferences
+		//Call this method to compare current date and time to info in s
 		//then issue alerts to prompt the user to log sleep/waking or take surveys
 		sleepLogReminder();
 
@@ -279,7 +280,7 @@ public class MainActivity extends Activity {
 		HttpRequest mReq = new HttpRequest();
 		
 		//Get preferences
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        //SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         String participant = sp.getString("Participant", "");
 		String date = sp.getString("timeStamp", "");
 		String sleep = sp.getString("sleepTime", "");
@@ -329,51 +330,53 @@ public class MainActivity extends Activity {
 	@SuppressLint("SimpleDateFormat")
 	private void getDates() {
 		//Get start date
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        //SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         Date date = null;
         String start = sp.getString("Start", "");
         
         //If the date preference is blank, it is assumed that
         //the rest of the settings are not set yet.
         //An alert is issued.        
-        if(start.equals("")){
-        	AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-			builder.setMessage("Please add settings")
-			       .setCancelable(false)
-			       .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-			           public void onClick(DialogInterface dialog, int id) {
-			                //Go to login screen for settings
-							Intent settingLogin = new Intent(MainActivity.this,Login.class);
-							MainActivity.this.startActivity(settingLogin);
-			        	   dialog.cancel();
-			           }
-			       });    
-			     
-			AlertDialog alert = builder.create();
-			alert.show();
-			return;
-        }
-        
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        try {
-			date = dateFormat.parse(start);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+//        if(start.equals("")){
+//        	AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//			builder.setMessage("Missing Start Date in settings")
+//			       .setCancelable(false)
+//			       .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//			           public void onClick(DialogInterface dialog, int id) {
+//			                //Go to login screen for settings
+//							Intent settingLogin = new Intent(MainActivity.this,Login.class);
+//							MainActivity.this.startActivity(settingLogin);
+//			        	   dialog.cancel();
+//			           }
+//			       });    
+//			     
+//			AlertDialog alert = builder.create();
+//			alert.show();
+//			return;
+//        }
+		if (!start.equals("")) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+			try {
+				date = dateFormat.parse(start);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			// Add dates to arraylist
+			for (int i = 0; i < 7; i++) {
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(date);
+				calendar.add(Calendar.DAY_OF_YEAR, i);
+				System.out.println("Date in array: " + calendar.getTime());
+				// Date newDate = calendar.getTime();
+				String newDate = dateFormat.format(calendar.getTime());
+				MyEntry<String, String> temp = new MyEntry<String, String>(
+						"Day" + (i + 1), newDate);
+				System.out.println("Checking Date: " + newDate);
+				dates.add(temp);
+			}
 		}
-        
-        //Add dates to arraylist
-        for(int i=0;i<7;i++){
-        	Calendar calendar = Calendar.getInstance();
-        	calendar.setTime(date);
-        	calendar.add(Calendar.DAY_OF_YEAR, i);
-        	System.out.println("Date in array: "+calendar.getTime());
-//        	Date newDate = calendar.getTime();
-        	String newDate = dateFormat.format(calendar.getTime());
-        	MyEntry<String, String> temp = new MyEntry<String, String>("Day"+(i+1),newDate);
-        	System.out.println("Checking Date: "+newDate);
-        	dates.add(temp);
-        }
         
 	}
 	
@@ -386,10 +389,10 @@ public class MainActivity extends Activity {
 		final Button wokeUpButton = (Button) findViewById(R.id.MainWokeUp);
 		
 		//Create object with sharedPreferences data
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-		
+        //SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+
         //Call this method to put study dates into the "dates" arraylist
-		getDates();
+        getDates();
 
 		String nowTime = "";
         //If the dates arraylist is blank, it is assumed that
@@ -641,7 +644,7 @@ public class MainActivity extends Activity {
   
 	//This method saves the preferences
     private void savePrefs(String key, String value) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        //SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         Editor edit = sp.edit();
         edit.putString(key, value);
         edit.commit();

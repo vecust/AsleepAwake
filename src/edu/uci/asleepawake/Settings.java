@@ -10,9 +10,11 @@ import java.util.Calendar;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -268,11 +270,42 @@ public class Settings extends Activity implements OnClickListener{
 	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
-		
+		if(participantVar.getText().toString().equals("")
+				|| spinner.getSelectedItem().toString().equals("")	
+				|| startDate.getText().toString().equals("")	
+				|| day1WakeTime.getText().toString().equals("")	
+				|| day2WakeTime.getText().toString().equals("")	
+				|| day3WakeTime.getText().toString().equals("")	
+				|| day4WakeTime.getText().toString().equals("")	
+				|| day5WakeTime.getText().toString().equals("")	
+				|| day6WakeTime.getText().toString().equals("")	
+				|| day7WakeTime.getText().toString().equals("")	
+				|| day1SleepTime.getText().toString().equals("")	
+				|| day2SleepTime.getText().toString().equals("")	
+				|| day3SleepTime.getText().toString().equals("")	
+				|| day4SleepTime.getText().toString().equals("")	
+				|| day5SleepTime.getText().toString().equals("")	
+				|| day6SleepTime.getText().toString().equals("")	
+				|| day7SleepTime.getText().toString().equals("")	
+				) {
+			
+			AlertDialog.Builder builder = new AlertDialog.Builder(Settings.this);
+			builder.setMessage("Please fill all settings before submitting")
+			       .setCancelable(false)
+			       .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			           public void onClick(DialogInterface dialog, int id) {
+			                //do things
+			        	   dialog.cancel();
+			           }
+			       });    
+			     
+			AlertDialog alert = builder.create();
+			alert.show();
+			
 		//This is the listener for the submit button
 		//The savePrefs() method is used to save all the preferences
 		//that were input by the user
-		
+		} else {
 		savePrefs("Participant",participantVar.getText().toString());
 		savePrefs("Type",spinner.getSelectedItem().toString());
 		savePrefs("Start",startDate.getText().toString());
@@ -292,6 +325,7 @@ public class Settings extends Activity implements OnClickListener{
 		savePrefs("Day7Sleep",day7SleepTime.getText().toString());
 		
 		finish();
+		}
 	}
 
 
