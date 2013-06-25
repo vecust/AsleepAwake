@@ -32,7 +32,8 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/darker_gray"
+            android:background="@android:color/black"
+            style="@android:style/TextAppearance.Medium"
             android:text="If you were placed in the following situations right now, how likely would you be to doze off or fall asleep?"
             android:textColor="#ffffff" />
         

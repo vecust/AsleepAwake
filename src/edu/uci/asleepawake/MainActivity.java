@@ -18,9 +18,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -41,13 +44,14 @@ public class MainActivity extends Activity {
     String ampm;
     SharedPreferences sp;
     
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
 		//Assign ids of buttons in layout to local objects
-		final Button settingsButton = (Button) findViewById(R.id.MainSettings);
+//		final Button settingsButton = (Button) findViewById(R.id.MainSettings);
 		final Button goingToBedButton = (Button) findViewById(R.id.MainGoingToBed);
 		final Button wokeUpButton = (Button) findViewById(R.id.MainWokeUp);
 		final Button manualEntryButton = (Button) findViewById(R.id.manualForm);
@@ -87,15 +91,15 @@ public class MainActivity extends Activity {
         	
         });
         
-		settingsButton.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent settingLogin = new Intent(MainActivity.this,Login.class);
-				MainActivity.this.startActivity(settingLogin);
-			}
-		});
+//		settingsButton.setOnClickListener(new View.OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				// TODO Auto-generated method stub
+//				Intent settingLogin = new Intent(MainActivity.this,Login.class);
+//				MainActivity.this.startActivity(settingLogin);
+//			}
+//		});
 		
 		goingToBedButton.setOnClickListener(new View.OnClickListener() {
 			
@@ -262,6 +266,8 @@ public class MainActivity extends Activity {
 		//then issue alerts to prompt the user to log sleep/waking or take surveys
 		sleepLogReminder();
 
+		int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+		System.out.println("SDK Version: "+currentapiVersion);
 	}
 	
 	//This method creates the connection with the Google Form and sends the 
@@ -663,6 +669,35 @@ public class MainActivity extends Activity {
 	protected void onRestart() {
 		Bundle tempBundle = new Bundle();
 		onCreate(tempBundle);
+	}
+	
+	public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        
+        
+        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            System.out.println("Entered to change as Portrait ");
+            setContentView(R.layout.activity_main);
+        } else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        	System.out.println("Entered to change as LandScape ");
+            setContentView(R.layout.activity_main);
+        }
+	}
+	
+	@Override
+//	public boolean onKeyDown(int keyCode, KeyEvent event) {
+//	    if ( keyCode == KeyEvent.KEYCODE_MENU ) {
+//	    	System.out.println("MENU pressed");
+//	        return true;
+//	    }
+//	    return super.onKeyDown(keyCode, event);
+//	}
+	
+	public boolean onOptionsItemSelected(MenuItem item) {
+		System.out.println("SETTINGS pressed");
+		Intent settingLogin = new Intent(MainActivity.this,Login.class);
+		MainActivity.this.startActivity(settingLogin);
+		return super.onOptionsItemSelected(item);
 	}
 
 }

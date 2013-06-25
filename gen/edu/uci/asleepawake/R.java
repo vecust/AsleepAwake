@@ -124,14 +124,13 @@ public final class R {
         public static final int LastClassRow=0x7f0900be;
         public static final int LaterDayGen=0x7f0900d8;
         public static final int LaterDayGenRow=0x7f0900d7;
-        public static final int LinearLayout1=0x7f0900e3;
+        public static final int LinearLayout1=0x7f090054;
         public static final int Mad=0x7f090070;
         public static final int MadLabels=0x7f090072;
         public static final int MadRow=0x7f09006e;
         public static final int MadSeekBar=0x7f090071;
         public static final int MadSlider=0x7f09006f;
-        public static final int MainGoingToBed=0x7f090054;
-        public static final int MainSettings=0x7f090055;
+        public static final int MainGoingToBed=0x7f090055;
         public static final int MainWokeUp=0x7f090056;
         public static final int MorningClasses=0x7f0900bb;
         public static final int MorningClassesRow=0x7f0900ba;
@@ -181,7 +180,7 @@ public final class R {
         public static final int SleepWakeLabelsRow=0x7f09009c;
         public static final int SleepinessGenSubmitButton=0x7f0900d2;
         public static final int SleepinessSchoolButton=0x7f0900b9;
-        public static final int SleepinessSurveyButton=0x7f090058;
+        public static final int SleepinessSurveyButton=0x7f090059;
         public static final int StartDateRow=0x7f090099;
         public static final int Support=0x7f090061;
         public static final int SupportLabels=0x7f090063;
@@ -229,8 +228,8 @@ public final class R {
         public static final int header=0x7f090000;
         public static final int loginButton=0x7f090053;
         public static final int loginText=0x7f090052;
-        public static final int manualForm=0x7f090059;
-        public static final int menu_settings=0x7f0900e4;
+        public static final int manualForm=0x7f090058;
+        public static final int menu_settings=0x7f0900e3;
         public static final int preferences=0x7f090094;
         public static final int savePrefs=0x7f0900b8;
         public static final int startDate=0x7f09009a;

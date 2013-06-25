@@ -6,11 +6,11 @@
 
     <Button
         android:id="@+id/MainWokeUp"
-        android:layout_width="120dp"
-        android:layout_height="80dp"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
         android:layout_below="@+id/MainGoingToBed"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        style="@android:style/TextAppearance.Large"
         android:text="Woke Up" />
 
     <Button
@@ -22,21 +22,14 @@
         android:layout_toLeftOf="@+id/RelationshipSurveyButton"
         android:text="Manual Entry" />
 
-    <Button
-        android:id="@+id/MainSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="Settings" />
 
     <Button
         android:id="@+id/MainGoingToBed"
-        android:layout_width="120dp"
-        android:layout_height="80dp"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
         android:layout_alignLeft="@+id/MainWokeUp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="16dp"
+        style="@android:style/TextAppearance.Large"
         android:text="Going to Bed" />
 
     <Button

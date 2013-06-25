@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.uci.asleepawake"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionCode="2"
+    android:versionName="1.1" >
 
     <uses-sdk
-        android:targetSdkVersion="10" />
+        android:targetSdkVersion="8" />
     <uses-permission android:name="android.permission.INTERNET"/>
 <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>    
@@ -13,9 +13,11 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:debuggable="true" >
         <activity
             android:name="edu.uci.asleepawake.MainActivity"
+            android:configChanges="orientation"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
