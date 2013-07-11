@@ -5,6 +5,7 @@ package edu.uci.asleepawake;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import android.media.AudioManager;
@@ -244,8 +245,9 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener, O
 											
 											@Override
 											public void onClick(DialogInterface dialog, int which) {
-												// TODO Auto-generated method stub
-										    	   Intent backToMain = new Intent(FeelRightNow.this,MainActivity.class);
+												// TODO Auto-generated method stub													
+
+										    	   Intent backToMain = new Intent(FeelRightNow.this,MainActivity.class);										    	   
 										    	   backToMain.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 										    	   FeelRightNow.this.startActivity(backToMain);
 											}
@@ -254,6 +256,8 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener, O
 //									Intent surveyIntent = new Intent(FeelRightNow.this, Relationship.class);
 //								    backToMainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //									FeelRightNow.this.startActivity(surveyIntent);
+							        
+							        alertWatchBuilder.show();
 								}
 							})
 					.setNegativeButton("No",
