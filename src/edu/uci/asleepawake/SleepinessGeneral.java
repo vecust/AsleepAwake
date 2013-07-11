@@ -8,6 +8,7 @@ import java.net.URLEncoder;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -134,7 +135,11 @@ public class SleepinessGeneral extends Activity implements OnClickListener{
 			System.out.println("postData response: " + response);
      	   savePrefs("sleepinessSurveyIgnored","NO");
 			
-			finish();
+//			finish();
+
+    	   Intent surveyPage = new Intent(SleepinessGeneral.this,FeelRightNow.class);
+    	   surveyPage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    	   SleepinessGeneral.this.startActivity(surveyPage);	
 
 		}
 	}

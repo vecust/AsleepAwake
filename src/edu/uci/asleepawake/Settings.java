@@ -3,18 +3,22 @@ package edu.uci.asleepawake;
 //This class reads in the settings and saves them to the system sharedprefs
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-//import java.util.Date;
+import java.util.Date;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -31,6 +35,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+//import java.util.Date;
 
 public class Settings extends Activity implements OnClickListener{
 	private Calendar c;
@@ -417,6 +422,10 @@ public class Settings extends Activity implements OnClickListener{
 		//The savePrefs() method is used to save all the preferences
 		//that were input by the user
 		} else {
+			Calendar test = getAlarmTime(startDate.getText().toString(), 0, day1SleepTime.getText().toString(), 0);
+			System.out.println("Alarm time: "+test.getTime().toString());
+			createAlarm(test, 01);
+			
 		savePrefs("Participant",participantVar.getText().toString());
 		savePrefs("Type",spinner.getSelectedItem().toString());
 		savePrefs("Start",startDate.getText().toString());
@@ -437,6 +446,51 @@ public class Settings extends Activity implements OnClickListener{
 		
 		finish();
 		}
+	}
+	
+	public Calendar getAlarmTime(String mFirstDay, int ampm, String mSettingTime, int day){
+		Date alarmTime = null;
+		Date alarmDate = null;
+		Calendar cal = Calendar.getInstance();
+        DateFormat timeFormat = DateFormat.getTimeInstance(3);
+        DateFormat dateFormat = DateFormat.getDateInstance(3);
+        String settingTime = mSettingTime;
+        String firstDay = mFirstDay;
+        System.out.println("firstDay: "+firstDay);
+        System.out.println("settingTime: "+settingTime);
+        
+			try {
+				alarmTime = timeFormat.parse(settingTime);
+				alarmDate = dateFormat.parse(firstDay);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			cal.set(Calendar.MONTH,alarmDate.getMonth());
+			cal.set(Calendar.DAY_OF_MONTH,alarmDate.getDate());
+			cal.set(Calendar.YEAR,2013);
+			cal.set(Calendar.HOUR,alarmTime.getHours());
+			cal.set(Calendar.MINUTE,alarmTime.getMinutes());
+			cal.set(Calendar.AM_PM,ampm);
+			cal.set(Calendar.SECOND, 0);
+			cal.add(Calendar.MINUTE, 1);
+			if(day > 0){
+				cal.add(Calendar.DAY_OF_MONTH,day);
+			}
+			
+			return cal;
+
+	}
+	
+	public void createAlarm(Calendar cal, int id){
+        //Create a new PendingIntent and add it to the AlarmManager
+        Intent intent = new Intent(Settings.this, SurveyAlarmReceiverActivity.class);
+        intent.putExtra("intentID", id);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,
+            id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager am = (AlarmManager)this.getSystemService(ALARM_SERVICE);
+	        am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
+	                pendingIntent);		
 	}
 
 

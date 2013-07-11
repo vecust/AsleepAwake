@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.view.Menu;
@@ -31,6 +32,7 @@ public class Relationship extends Activity implements OnSeekBarChangeListener, O
 			madSeekBar, criticizeSeekBar, secretsSeekBar, pressureSeekBar,
 			argueSeekBar, cheerUpSeekBar;
 	Button submit;
+	String type;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -229,7 +231,17 @@ public class Relationship extends Activity implements OnSeekBarChangeListener, O
 			
 			savePrefs("relationshipSurveyIgnored","");
 			
-			finish();
+//			finish();
+	        sp = PreferenceManager.getDefaultSharedPreferences(this);
+	        type = sp.getString("Type", "");
+     	   if(type.equals("School")){
+     	   Intent surveyPage = new Intent(Relationship.this,Sleepiness.class);
+     	  Relationship.this.startActivity(surveyPage);	
+     	   } else if(type.equals("General")){
+	        	   Intent surveyPage = new Intent(Relationship.this,SleepinessGeneral.class);
+	        	   surveyPage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	        	   Relationship.this.startActivity(surveyPage);				        		   
+     	   }
 		}
 	}
 	

@@ -12,6 +12,8 @@
     <string name="title_activity_relationship">Relationship</string>
     <string name="title_activity_sleepiness_general">SleepinessGeneral</string>
     <string name="title_activity_feel_right_now">FeelRightNow</string>
-    
+    <string name="title_activity_wake_alarm_receiver">WakeAlarmReceiverActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_sleep_alarm_receiver">SleepAlarmReceiverActivity</string>
 
 </resources>

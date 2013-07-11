@@ -21,17 +21,17 @@
         style="@android:style/TextAppearance.Large" />
 
     <Button
-        android:id="@+id/HowDoYouFeelButton"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="40dp"
-        android:text="How Do You Feel?" />
-
-    <Button
         android:id="@+id/manualForm"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="40dp"
         android:text="Manual Entry" />
+
+    <Button
+        android:id="@+id/HowDoYouFeelButton"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:text="How Do You Feel?" />
 
     <Button
         android:id="@+id/SleepinessSurveyButton"

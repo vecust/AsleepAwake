@@ -264,7 +264,7 @@ public class MainActivity extends Activity {
 		
 		//Call this method to compare current date and time to info in s
 		//then issue alerts to prompt the user to log sleep/waking or take surveys
-		sleepLogReminder();
+		//sleepLogReminder();
 
 		int currentapiVersion = android.os.Build.VERSION.SDK_INT;
 		System.out.println("SDK Version: "+currentapiVersion);
