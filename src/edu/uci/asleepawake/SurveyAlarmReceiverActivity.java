@@ -30,6 +30,9 @@ public class SurveyAlarmReceiverActivity extends Activity {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_survey_alarm_receiver);
 
+		final int intentID = getIntent().getIntExtra("intentID", 0);
+	    System.out.println("Sleep Intent ID: "+intentID);
+		
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				SurveyAlarmReceiverActivity.this);
 		alertDialogBuilder
@@ -46,7 +49,6 @@ public class SurveyAlarmReceiverActivity extends Activity {
 								mMediaPlayer.stop();
 								
 						        Intent intent = new Intent(SurveyAlarmReceiverActivity.this, SurveyAlarmReceiverActivity.class);
-						        int intentID = getIntent().getIntExtra("intentID", 0);
 //						        intent.putExtra("intentID", 12345);
 						        PendingIntent pendingIntent = PendingIntent.getActivity(SurveyAlarmReceiverActivity.this,
 						            intentID, intent, PendingIntent.FLAG_CANCEL_CURRENT);
@@ -59,7 +61,7 @@ public class SurveyAlarmReceiverActivity extends Activity {
 							    SurveyAlarmReceiverActivity.this.startActivity(surveyIntent);
 							}
 						})
-				.setNegativeButton("Dismiss",
+				.setNegativeButton("Later",
 						new DialogInterface.OnClickListener() {
 
 							@Override
@@ -73,13 +75,12 @@ public class SurveyAlarmReceiverActivity extends Activity {
 								
 						        //Create an offset from the current time in which the alarm will go off.
 						        Calendar cal = Calendar.getInstance();
-						        cal.add(Calendar.SECOND, 5);
+						        cal.add(Calendar.MINUTE, 10);
 
 						        //Create a new PendingIntent and add it to the AlarmManager
 						        Intent intent = new Intent(SurveyAlarmReceiverActivity.this, SurveyAlarmReceiverActivity.class);
-						        int intentID = getIntent().getIntExtra("intentID", 0);
-						        System.out.println("Intent ID: "+intentID);
-//						        intent.putExtra("intentID", 12345);
+						        System.out.println("Sleep Intent ID: "+intentID);
+						        intent.putExtra("intentID", intentID);
 						        PendingIntent pendingIntent = PendingIntent.getActivity(SurveyAlarmReceiverActivity.this,
 						        		intentID, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 						        AlarmManager am = 

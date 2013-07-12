@@ -38,7 +38,8 @@
         android:layout_above="@id/footer"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/header" >
+        android:layout_below="@id/header"
+        android:fadeScrollbars="false" >
 
         <TableLayout
             android:layout_width="match_parent"

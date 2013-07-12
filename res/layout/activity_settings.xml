@@ -8,7 +8,8 @@
         android:id="@+id/preferences"
         android:layout_width="wrap_content"
         android:layout_height="420dp"
-        android:layout_above="@id/preferences" >
+        android:layout_above="@id/preferences"
+        android:fadeScrollbars="false" >
 
         <TableLayout
             android:layout_width="match_parent"
@@ -119,23 +120,23 @@
                     android:layout_height="wrap_content" >
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/textView4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentTop="true"
-                        android:layout_marginRight="82dp"
-                        android:text="Sleep"
+                        android:layout_marginRight="78dp"
+                        android:text="Wake"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/textView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentTop="true"
-                        android:layout_marginLeft="68dp"
-                        android:text="Wake"
+                        android:layout_marginLeft="67dp"
+                        android:text="Sleep"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 </RelativeLayout>
@@ -159,17 +160,17 @@
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <EditText
-                        android:id="@+id/Day1Wake"
+                        android:id="@+id/Day1Sleep"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="18dp"
                         android:layout_weight="1"
+                        android:layout_marginLeft="18dp"
                         android:ems="10"
                         android:inputType="text"
                         android:tag="time" />
 
                     <EditText
-                        android:id="@+id/Day1Sleep"
+                        android:id="@+id/Day1Wake"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -198,17 +199,17 @@
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <EditText
-                        android:id="@+id/Day2Wake"
+                        android:id="@+id/Day2Sleep"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="18dp"
                         android:layout_weight="1"
+                        android:layout_marginLeft="18dp"
                         android:ems="10"
                         android:inputType="text"
                         android:tag="time" />
 
                     <EditText
-                        android:id="@+id/Day2Sleep"
+                        android:id="@+id/Day2Wake"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -237,17 +238,17 @@
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <EditText
-                        android:id="@+id/Day3Wake"
+                        android:id="@+id/Day3Sleep"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="18dp"
                         android:layout_weight="1"
+                        android:layout_marginLeft="18dp"
                         android:ems="10"
                         android:inputType="text"
                         android:tag="time" />
 
                     <EditText
-                        android:id="@+id/Day3Sleep"
+                        android:id="@+id/Day3Wake"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -276,17 +277,17 @@
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <EditText
-                        android:id="@+id/Day4Wake"
+                        android:id="@+id/Day4Sleep"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="18dp"
                         android:layout_weight="1"
+                        android:layout_marginLeft="18dp"
                         android:ems="10"
                         android:inputType="text"
                         android:tag="time" />
 
                     <EditText
-                        android:id="@+id/Day4Sleep"
+                        android:id="@+id/Day4Wake"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -315,17 +316,17 @@
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <EditText
-                        android:id="@+id/Day5Wake"
+                        android:id="@+id/Day5Sleep"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="18dp"
                         android:layout_weight="1"
+                        android:layout_marginLeft="18dp"
                         android:ems="10"
                         android:inputType="text"
                         android:tag="time" />
 
                     <EditText
-                        android:id="@+id/Day5Sleep"
+                        android:id="@+id/Day5Wake"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -354,17 +355,17 @@
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <EditText
-                        android:id="@+id/Day6Wake"
+                        android:id="@+id/Day6Sleep"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="18dp"
                         android:layout_weight="1"
+                        android:layout_marginLeft="18dp"
                         android:ems="10"
                         android:inputType="text"
                         android:tag="time" />
 
                     <EditText
-                        android:id="@+id/Day6Sleep"
+                        android:id="@+id/Day6Wake"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -392,17 +393,17 @@
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <EditText
-                        android:id="@+id/Day7Wake"
+                        android:id="@+id/Day7Sleep"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="18dp"
                         android:layout_weight="1"
+                        android:layout_marginLeft="18dp"
                         android:ems="10"
                         android:inputType="text"
                         android:tag="time" />
 
                     <EditText
-                        android:id="@+id/Day7Sleep"
+                        android:id="@+id/Day7Wake"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

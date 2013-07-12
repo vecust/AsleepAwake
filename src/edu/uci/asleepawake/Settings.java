@@ -202,10 +202,32 @@ public class Settings extends Activity implements OnClickListener{
         }
     };
     
+    public void cancelAlarm(int intentID, String receiver){
+    	Intent intent;
+    	if(receiver.equals("Sleep")){
+    		intent = new Intent(Settings.this, SleepAlarmReceiverActivity.class);
+    	} else if (receiver.equals("Wake")){
+    		intent = new Intent(Settings.this, WakeAlarmReceiverActivity.class);
+    	} else {
+    		intent = new Intent(Settings.this, SurveyAlarmReceiverActivity.class);
+    	}
+        PendingIntent pendingIntent = PendingIntent.getActivity(Settings.this,
+            intentID, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager am = 
+            (AlarmManager)Settings.this.getSystemService(ALARM_SERVICE);
+        am.cancel(pendingIntent);
+    }
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_settings);
+		
+		for(int i = 1;i<=7;i++){
+			cancelAlarm(i,"Survey");
+			cancelAlarm(i+10,"Wake");
+		}
+		cancelAlarm(12345,"Sleep");
 		
 		//Assign ids of views in layout to local objects
     	day1WakeTime = (EditText)findViewById(R.id.Day1Wake);
@@ -422,9 +444,39 @@ public class Settings extends Activity implements OnClickListener{
 		//The savePrefs() method is used to save all the preferences
 		//that were input by the user
 		} else {
-			Calendar test = getAlarmTime(startDate.getText().toString(), 0, day1SleepTime.getText().toString(), 0);
-			System.out.println("Alarm time: "+test.getTime().toString());
-			createAlarm(test, 01);
+			Calendar sleepTime1 = getAlarmTime(startDate.getText().toString(), 1, day1SleepTime.getText().toString(), 0);
+//			System.out.println("Sleep Alarm time: "+sleepTest.getTime().toString());
+			createAlarm(sleepTime1, 01,"sleep");
+
+			Calendar sleepTime2 = getAlarmTime(startDate.getText().toString(), 1, day1SleepTime.getText().toString(), 1);
+			createAlarm(sleepTime2, 02,"sleep");
+			Calendar sleepTime3 = getAlarmTime(startDate.getText().toString(), 1, day1SleepTime.getText().toString(), 2);
+			createAlarm(sleepTime3, 03,"sleep");
+			Calendar sleepTime4 = getAlarmTime(startDate.getText().toString(), 1, day1SleepTime.getText().toString(), 3);
+			createAlarm(sleepTime4, 04,"sleep");
+			Calendar sleepTime5 = getAlarmTime(startDate.getText().toString(), 1, day1SleepTime.getText().toString(), 4);
+			createAlarm(sleepTime5, 05,"sleep");
+			Calendar sleepTime6 = getAlarmTime(startDate.getText().toString(), 1, day1SleepTime.getText().toString(), 5);
+			createAlarm(sleepTime6, 06,"sleep");
+			Calendar sleepTime7 = getAlarmTime(startDate.getText().toString(), 1, day1SleepTime.getText().toString(), 6);
+			createAlarm(sleepTime7, 07,"sleep");
+			
+			Calendar wakeTime1 = getAlarmTime(startDate.getText().toString(), 0, day1WakeTime.getText().toString(), 0);
+//			System.out.println("Wake Alarm time: "+wakeTime1.getTime().toString());
+			createAlarm(wakeTime1, 11,"wake");
+
+			Calendar wakeTime2 = getAlarmTime(startDate.getText().toString(), 0, day1WakeTime.getText().toString(), 1);
+			createAlarm(wakeTime2, 12,"wake");
+			Calendar wakeTime3 = getAlarmTime(startDate.getText().toString(), 0, day1WakeTime.getText().toString(), 2);
+			createAlarm(wakeTime3, 13,"wake");
+			Calendar wakeTime4 = getAlarmTime(startDate.getText().toString(), 0, day1WakeTime.getText().toString(), 3);
+			createAlarm(wakeTime4, 14,"wake");
+			Calendar wakeTime5 = getAlarmTime(startDate.getText().toString(), 0, day1WakeTime.getText().toString(), 4);
+			createAlarm(wakeTime5, 15,"wake");
+			Calendar wakeTime6 = getAlarmTime(startDate.getText().toString(), 0, day1WakeTime.getText().toString(), 5);
+			createAlarm(wakeTime6, 16,"wake");
+			Calendar wakeTime7 = getAlarmTime(startDate.getText().toString(), 0, day1WakeTime.getText().toString(), 6);
+			createAlarm(wakeTime7, 17,"wake");
 			
 		savePrefs("Participant",participantVar.getText().toString());
 		savePrefs("Type",spinner.getSelectedItem().toString());
@@ -473,7 +525,12 @@ public class Settings extends Activity implements OnClickListener{
 			cal.set(Calendar.MINUTE,alarmTime.getMinutes());
 			cal.set(Calendar.AM_PM,ampm);
 			cal.set(Calendar.SECOND, 0);
-			cal.add(Calendar.MINUTE, 1);
+			if(mSettingTime.contains("Sleep")){
+				cal.add(Calendar.MINUTE, -15);
+			}
+			if(mSettingTime.contains("Wake")){
+				cal.add(Calendar.DAY_OF_MONTH, 1);
+			}
 			if(day > 0){
 				cal.add(Calendar.DAY_OF_MONTH,day);
 			}
@@ -482,9 +539,14 @@ public class Settings extends Activity implements OnClickListener{
 
 	}
 	
-	public void createAlarm(Calendar cal, int id){
+	public void createAlarm(Calendar cal, int id, String sleepOrWake){
         //Create a new PendingIntent and add it to the AlarmManager
-        Intent intent = new Intent(Settings.this, SurveyAlarmReceiverActivity.class);
+		Intent intent;
+		if(sleepOrWake.equals("sleep")){
+			intent = new Intent(Settings.this, SurveyAlarmReceiverActivity.class);
+		} else {
+	        intent = new Intent(Settings.this, WakeAlarmReceiverActivity.class);
+		}
         intent.putExtra("intentID", id);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
             id, intent, PendingIntent.FLAG_CANCEL_CURRENT);

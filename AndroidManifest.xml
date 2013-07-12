@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.uci.asleepawake"
-    android:versionCode="2"
-    android:versionName="1.1" >
+    android:versionCode="3"
+    android:versionName="1.2" >
 
     <uses-sdk android:targetSdkVersion="8" />
 
@@ -66,6 +66,11 @@
         <activity
             android:name="edu.uci.asleepawake.SleepAlarmReceiverActivity"
             android:label="@string/title_activity_sleep_alarm_receiver"
+            android:theme="@style/Theme.Transparent" >
+        </activity>
+        <activity
+            android:name="edu.uci.asleepawake.WakeAlarmReceiverActivity"
+            android:label="@string/title_activity_wake_alarm_receiver"
             android:theme="@style/Theme.Transparent" >
         </activity>
     </application>
