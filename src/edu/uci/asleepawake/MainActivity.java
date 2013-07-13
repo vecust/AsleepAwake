@@ -78,6 +78,27 @@ public class MainActivity extends Activity {
 		//Instantiate dates arrayList
         dates = new ArrayList<MyEntry<String,String>>();
 		
+        String participant = sp.getString("Participant", "");
+		
+		//If participant number is blank, it is assumed that
+        //the rest of the settings are not set yet.
+        //An alert is issued.
+		if (participant.equals("")) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+			builder.setMessage("Please enter settings data first")
+			       .setCancelable(false)
+			       .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			           public void onClick(DialogInterface dialog, int id) {
+			                //do things
+			        	   Intent loginIntent = new Intent(MainActivity.this,Login.class);
+			        	   MainActivity.this.startActivity(loginIntent);
+			        	   dialog.cancel();
+			           }
+			       });
+			AlertDialog alert = builder.create();
+			alert.show();
+		}
+        
         //Set all the listeners for the buttons on the screen
         manualEntryButton.setOnClickListener(new View.OnClickListener() {
 
@@ -183,6 +204,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
+				savePrefs("howDoYouFeelButtonPressed","YES");
 				Intent feelRightNowIntent = new Intent(MainActivity.this,FeelRightNow.class);
 				MainActivity.this.startActivity(feelRightNowIntent);
 

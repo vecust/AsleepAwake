@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -15,13 +16,16 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
 
 public class SurveyAlarmReceiverActivity extends Activity {
 	private MediaPlayer mMediaPlayer;
-
+	SharedPreferences sp;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,6 +34,8 @@ public class SurveyAlarmReceiverActivity extends Activity {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_survey_alarm_receiver);
 
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+		
 		final int intentID = getIntent().getIntExtra("intentID", 0);
 	    System.out.println("Sleep Intent ID: "+intentID);
 		
@@ -47,6 +53,8 @@ public class SurveyAlarmReceiverActivity extends Activity {
 									int which) {
 								// TODO Auto-generated method stub
 								mMediaPlayer.stop();
+								
+								savePrefs("howDoYouFeelButtonPressed", "NO");
 								
 						        Intent intent = new Intent(SurveyAlarmReceiverActivity.this, SurveyAlarmReceiverActivity.class);
 //						        intent.putExtra("intentID", 12345);
@@ -129,6 +137,13 @@ public class SurveyAlarmReceiverActivity extends Activity {
 		}
 		return alert;
 	}
+	
+	//This method saves the preferences
+    private void savePrefs(String key, String value) {
+        Editor edit = sp.edit();
+        edit.putString(key, value);
+        edit.commit();
+    }
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

@@ -36,7 +36,7 @@
     <ScrollView
         android:id="@+id/survey"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:layout_above="@id/footer"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"

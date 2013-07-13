@@ -64,6 +64,9 @@ public class Settings extends Activity implements OnClickListener{
     static final int SLEEP_TIME_DIALOG_ID = 2;
     static final int WAKE_TIME_DIALOG_ID = 3;
     Button submit;
+//    TimePickerDialog.OnTimeSetListener mSleepTimeSetListener;
+//    TimePickerDialog.OnTimeSetListener mWakeTimeSetListener;
+    
 //    public ArrayList<MyEntry<Date, Date>> dates = new ArrayList<MyEntry<Date,Date>>();
 
     
@@ -82,8 +85,8 @@ public class Settings extends Activity implements OnClickListener{
         switch (id) {
         case DATE_DIALOG_ID:
             return new DatePickerDialog(this,  mDateSetListener,  cyear, cmonth, cday);
-        case TIME_DIALOG_ID:
-        	return new TimePickerDialog(this, mTimeSetListener, chour, cminute, false);
+//        case TIME_DIALOG_ID:
+//        	return new TimePickerDialog(this, mTimeSetListener, chour, cminute, false);
         case SLEEP_TIME_DIALOG_ID:
         	return new TimePickerDialog(this, mSleepTimeSetListener, 22, 0, false);
         case WAKE_TIME_DIALOG_ID:
@@ -105,19 +108,20 @@ public class Settings extends Activity implements OnClickListener{
         }
     };
 
-    private TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
-        // onTimeSet method
-        public void onTimeSet(TimePicker view, int hour, int minute) {
-        	
-        	DateFormat timeFormat = DateFormat.getTimeInstance(3);
-        	c.set(Calendar.HOUR_OF_DAY,hour);
-        	c.set(Calendar.MINUTE,minute);
-        	time.setText(timeFormat.format(c.getTime()));
-//        	tempTime = c.getTime();
-        }
-    };
+//    private TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+//        // onTimeSet method
+//        public void onTimeSet(TimePicker view, int hour, int minute) {
+//        	
+//        	DateFormat timeFormat = DateFormat.getTimeInstance(3);
+//        	c.set(Calendar.HOUR_OF_DAY,hour);
+//        	c.set(Calendar.MINUTE,minute);
+//        	time.setText(timeFormat.format(c.getTime()));
+////        	tempTime = c.getTime();
+//        }
+//    },
 
     private TimePickerDialog.OnTimeSetListener mSleepTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+//    mSleepTimeSetListener = new OnTimeSetListener() {
         // onTimeSet method
         public void onTimeSet(TimePicker view, int hour, int minute) {
         	        	
@@ -160,6 +164,7 @@ public class Settings extends Activity implements OnClickListener{
         }
     };
     private TimePickerDialog.OnTimeSetListener mWakeTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+//    mWakeTimeSetListener = new OnTimeSetListener() {
         // onTimeSet method
         public void onTimeSet(TimePicker view, int hour, int minute) {
         	
@@ -300,8 +305,8 @@ public class Settings extends Activity implements OnClickListener{
     				 
     			 } else
     			 if(v == timeField){
-    				 time = timeField;    				 
-    				 showDialog(TIME_DIALOG_ID);
+//    				 time = timeField;    				 
+//    				 showDialog(TIME_DIALOG_ID);
     			 }
     			 return false;
     		 }
@@ -445,37 +450,37 @@ public class Settings extends Activity implements OnClickListener{
 		//that were input by the user
 		} else {
 			Calendar sleepTime1 = getAlarmTime(startDate.getText().toString(), 1, day1SleepTime.getText().toString(), 0);
-//			System.out.println("Sleep Alarm time: "+sleepTest.getTime().toString());
+//			System.out.println("Sleep Alarm time: "+sleepTime1.getTime().toString());
 			createAlarm(sleepTime1, 01,"sleep");
 
-			Calendar sleepTime2 = getAlarmTime(startDate.getText().toString(), 1, day1SleepTime.getText().toString(), 1);
+			Calendar sleepTime2 = getAlarmTime(startDate.getText().toString(), 1, day2SleepTime.getText().toString(), 1);
 			createAlarm(sleepTime2, 02,"sleep");
-			Calendar sleepTime3 = getAlarmTime(startDate.getText().toString(), 1, day1SleepTime.getText().toString(), 2);
+			Calendar sleepTime3 = getAlarmTime(startDate.getText().toString(), 1, day3SleepTime.getText().toString(), 2);
 			createAlarm(sleepTime3, 03,"sleep");
-			Calendar sleepTime4 = getAlarmTime(startDate.getText().toString(), 1, day1SleepTime.getText().toString(), 3);
+			Calendar sleepTime4 = getAlarmTime(startDate.getText().toString(), 1, day4SleepTime.getText().toString(), 3);
 			createAlarm(sleepTime4, 04,"sleep");
-			Calendar sleepTime5 = getAlarmTime(startDate.getText().toString(), 1, day1SleepTime.getText().toString(), 4);
+			Calendar sleepTime5 = getAlarmTime(startDate.getText().toString(), 1, day5SleepTime.getText().toString(), 4);
 			createAlarm(sleepTime5, 05,"sleep");
-			Calendar sleepTime6 = getAlarmTime(startDate.getText().toString(), 1, day1SleepTime.getText().toString(), 5);
+			Calendar sleepTime6 = getAlarmTime(startDate.getText().toString(), 1, day6SleepTime.getText().toString(), 5);
 			createAlarm(sleepTime6, 06,"sleep");
-			Calendar sleepTime7 = getAlarmTime(startDate.getText().toString(), 1, day1SleepTime.getText().toString(), 6);
+			Calendar sleepTime7 = getAlarmTime(startDate.getText().toString(), 1, day7SleepTime.getText().toString(), 6);
 			createAlarm(sleepTime7, 07,"sleep");
 			
 			Calendar wakeTime1 = getAlarmTime(startDate.getText().toString(), 0, day1WakeTime.getText().toString(), 0);
 //			System.out.println("Wake Alarm time: "+wakeTime1.getTime().toString());
 			createAlarm(wakeTime1, 11,"wake");
 
-			Calendar wakeTime2 = getAlarmTime(startDate.getText().toString(), 0, day1WakeTime.getText().toString(), 1);
+			Calendar wakeTime2 = getAlarmTime(startDate.getText().toString(), 0, day2WakeTime.getText().toString(), 1);
 			createAlarm(wakeTime2, 12,"wake");
-			Calendar wakeTime3 = getAlarmTime(startDate.getText().toString(), 0, day1WakeTime.getText().toString(), 2);
+			Calendar wakeTime3 = getAlarmTime(startDate.getText().toString(), 0, day3WakeTime.getText().toString(), 2);
 			createAlarm(wakeTime3, 13,"wake");
-			Calendar wakeTime4 = getAlarmTime(startDate.getText().toString(), 0, day1WakeTime.getText().toString(), 3);
+			Calendar wakeTime4 = getAlarmTime(startDate.getText().toString(), 0, day4WakeTime.getText().toString(), 3);
 			createAlarm(wakeTime4, 14,"wake");
-			Calendar wakeTime5 = getAlarmTime(startDate.getText().toString(), 0, day1WakeTime.getText().toString(), 4);
+			Calendar wakeTime5 = getAlarmTime(startDate.getText().toString(), 0, day5WakeTime.getText().toString(), 4);
 			createAlarm(wakeTime5, 15,"wake");
-			Calendar wakeTime6 = getAlarmTime(startDate.getText().toString(), 0, day1WakeTime.getText().toString(), 5);
+			Calendar wakeTime6 = getAlarmTime(startDate.getText().toString(), 0, day6WakeTime.getText().toString(), 5);
 			createAlarm(wakeTime6, 16,"wake");
-			Calendar wakeTime7 = getAlarmTime(startDate.getText().toString(), 0, day1WakeTime.getText().toString(), 6);
+			Calendar wakeTime7 = getAlarmTime(startDate.getText().toString(), 0, day7WakeTime.getText().toString(), 6);
 			createAlarm(wakeTime7, 17,"wake");
 			
 		savePrefs("Participant",participantVar.getText().toString());
@@ -500,7 +505,7 @@ public class Settings extends Activity implements OnClickListener{
 		}
 	}
 	
-	public Calendar getAlarmTime(String mFirstDay, int ampm, String mSettingTime, int day){
+	public Calendar getAlarmTime(String mFirstDay, int sleepWake, String mSettingTime, int day){
 		Date alarmTime = null;
 		Date alarmDate = null;
 		Calendar cal = Calendar.getInstance();
@@ -523,18 +528,24 @@ public class Settings extends Activity implements OnClickListener{
 			cal.set(Calendar.YEAR,2013);
 			cal.set(Calendar.HOUR,alarmTime.getHours());
 			cal.set(Calendar.MINUTE,alarmTime.getMinutes());
-			cal.set(Calendar.AM_PM,ampm);
 			cal.set(Calendar.SECOND, 0);
-			if(mSettingTime.contains("Sleep")){
+			if(sleepWake == 1){
 				cal.add(Calendar.MINUTE, -15);
 			}
-			if(mSettingTime.contains("Wake")){
+			else if(sleepWake == 0){
 				cal.add(Calendar.DAY_OF_MONTH, 1);
 			}
 			if(day > 0){
 				cal.add(Calendar.DAY_OF_MONTH,day);
 			}
-			
+			if(mSettingTime.contains("PM")){
+				cal.set(Calendar.AM_PM,1);
+			}
+			else if(mSettingTime.contains("AM")){
+				cal.set(Calendar.AM_PM,0);				
+			}
+			System.out.println("Alarm time: "+cal.getTime().toString());
+
 			return cal;
 
 	}
