@@ -64,6 +64,8 @@ public class Settings extends Activity implements OnClickListener{
     static final int SLEEP_TIME_DIALOG_ID = 2;
     static final int WAKE_TIME_DIALOG_ID = 3;
     Button submit;
+	Date alarmDate = null;
+
 //    TimePickerDialog.OnTimeSetListener mSleepTimeSetListener;
 //    TimePickerDialog.OnTimeSetListener mWakeTimeSetListener;
     
@@ -507,7 +509,6 @@ public class Settings extends Activity implements OnClickListener{
 	
 	public Calendar getAlarmTime(String mFirstDay, int sleepWake, String mSettingTime, int day){
 		Date alarmTime = null;
-		Date alarmDate = null;
 		Calendar cal = Calendar.getInstance();
         DateFormat timeFormat = DateFormat.getTimeInstance(3);
         DateFormat dateFormat = DateFormat.getDateInstance(3);
@@ -515,7 +516,7 @@ public class Settings extends Activity implements OnClickListener{
         String firstDay = mFirstDay;
         System.out.println("firstDay: "+firstDay);
         System.out.println("settingTime: "+settingTime);
-        
+
 			try {
 				alarmTime = timeFormat.parse(settingTime);
 				alarmDate = dateFormat.parse(firstDay);
@@ -523,6 +524,7 @@ public class Settings extends Activity implements OnClickListener{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 			cal.set(Calendar.MONTH,alarmDate.getMonth());
 			cal.set(Calendar.DAY_OF_MONTH,alarmDate.getDate());
 			cal.set(Calendar.YEAR,2013);
@@ -531,6 +533,7 @@ public class Settings extends Activity implements OnClickListener{
 			cal.set(Calendar.SECOND, 0);
 			if(sleepWake == 1){
 				cal.add(Calendar.MINUTE, -15);
+				cal.add(Calendar.DAY_OF_MONTH, -1);
 			}
 			else if(sleepWake == 0){
 				cal.add(Calendar.DAY_OF_MONTH, 1);
@@ -542,7 +545,7 @@ public class Settings extends Activity implements OnClickListener{
 				cal.set(Calendar.AM_PM,1);
 			}
 			else if(mSettingTime.contains("AM")){
-				cal.set(Calendar.AM_PM,0);				
+				cal.set(Calendar.AM_PM,0);
 			}
 			System.out.println("Alarm time: "+cal.getTime().toString());
 
@@ -553,6 +556,12 @@ public class Settings extends Activity implements OnClickListener{
 	public void createAlarm(Calendar cal, int id, String sleepOrWake){
         //Create a new PendingIntent and add it to the AlarmManager
 		Intent intent;
+		Calendar today = Calendar.getInstance();
+		
+		if((sleepOrWake.equals("sleep") && cal.get(Calendar.DAY_OF_MONTH) < today.get(Calendar.DAY_OF_MONTH))
+				|| (sleepOrWake.equals("wake") && (cal.before(today) || cal.get(Calendar.DAY_OF_MONTH) == today.get(Calendar.DAY_OF_MONTH)))){
+			System.out.println("Can't set alarm for "+cal.getTime().toString()+" because it is before today");
+		}else{
 		if(sleepOrWake.equals("sleep")){
 			intent = new Intent(Settings.this, SurveyAlarmReceiverActivity.class);
 		} else {
@@ -563,8 +572,22 @@ public class Settings extends Activity implements OnClickListener{
             id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager am = (AlarmManager)this.getSystemService(ALARM_SERVICE);
 	        am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
-	                pendingIntent);		
+	                pendingIntent);	
+		}
 	}
+	
+//	public boolean isValidAlarm(Calendar cal, Date start, String sleepOrWake){
+//		Calendar secondDay;
+//		Calendar startCal = Calendar.getInstance();
+//		startCal.setTime(start);
+//
+//		if((sleepOrWake.equals("sleep") && (cal.after(startCal) || cal.get(Calendar.DAY_OF_MONTH) == startCal.get(Calendar.DAY_OF_MONTH))) ||
+//				(sleepOrWake.equals("wake") && )	){
+//		return true;
+//		} else {
+//			return false;
+//		}
+//	}
 
 
 }

@@ -55,6 +55,7 @@ public class SurveyAlarmReceiverActivity extends Activity {
 								mMediaPlayer.stop();
 								
 								savePrefs("howDoYouFeelButtonPressed", "NO");
+								savePrefs("ManualSurveys", "Scheduled");
 								
 						        Intent intent = new Intent(SurveyAlarmReceiverActivity.this, SurveyAlarmReceiverActivity.class);
 //						        intent.putExtra("intentID", 12345);

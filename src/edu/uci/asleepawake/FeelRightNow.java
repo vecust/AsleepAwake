@@ -23,11 +23,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Color;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.SeekBar;
+import android.widget.TableRow;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
@@ -44,7 +46,7 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener,
 			afterLunchSeekBar, carTrafficSeekBar;
 	Button submit;
 	SharedPreferences sp;
-	String howDoYouFeelButtonPressed;
+	String entryType;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -108,9 +110,9 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener,
 		submit.setOnClickListener(this);
 
 		sp = PreferenceManager.getDefaultSharedPreferences(this);
-		howDoYouFeelButtonPressed = sp.getString("howDoYouFeelButtonPressed",
+		entryType = sp.getString("ManualSurveys",
 				"");
-		System.out.println("howDoYouFeelButtonPressed: "+howDoYouFeelButtonPressed);
+		System.out.println("Entry Type: "+entryType);
 	}
 
 	@Override
@@ -191,10 +193,122 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener,
 
 		) {
 
+			TableRow sittingReadingRow = (TableRow) findViewById(R.id.SittingReadingRow);
+			TableRow sittingReadingSlider = (TableRow) findViewById(R.id.SittingReadingSlider);
+			TableRow sittingReadingLabels = (TableRow) findViewById(R.id.SittingReadingLabels);
+
+			if (sittingReadingTextView.getText().equals("Slide left or right")){
+				sittingReadingRow.setBackgroundColor(Color.YELLOW);				
+				sittingReadingSlider.setBackgroundColor(Color.YELLOW);				
+				sittingReadingLabels.setBackgroundColor(Color.YELLOW);				
+			} else {
+				sittingReadingRow.setBackgroundColor(Color.WHITE);								
+				sittingReadingSlider.setBackgroundColor(Color.WHITE);				
+				sittingReadingLabels.setBackgroundColor(Color.WHITE);				
+			}
+			
+			TableRow watchingTVRow = (TableRow) findViewById(R.id.WatchingTVRow);
+			TableRow watchingTVSlider = (TableRow) findViewById(R.id.WatchingTVSlider);
+			TableRow watchingTVLabels = (TableRow) findViewById(R.id.WatchingTVLabels);
+
+			if (watchingTVTextView.getText().equals("Slide left or right")){
+				watchingTVRow.setBackgroundColor(Color.YELLOW);				
+				watchingTVSlider.setBackgroundColor(Color.YELLOW);				
+				watchingTVLabels.setBackgroundColor(Color.YELLOW);				
+			} else {
+				watchingTVRow.setBackgroundColor(Color.WHITE);								
+				watchingTVSlider.setBackgroundColor(Color.WHITE);				
+				watchingTVLabels.setBackgroundColor(Color.WHITE);				
+			}
+
+			TableRow publicPlaceRow = (TableRow) findViewById(R.id.PublicPlaceRow);
+			TableRow publicPlaceSlider = (TableRow) findViewById(R.id.PublicPlaceSlider);
+			TableRow publicPlaceLabels = (TableRow) findViewById(R.id.PublicPlaceLabels);
+
+			if (publicPlaceTextView.getText().equals("Slide left or right")){
+				publicPlaceRow.setBackgroundColor(Color.YELLOW);				
+				publicPlaceSlider.setBackgroundColor(Color.YELLOW);				
+				publicPlaceLabels.setBackgroundColor(Color.YELLOW);				
+			} else {
+				publicPlaceRow.setBackgroundColor(Color.WHITE);								
+				publicPlaceSlider.setBackgroundColor(Color.WHITE);				
+				publicPlaceLabels.setBackgroundColor(Color.WHITE);				
+			}
+
+			TableRow passengerRow = (TableRow) findViewById(R.id.PassengerRow);
+			TableRow passengerSlider = (TableRow) findViewById(R.id.PassengerSlider);
+			TableRow passengerLabels = (TableRow) findViewById(R.id.PassengerLabels);
+
+			if (passengerTextView.getText().equals("Slide left or right")){
+				passengerRow.setBackgroundColor(Color.YELLOW);				
+				passengerSlider.setBackgroundColor(Color.YELLOW);				
+				passengerLabels.setBackgroundColor(Color.YELLOW);				
+			} else {
+				passengerRow.setBackgroundColor(Color.WHITE);								
+				passengerSlider.setBackgroundColor(Color.WHITE);				
+				passengerLabels.setBackgroundColor(Color.WHITE);				
+			}
+
+			TableRow afternoonRestRow = (TableRow) findViewById(R.id.AfternoonRestRow);
+			TableRow afternoonRestSlider = (TableRow) findViewById(R.id.AfternoonRestSlider);
+			TableRow afternoonRestLabels = (TableRow) findViewById(R.id.AfternoonRestLabels);
+
+			if (afternoonRestTextView.getText().equals("Slide left or right")){
+				afternoonRestRow.setBackgroundColor(Color.YELLOW);				
+				afternoonRestSlider.setBackgroundColor(Color.YELLOW);				
+				afternoonRestLabels.setBackgroundColor(Color.YELLOW);				
+			} else {
+				afternoonRestRow.setBackgroundColor(Color.WHITE);								
+				afternoonRestSlider.setBackgroundColor(Color.WHITE);				
+				afternoonRestLabels.setBackgroundColor(Color.WHITE);				
+			}
+
+			TableRow sittingTalkingRow = (TableRow) findViewById(R.id.SittingTalkingRow);
+			TableRow sittingTalkingSlider = (TableRow) findViewById(R.id.SittingTalkingSlider);
+			TableRow sittingTalkingLabels = (TableRow) findViewById(R.id.SittingTalkingLabels);
+
+			if (sittingTalkingTextView.getText().equals("Slide left or right")){
+				sittingTalkingRow.setBackgroundColor(Color.YELLOW);				
+				sittingTalkingSlider.setBackgroundColor(Color.YELLOW);				
+				sittingTalkingLabels.setBackgroundColor(Color.YELLOW);				
+			} else {
+				sittingTalkingRow.setBackgroundColor(Color.WHITE);								
+				sittingTalkingSlider.setBackgroundColor(Color.WHITE);				
+				sittingTalkingLabels.setBackgroundColor(Color.WHITE);				
+			}
+
+			TableRow afterLunchRow = (TableRow) findViewById(R.id.AfterLunchRow);
+			TableRow afterLunchSlider = (TableRow) findViewById(R.id.AfterLunchSlider);
+			TableRow afterLunchLabels = (TableRow) findViewById(R.id.AfterLunchLabels);
+
+			if (afterLunchTextView.getText().equals("Slide left or right")){
+				afterLunchRow.setBackgroundColor(Color.YELLOW);				
+				afterLunchSlider.setBackgroundColor(Color.YELLOW);				
+				afterLunchLabels.setBackgroundColor(Color.YELLOW);				
+			} else {
+				afterLunchRow.setBackgroundColor(Color.WHITE);								
+				afterLunchSlider.setBackgroundColor(Color.WHITE);				
+				afterLunchLabels.setBackgroundColor(Color.WHITE);				
+			}
+
+			TableRow carTrafficRow = (TableRow) findViewById(R.id.CarTrafficRow);
+			TableRow carTrafficSlider = (TableRow) findViewById(R.id.CarTrafficSlider);
+			TableRow carTrafficLabels = (TableRow) findViewById(R.id.CarTrafficLabels);
+
+			if (carTrafficTextView.getText().equals("Slide left or right")){
+				carTrafficRow.setBackgroundColor(Color.YELLOW);				
+				carTrafficSlider.setBackgroundColor(Color.YELLOW);				
+				carTrafficLabels.setBackgroundColor(Color.YELLOW);				
+			} else {
+				carTrafficRow.setBackgroundColor(Color.WHITE);								
+				carTrafficSlider.setBackgroundColor(Color.WHITE);				
+				carTrafficLabels.setBackgroundColor(Color.WHITE);				
+			}
+			
 			AlertDialog.Builder builder = new AlertDialog.Builder(
 					FeelRightNow.this);
-			builder.setMessage(
-					"Please answer all the questions before submitting")
+			builder.setTitle("Please answer all questions before submitting")
+			   		.setMessage("Unanswered questions are highlighted")
 					.setCancelable(false)
 					.setPositiveButton("Ok",
 							new DialogInterface.OnClickListener() {
@@ -222,6 +336,7 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener,
 			SharedPreferences sp = PreferenceManager
 					.getDefaultSharedPreferences(this);
 			String participant = sp.getString("Participant", "");
+	        String entryType = sp.getString("ManualSurveys", "");
 
 			String data = "entry_1794600332="
 					+ URLEncoder.encode(participant)
@@ -255,7 +370,11 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener,
 					+ "&"
 					+ "entry_500458483="
 					+ URLEncoder
-							.encode(carTrafficTextView.getText().toString());
+							.encode(carTrafficTextView.getText().toString())
+					+ "&"
+					+ "entry_12534346="
+					+ URLEncoder
+							.encode(entryType);
 			String response = mReq.sendPost(fullUrl, data);
 			System.out.println("postData response: " + response);
 
@@ -267,7 +386,7 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener,
 			// backToMain.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			// FeelRightNow.this.startActivity(backToMain);
 			
-			if (!howDoYouFeelButtonPressed.equals("YES")) {
+			if (entryType.equals("Scheduled")) {
 				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 						FeelRightNow.this);
 				alertDialogBuilder
@@ -351,6 +470,12 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener,
 												cal.getTimeInMillis(),
 												pendingIntent);
 
+										 Intent backToMainIntent = new
+												 Intent(FeelRightNow.this,
+												 MainActivity.class);
+												 backToMainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+												 FeelRightNow.this.startActivity(backToMainIntent);
+										
 										finish();
 									}
 								});

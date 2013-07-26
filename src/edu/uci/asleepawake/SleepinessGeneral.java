@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -19,6 +20,7 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TableRow;
 
 public class SleepinessGeneral extends Activity implements OnClickListener{
 
@@ -95,9 +97,76 @@ public class SleepinessGeneral extends Activity implements OnClickListener{
 				|| alertAllDayGen.getSelectedItem().toString().equals("")
 				|| busCarTrainGen.getSelectedItem().toString().equals("")
 				|| realizedGen.getSelectedItem().toString().equals(""))		{
-	       	
+
+			TableRow morningGenRow = (TableRow) findViewById(R.id.MorningGenRow);
+			TableRow laterDayGenRow = (TableRow) findViewById(R.id.LaterDayGenRow);
+			TableRow carGenRow = (TableRow) findViewById(R.id.CarGenRow);
+			TableRow awakeWholeDayGenRow = (TableRow) findViewById(R.id.AwakeWholeDayGenRow);
+			TableRow alertAllDayGenRow = (TableRow) findViewById(R.id.AlertAllDayGenRow);
+			TableRow busCarTrainGenRow = (TableRow) findViewById(R.id.BusCarTrainGenRow);
+			TableRow realizedGenRow = (TableRow) findViewById(R.id.RealizedGenRow);
+			TableRow wholeDayGenRow = (TableRow) findViewById(R.id.WholeDayGenRow);
+			
+			if(morningGen.getSelectedItem().toString().equals("")){
+				
+				morningGenRow.setBackgroundColor(Color.YELLOW);
+			} else {
+				morningGenRow.setBackgroundColor(Color.WHITE);
+				
+			}
+			if(laterDayGen.getSelectedItem().toString().equals("")){
+				
+				laterDayGenRow.setBackgroundColor(Color.YELLOW);
+			} else {
+				laterDayGenRow.setBackgroundColor(Color.WHITE);
+				
+			}
+			if(carGen.getSelectedItem().toString().equals("")){
+				
+				carGenRow.setBackgroundColor(Color.YELLOW);
+			} else {
+				carGenRow.setBackgroundColor(Color.WHITE);
+				
+			}
+			if(awakeWholeDayGen.getSelectedItem().toString().equals("")){
+				
+				awakeWholeDayGenRow.setBackgroundColor(Color.YELLOW);
+			} else {
+				awakeWholeDayGenRow.setBackgroundColor(Color.WHITE);
+				
+			}
+			if(alertAllDayGen.getSelectedItem().toString().equals("")){
+				
+				alertAllDayGenRow.setBackgroundColor(Color.YELLOW);
+			} else {
+				alertAllDayGenRow.setBackgroundColor(Color.WHITE);
+				
+			}
+			if(busCarTrainGen.getSelectedItem().toString().equals("")){
+				
+				busCarTrainGenRow.setBackgroundColor(Color.YELLOW);
+			} else {
+				busCarTrainGenRow.setBackgroundColor(Color.WHITE);
+				
+			}
+			if(realizedGen.getSelectedItem().toString().equals("")){
+				
+				realizedGenRow.setBackgroundColor(Color.YELLOW);
+			} else {
+				realizedGenRow.setBackgroundColor(Color.WHITE);
+				
+			}
+			if(wholeDayGen.getSelectedItem().toString().equals("")){
+				
+				wholeDayGenRow.setBackgroundColor(Color.YELLOW);
+			} else {
+				wholeDayGenRow.setBackgroundColor(Color.WHITE);
+				
+			}
+			
 			AlertDialog.Builder builder = new AlertDialog.Builder(SleepinessGeneral.this);
-				builder.setMessage("Please answer all the questions before submitting")
+				builder.setTitle("Please answer all questions before submitting")
+					   .setMessage("Unanswered questions are highlighted")
 				       .setCancelable(false)
 				       .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 				           public void onClick(DialogInterface dialog, int id) {
@@ -121,6 +190,7 @@ public class SleepinessGeneral extends Activity implements OnClickListener{
 
 	        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 	        String participant = sp.getString("Participant", "");
+	        String entryType = sp.getString("ManualSurveys", "");
 			
 			String data = "entry_1794600332=" + URLEncoder.encode(participant) + "&"
 					+ "entry_2039569836=" + URLEncoder.encode(morningGen.getSelectedItem().toString()) + "&"
@@ -130,7 +200,8 @@ public class SleepinessGeneral extends Activity implements OnClickListener{
 					+ "entry_1480764914=" + URLEncoder.encode(awakeWholeDayGen.getSelectedItem().toString()) + "&"
 					+ "entry_581428323=" + URLEncoder.encode(alertAllDayGen.getSelectedItem().toString()) + "&"
 					+ "entry_502584888=" + URLEncoder.encode(busCarTrainGen.getSelectedItem().toString()) + "&"
-					+ "entry_1297174710=" + URLEncoder.encode(realizedGen.getSelectedItem().toString()) ;
+					+ "entry_1297174710=" + URLEncoder.encode(realizedGen.getSelectedItem().toString()) + "&"
+					+ "entry_12534346=" + URLEncoder.encode(entryType);
 			String response = mReq.sendPost(fullUrl, data);
 			System.out.println("postData response: " + response);
      	   savePrefs("sleepinessSurveyIgnored","NO");

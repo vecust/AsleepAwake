@@ -58,7 +58,7 @@
                     android:layout_weight="1" >
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/MorningGenText"
                         android:layout_width="390dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.20"
@@ -87,7 +87,7 @@
                     android:layout_weight="1" >
 
                     <TextView
-                        android:id="@+id/TextView01"
+                        android:id="@+id/LaterDayGenText"
                         android:layout_width="390dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.20"
@@ -115,7 +115,7 @@
                     android:layout_weight="1" >
 
                     <TextView
-                        android:id="@+id/TextView01"
+                        android:id="@+id/LaterDayGenText"
                         android:layout_width="390dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.20"
@@ -142,7 +142,7 @@
                     android:layout_weight="1" >
 
                     <TextView
-                        android:id="@+id/TextView01"
+                        android:id="@+id/LaterDayGenText"
                         android:layout_width="390dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.20"

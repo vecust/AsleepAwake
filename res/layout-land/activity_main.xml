@@ -33,7 +33,7 @@
         android:text="Going to Bed" />
 
     <Button
-        android:id="@+id/HowDoYouFeelButton"
+        android:id="@+id/TakeSurveys"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/HowDoYouFeelButton"
+        android:layout_toLeftOf="@+id/TakeSurveys"
         android:text="Sleepiness Survey" />
 
     <Button

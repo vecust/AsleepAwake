@@ -13,12 +13,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Color;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 public class Relationship extends Activity implements OnSeekBarChangeListener, OnClickListener{
@@ -189,8 +191,190 @@ public class Relationship extends Activity implements OnSeekBarChangeListener, O
 				|| cheerUpTextView.getText().equals("Slide left or right")	
 				) {
 			
+			if(funTimeTextView.getText().equals("Slide left or right")){
+				TableRow funTimeRow = (TableRow) findViewById(R.id.FunTimeRow);
+				TableRow funTimeSlider = (TableRow) findViewById(R.id.FunTimeSlider);
+				TableRow funTimeLabels = (TableRow) findViewById(R.id.FunTimeLabels);
+				
+				funTimeRow.setBackgroundColor(Color.YELLOW);
+				funTimeSlider.setBackgroundColor(Color.YELLOW);
+				funTimeLabels.setBackgroundColor(Color.YELLOW);
+			} else {
+				TableRow funTimeRow = (TableRow) findViewById(R.id.FunTimeRow);
+				TableRow funTimeSlider = (TableRow) findViewById(R.id.FunTimeSlider);
+				TableRow funTimeLabels = (TableRow) findViewById(R.id.FunTimeLabels);
+				
+				funTimeRow.setBackgroundColor(Color.WHITE);
+				funTimeSlider.setBackgroundColor(Color.WHITE);
+				funTimeLabels.setBackgroundColor(Color.WHITE);
+				
+			}
+			if(supportTextView.getText().equals("Slide left or right")){
+				TableRow supportRow = (TableRow) findViewById(R.id.SupportRow);
+				TableRow supportSlider = (TableRow) findViewById(R.id.SupportSlider);
+				TableRow supportLabels = (TableRow) findViewById(R.id.SupportLabels);
+				
+				supportRow.setBackgroundColor(Color.YELLOW);
+				supportSlider.setBackgroundColor(Color.YELLOW);
+				supportLabels.setBackgroundColor(Color.YELLOW);
+			} else {
+				TableRow supportRow = (TableRow) findViewById(R.id.SupportRow);
+				TableRow supportSlider = (TableRow) findViewById(R.id.SupportSlider);
+				TableRow supportLabels = (TableRow) findViewById(R.id.SupportLabels);
+				
+				supportRow.setBackgroundColor(Color.WHITE);
+				supportSlider.setBackgroundColor(Color.WHITE);
+				supportLabels.setBackgroundColor(Color.WHITE);
+				
+			}
+			if(faultsTextView.getText().equals("Slide left or right")){
+				TableRow faultsRow = (TableRow) findViewById(R.id.FaultsRow);
+				TableRow faultsSlider = (TableRow) findViewById(R.id.FaultsSlider);
+				TableRow faultsLabels = (TableRow) findViewById(R.id.FaultsLabels);
+				
+				faultsRow.setBackgroundColor(Color.YELLOW);
+				faultsSlider.setBackgroundColor(Color.YELLOW);
+				faultsLabels.setBackgroundColor(Color.YELLOW);
+			} else {
+				TableRow faultsRow = (TableRow) findViewById(R.id.FaultsRow);
+				TableRow faultsSlider = (TableRow) findViewById(R.id.FaultsSlider);
+				TableRow faultsLabels = (TableRow) findViewById(R.id.FaultsLabels);
+				
+				faultsRow.setBackgroundColor(Color.WHITE);
+				faultsSlider.setBackgroundColor(Color.WHITE);
+				faultsLabels.setBackgroundColor(Color.WHITE);
+				
+			}
+			if(everythingTextView.getText().equals("Slide left or right")){
+				TableRow everythingRow = (TableRow) findViewById(R.id.EverythingRow);
+				TableRow everythingSlider = (TableRow) findViewById(R.id.EverythingSlider);
+				TableRow everythingLabels = (TableRow) findViewById(R.id.EverythingLabels);
+				
+				everythingRow.setBackgroundColor(Color.YELLOW);
+				everythingSlider.setBackgroundColor(Color.YELLOW);
+				everythingLabels.setBackgroundColor(Color.YELLOW);
+			} else {
+				TableRow everythingRow = (TableRow) findViewById(R.id.EverythingRow);
+				TableRow everythingSlider = (TableRow) findViewById(R.id.EverythingSlider);
+				TableRow everythingLabels = (TableRow) findViewById(R.id.EverythingLabels);
+				
+				everythingRow.setBackgroundColor(Color.WHITE);
+				everythingSlider.setBackgroundColor(Color.WHITE);
+				everythingLabels.setBackgroundColor(Color.WHITE);
+
+			}
+			if(madTextView.getText().equals("Slide left or right")){
+				TableRow madRow = (TableRow) findViewById(R.id.MadRow);
+				TableRow madSlider = (TableRow) findViewById(R.id.MadSlider);
+				TableRow madLabels = (TableRow) findViewById(R.id.MadLabels);
+				
+				madRow.setBackgroundColor(Color.YELLOW);
+				madSlider.setBackgroundColor(Color.YELLOW);
+				madLabels.setBackgroundColor(Color.YELLOW);
+			} else {
+				TableRow madRow = (TableRow) findViewById(R.id.MadRow);
+				TableRow madSlider = (TableRow) findViewById(R.id.MadSlider);
+				TableRow madLabels = (TableRow) findViewById(R.id.MadLabels);
+				
+				madRow.setBackgroundColor(Color.WHITE);
+				madSlider.setBackgroundColor(Color.WHITE);
+				madLabels.setBackgroundColor(Color.WHITE);
+
+			}
+			if(criticizeTextView.getText().equals("Slide left or right")){
+				TableRow criticizeRow = (TableRow) findViewById(R.id.CriticizeRow);
+				TableRow criticizeSlider = (TableRow) findViewById(R.id.CriticizeSlider);
+				TableRow criticizeLabels = (TableRow) findViewById(R.id.CriticizeLabels);
+				
+				criticizeRow.setBackgroundColor(Color.YELLOW);
+				criticizeSlider.setBackgroundColor(Color.YELLOW);
+				criticizeLabels.setBackgroundColor(Color.YELLOW);
+			} else {
+				TableRow criticizeRow = (TableRow) findViewById(R.id.CriticizeRow);
+				TableRow criticizeSlider = (TableRow) findViewById(R.id.CriticizeSlider);
+				TableRow criticizeLabels = (TableRow) findViewById(R.id.CriticizeLabels);
+				
+				criticizeRow.setBackgroundColor(Color.WHITE);
+				criticizeSlider.setBackgroundColor(Color.WHITE);
+				criticizeLabels.setBackgroundColor(Color.WHITE);
+
+			}
+			if(secretsTextView.getText().equals("Slide left or right")){
+				TableRow secretsRow = (TableRow) findViewById(R.id.SecretsRow);
+				TableRow secretsSlider = (TableRow) findViewById(R.id.SecretsSlider);
+				TableRow secretsLabels = (TableRow) findViewById(R.id.SecretsLabels);
+				
+				secretsRow.setBackgroundColor(Color.YELLOW);
+				secretsSlider.setBackgroundColor(Color.YELLOW);
+				secretsLabels.setBackgroundColor(Color.YELLOW);
+			} else {
+				TableRow secretsRow = (TableRow) findViewById(R.id.SecretsRow);
+				TableRow secretsSlider = (TableRow) findViewById(R.id.SecretsSlider);
+				TableRow secretsLabels = (TableRow) findViewById(R.id.SecretsLabels);
+				
+				secretsRow.setBackgroundColor(Color.WHITE);
+				secretsSlider.setBackgroundColor(Color.WHITE);
+				secretsLabels.setBackgroundColor(Color.WHITE);
+
+			}
+			if(pressureTextView.getText().equals("Slide left or right")){
+				TableRow pressureRow = (TableRow) findViewById(R.id.PressureRow);
+				TableRow pressureSlider = (TableRow) findViewById(R.id.PressureSlider);
+				TableRow pressureLabels = (TableRow) findViewById(R.id.PressureLabels);
+				
+				pressureRow.setBackgroundColor(Color.YELLOW);
+				pressureSlider.setBackgroundColor(Color.YELLOW);
+				pressureLabels.setBackgroundColor(Color.YELLOW);
+			} else {
+				TableRow pressureRow = (TableRow) findViewById(R.id.PressureRow);
+				TableRow pressureSlider = (TableRow) findViewById(R.id.PressureSlider);
+				TableRow pressureLabels = (TableRow) findViewById(R.id.PressureLabels);
+				
+				pressureRow.setBackgroundColor(Color.WHITE);
+				pressureSlider.setBackgroundColor(Color.WHITE);
+				pressureLabels.setBackgroundColor(Color.WHITE);
+
+			}
+			if(argueTextView.getText().equals("Slide left or right")){
+				TableRow argueRow = (TableRow) findViewById(R.id.ArgueRow);
+				TableRow argueSlider = (TableRow) findViewById(R.id.ArgueSlider);
+				TableRow argueLabels = (TableRow) findViewById(R.id.ArgueLabels);
+				
+				argueRow.setBackgroundColor(Color.YELLOW);
+				argueSlider.setBackgroundColor(Color.YELLOW);
+				argueLabels.setBackgroundColor(Color.YELLOW);
+			} else {
+				TableRow argueRow = (TableRow) findViewById(R.id.ArgueRow);
+				TableRow argueSlider = (TableRow) findViewById(R.id.ArgueSlider);
+				TableRow argueLabels = (TableRow) findViewById(R.id.ArgueLabels);
+				
+				argueRow.setBackgroundColor(Color.WHITE);
+				argueSlider.setBackgroundColor(Color.WHITE);
+				argueLabels.setBackgroundColor(Color.WHITE);
+
+			}
+			if(cheerUpTextView.getText().equals("Slide left or right")){
+				TableRow cheerUpRow = (TableRow) findViewById(R.id.CheerUpRow);
+				TableRow cheerUpSlider = (TableRow) findViewById(R.id.CheerUpSlider);
+				TableRow cheerUpLabels = (TableRow) findViewById(R.id.CheerUpLabels);
+				
+				cheerUpRow.setBackgroundColor(Color.YELLOW);
+				cheerUpSlider.setBackgroundColor(Color.YELLOW);
+				cheerUpLabels.setBackgroundColor(Color.YELLOW);
+			} else {
+				TableRow cheerUpRow = (TableRow) findViewById(R.id.CheerUpRow);
+				TableRow cheerUpSlider = (TableRow) findViewById(R.id.CheerUpSlider);
+				TableRow cheerUpLabels = (TableRow) findViewById(R.id.CheerUpLabels);
+				
+				cheerUpRow.setBackgroundColor(Color.WHITE);
+				cheerUpSlider.setBackgroundColor(Color.WHITE);
+				cheerUpLabels.setBackgroundColor(Color.WHITE);
+
+			}
 			AlertDialog.Builder builder = new AlertDialog.Builder(Relationship.this);
-			builder.setMessage("Please answer all the questions before submitting")
+			builder
+				   .setTitle("Please answer all questions before submitting")
+				   .setMessage("Unanswered questions are highlighted")
 			       .setCancelable(false)
 			       .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			           public void onClick(DialogInterface dialog, int id) {
@@ -214,6 +398,7 @@ public class Relationship extends Activity implements OnSeekBarChangeListener, O
 
 	        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 	        String participant = sp.getString("Participant", "");
+	        String entryType = sp.getString("ManualSurveys", "");
 	        
 			String data = "entry_1794600332=" + URLEncoder.encode(participant) + "&"
 					+ "entry_1626012679=" + URLEncoder.encode(funTimeTextView.getText().toString()) + "&"
@@ -225,7 +410,8 @@ public class Relationship extends Activity implements OnSeekBarChangeListener, O
 					+ "entry_848061379=" + URLEncoder.encode(secretsTextView.getText().toString()) + "&"
 					+ "entry_1334397556=" + URLEncoder.encode(pressureTextView.getText().toString()) + "&"
 					+ "entry_610276760=" + URLEncoder.encode(argueTextView.getText().toString()) + "&"
-					+ "entry_1783259162=" + URLEncoder.encode(cheerUpTextView.getText().toString());
+					+ "entry_1783259162=" + URLEncoder.encode(cheerUpTextView.getText().toString()) + "&"
+					+ "entry_12534346=" + URLEncoder.encode(entryType);
 			String response = mReq.sendPost(fullUrl, data);
 			System.out.println("postData response: " + response);
 			

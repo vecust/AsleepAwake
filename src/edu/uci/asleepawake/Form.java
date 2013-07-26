@@ -159,6 +159,7 @@ public class Form extends Activity implements OnClickListener {
 		//Get participant number from sharedPrefs
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         String participant = sp.getString("Participant", "");
+		String entryType = sp.getString("ManualEntry", "");
         
         //If the participant number is blank, it is assumed that
         //the rest of the settings are not set yet.
@@ -205,7 +206,8 @@ public class Form extends Activity implements OnClickListener {
 					+"entry_2034720707=" + URLEncoder.encode(date.getText().toString()) + "&"
 					+ "entry_2032879505=" + URLEncoder.encode(sleepTime.getText().toString()) + "&"
 					+ "entry_1085709803=" + URLEncoder.encode(wakeTime.getText().toString()) + "&"
-					+ "entry_2052787681=" + URLEncoder.encode(watch);
+					+ "entry_2052787681=" + URLEncoder.encode(watch) + "&"
+					+ "entry_12534346=" + URLEncoder.encode(entryType);
 			String response = mReq.sendPost(fullUrl, data);
 			System.out.println("postData response: " + response);
 			

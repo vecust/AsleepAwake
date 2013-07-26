@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -19,6 +20,7 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TableRow;
 
 public class Sleepiness extends Activity implements OnClickListener{
 
@@ -119,9 +121,106 @@ public class Sleepiness extends Activity implements OnClickListener{
 				|| awakeLastClass.getSelectedItem().toString().equals("")
 				|| busCarTrain.getSelectedItem().toString().equals("")
 				|| realized.getSelectedItem().toString().equals(""))		{
-	       	
+
+			TableRow morningClassesRow = (TableRow) findViewById(R.id.MorningClassesRow);
+			TableRow schoolDayRow = (TableRow) findViewById(R.id.SchoolDayRow);
+			TableRow lastClassRow = (TableRow) findViewById(R.id.LastClassRow);
+			TableRow carRow = (TableRow) findViewById(R.id.CarRow);
+			TableRow awakeWholeDayRow = (TableRow) findViewById(R.id.AwakeWholeDayRow);
+			TableRow afternoonClassesRow = (TableRow) findViewById(R.id.AfternoonClassesRow);
+			TableRow alertAllClassesRow = (TableRow) findViewById(R.id.AlertAllClassesRow);
+			TableRow asleepMorningRow = (TableRow) findViewById(R.id.AsleepMorningRow);			
+			TableRow awakeInClassRow = (TableRow) findViewById(R.id.AwakeInClassRow);			
+			TableRow awakeLastClassRow = (TableRow) findViewById(R.id.AwakeLastClassRow);			
+			TableRow busCarTrainRow = (TableRow) findViewById(R.id.BusCarTrainRow);			
+			TableRow realizedRow = (TableRow) findViewById(R.id.RealizedRow);			
+
+			if(morningClasses.getSelectedItem().toString().equals("")){
+				
+				morningClassesRow.setBackgroundColor(Color.YELLOW);
+			} else {
+				morningClassesRow.setBackgroundColor(Color.WHITE);			
+			}
+			
+			if(schoolDay.getSelectedItem().toString().equals("")){
+				
+				schoolDayRow.setBackgroundColor(Color.YELLOW);
+			} else {
+				schoolDayRow.setBackgroundColor(Color.WHITE);			
+			}
+			
+			if(lastClass.getSelectedItem().toString().equals("")){
+				
+				lastClassRow.setBackgroundColor(Color.YELLOW);
+			} else {
+				lastClassRow.setBackgroundColor(Color.WHITE);			
+			}
+			
+			if(car.getSelectedItem().toString().equals("")){
+				
+				carRow.setBackgroundColor(Color.YELLOW);
+			} else {
+				carRow.setBackgroundColor(Color.WHITE);			
+			}
+			
+			if(awakeWholeDay.getSelectedItem().toString().equals("")){
+				
+				awakeWholeDayRow.setBackgroundColor(Color.YELLOW);
+			} else {
+				awakeWholeDayRow.setBackgroundColor(Color.WHITE);			
+			}
+			
+			if(afternoonClasses.getSelectedItem().toString().equals("")){
+				
+				afternoonClassesRow.setBackgroundColor(Color.YELLOW);
+			} else {
+				afternoonClassesRow.setBackgroundColor(Color.WHITE);			
+			}
+			
+			if(alertAllClasses.getSelectedItem().toString().equals("")){
+				
+				alertAllClassesRow.setBackgroundColor(Color.YELLOW);
+			} else {
+				alertAllClassesRow.setBackgroundColor(Color.WHITE);			
+			}
+			
+			if(asleepMorning.getSelectedItem().toString().equals("")){
+				
+				asleepMorningRow.setBackgroundColor(Color.YELLOW);
+			} else {
+				asleepMorningRow.setBackgroundColor(Color.WHITE);			
+			}
+			
+			if(awakeInClass.getSelectedItem().toString().equals("")){
+				
+				awakeInClassRow.setBackgroundColor(Color.YELLOW);
+			} else {
+				awakeInClassRow.setBackgroundColor(Color.WHITE);			
+			}
+			
+			if(awakeLastClass.getSelectedItem().toString().equals("")){
+				
+				awakeLastClassRow.setBackgroundColor(Color.YELLOW);
+			} else {
+				awakeLastClassRow.setBackgroundColor(Color.WHITE);			
+			}
+			
+			if(busCarTrain.getSelectedItem().toString().equals("")){
+				
+				busCarTrainRow.setBackgroundColor(Color.YELLOW);
+			} else {
+				busCarTrainRow.setBackgroundColor(Color.WHITE);			
+			}
+			
+			if(realized.getSelectedItem().toString().equals("")){
+				
+				realizedRow.setBackgroundColor(Color.YELLOW);
+			} else {
+				realizedRow.setBackgroundColor(Color.WHITE);			
+			}
 			AlertDialog.Builder builder = new AlertDialog.Builder(Sleepiness.this);
-				builder.setMessage("Please answer all the questions before submitting")
+				builder.setTitle("Please answer all questions before submitting")
+				   	   .setMessage("Unanswered questions are highlighted")
 				       .setCancelable(false)
 				       .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 				           public void onClick(DialogInterface dialog, int id) {
@@ -145,6 +244,7 @@ public class Sleepiness extends Activity implements OnClickListener{
 
 	        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 	        String participant = sp.getString("Participant", "");
+	        String entryType = sp.getString("ManualSurveys", "");
 			
 			String data = "entry_1794600332=" + URLEncoder.encode(participant) + "&"
 					+ "entry_877114785=" + URLEncoder.encode(morningClasses.getSelectedItem().toString()) + "&"
@@ -158,7 +258,8 @@ public class Sleepiness extends Activity implements OnClickListener{
 					+ "entry_2144314179=" + URLEncoder.encode(awakeInClass.getSelectedItem().toString()) + "&"
 					+ "entry_1193985820=" + URLEncoder.encode(awakeLastClass.getSelectedItem().toString()) + "&"
 					+ "entry_502584888=" + URLEncoder.encode(busCarTrain.getSelectedItem().toString()) + "&"
-					+ "entry_860282205=" + URLEncoder.encode(realized.getSelectedItem().toString()) ;
+					+ "entry_860282205=" + URLEncoder.encode(realized.getSelectedItem().toString()) + "&"
+					+ "entry_12534346=" + URLEncoder.encode(entryType);
 			String response = mReq.sendPost(fullUrl, data);
 			System.out.println("postData response: " + response);
      	   savePrefs("sleepinessSurveyIgnored","NO");

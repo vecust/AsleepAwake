@@ -28,21 +28,9 @@
         android:text="Manual Entry" />
 
     <Button
-        android:id="@+id/HowDoYouFeelButton"
+        android:id="@+id/TakeSurveys"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:text="How Do You Feel?" />
-
-    <Button
-        android:id="@+id/SleepinessSurveyButton"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:text="Sleepiness Survey" />
-
-    <Button
-        android:id="@+id/RelationshipSurveyButton"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:text="Relationship Survey" />
+        android:text="Take Your Surveys" />
 
 </LinearLayout>
