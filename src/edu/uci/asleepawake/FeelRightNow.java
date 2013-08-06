@@ -5,8 +5,11 @@ package edu.uci.asleepawake;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -379,115 +382,151 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener,
 			System.out.println("postData response: " + response);
 
 			savePrefs("feelRightNowSurveyIgnored", "NO");
+			
+	    	Calendar c = Calendar.getInstance();
+	        int cday = c.get(Calendar.DAY_OF_MONTH);
+	        DateFormat dateFormat = DateFormat.getDateInstance(3);
+	        String firstDay = sp.getString("Start", "");
+	        Date formDate = null;
 
-			// finish();
-			// Intent backToMain = new
-			// Intent(FeelRightNow.this,MainActivity.class);
-			// backToMain.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			// FeelRightNow.this.startActivity(backToMain);
+				try {
+					formDate = dateFormat.parse(firstDay);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				Calendar settingDay = Calendar.getInstance();
+				settingDay.setTime(formDate);
+				int studyDay = -1;
+				for(int i = 0;i<7;i++){
+					if(cday == settingDay.get(Calendar.DAY_OF_MONTH)+i){
+						studyDay = i+1;
+					}
+				}
+				if(studyDay != -1){
+			        Intent intent = new Intent(FeelRightNow.this, SurveyAlarmReceiverActivity.class);
+			        PendingIntent pendingSleepIntent = PendingIntent.getActivity(FeelRightNow.this,
+			            studyDay, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+			        AlarmManager am = 
+			            (AlarmManager)FeelRightNow.this.getSystemService(ALARM_SERVICE);
+			        am.cancel(pendingSleepIntent);
+			        System.out.println("Sleep Alarm Cancelled - Intent:"+studyDay);
+			        
+				}
+
+
 			
 			if (entryType.equals("Scheduled")) {
-				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-						FeelRightNow.this);
-				alertDialogBuilder
-						.setTitle(
-								"Thank you for completing the questionnaires!")
-						.setMessage("Are you ready to get into bed?")
-						.setCancelable(false)
-						.setPositiveButton("Yes",
-								new DialogInterface.OnClickListener() {
+				
+				String surveysTaken = sp.getString("SurveysTaken", "");
+				
+				if(surveysTaken.equals("YES")){
+					goingToBedAlert();
+				} else {
 
-									@Override
-									public void onClick(DialogInterface dialog,
-											int which) {
-										// TODO Auto-generated method stub
+					AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+							FeelRightNow.this);
+					alertDialogBuilder
+							.setTitle(
+									"Thank you for completing the questionnaires!")
+							.setMessage("Are you ready to get into bed?")
+							.setCancelable(false)
+							.setPositiveButton("Yes",
+									new DialogInterface.OnClickListener() {
 
-										AlertDialog.Builder alertWatchBuilder = new AlertDialog.Builder(
-												FeelRightNow.this);
-										alertWatchBuilder
-												.setTitle(
-														"Please put on your sleep watch now")
-												.setCancelable(false)
-												.setPositiveButton(
-														"Ok",
-														new DialogInterface.OnClickListener() {
+										@Override
+										public void onClick(
+												DialogInterface dialog,
+												int which) {
+											// TODO Auto-generated method stub
 
-															@Override
-															public void onClick(
-																	DialogInterface dialog,
-																	int which) {
-																// TODO
-																// Auto-generated
-																// method stub
+											AlertDialog.Builder alertWatchBuilder = new AlertDialog.Builder(
+													FeelRightNow.this);
+											alertWatchBuilder
+													.setTitle(
+															"Please put on your sleep watch now")
+													.setCancelable(false)
+													.setPositiveButton(
+															"Ok",
+															new DialogInterface.OnClickListener() {
 
-																Intent backToMain = new Intent(
-																		FeelRightNow.this,
-																		MainActivity.class);
-																backToMain
-																		.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-																FeelRightNow.this
-																		.startActivity(backToMain);
-															}
-														});
+																@Override
+																public void onClick(
+																		DialogInterface dialog,
+																		int which) {
+																	// TODO
+																	// Auto-generated
+																	// method
+																	// stub
 
-										// Intent surveyIntent = new
-										// Intent(FeelRightNow.this,
-										// Relationship.class);
-										// backToMainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-										// FeelRightNow.this.startActivity(surveyIntent);
+																	Intent backToMain = new Intent(
+																			FeelRightNow.this,
+																			MainActivity.class);
+																	backToMain
+																			.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+																	FeelRightNow.this
+																			.startActivity(backToMain);
+																}
+															});
 
-										alertWatchBuilder.show();
-									}
-								})
-						.setNegativeButton("No",
-								new DialogInterface.OnClickListener() {
+											alertWatchBuilder.show();
+										}
+									})
+							.setNegativeButton("No",
+									new DialogInterface.OnClickListener() {
 
-									@Override
-									public void onClick(DialogInterface dialog,
-											int which) {
-										// TODO Auto-generated method stub
+										@Override
+										public void onClick(
+												DialogInterface dialog,
+												int which) {
+											// TODO Auto-generated method stub
 
-										// Create an offset from the current
-										// time in which the alarm will go off.
-										Calendar cal = Calendar.getInstance();
-										cal.add(Calendar.MINUTE, 10);
+											savePrefs("SurveysTaken", "YES");
 
-										// Create a new PendingIntent and add it
-										// to the AlarmManager
-										Intent intent = new Intent(
-												FeelRightNow.this,
-												SleepAlarmReceiverActivity.class);
-										intent.putExtra("intentID", 12345);
-										PendingIntent pendingIntent = PendingIntent
-												.getActivity(
-														FeelRightNow.this,
-														12345,
-														intent,
-														PendingIntent.FLAG_CANCEL_CURRENT);
-										AlarmManager am = (AlarmManager) FeelRightNow.this
-												.getSystemService(ALARM_SERVICE);
-										am.set(AlarmManager.RTC_WAKEUP,
-												cal.getTimeInMillis(),
-												pendingIntent);
+											// Create an offset from the current
+											// time in which the alarm will go
+											// off.
+											Calendar cal = Calendar
+													.getInstance();
+											cal.add(Calendar.MINUTE, 10);
 
-										 Intent backToMainIntent = new
-												 Intent(FeelRightNow.this,
-												 MainActivity.class);
-												 backToMainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-												 FeelRightNow.this.startActivity(backToMainIntent);
-										
-										finish();
-									}
-								});
+											// Create a new PendingIntent and
+											// add it
+											// to the AlarmManager
+											Intent intent = new Intent(
+													FeelRightNow.this,
+													SleepAlarmReceiverActivity.class);
+											intent.putExtra("intentID", 12345);
+											PendingIntent pendingIntent = PendingIntent
+													.getActivity(
+															FeelRightNow.this,
+															12345,
+															intent,
+															PendingIntent.FLAG_CANCEL_CURRENT);
+											AlarmManager am = (AlarmManager) FeelRightNow.this
+													.getSystemService(ALARM_SERVICE);
+											am.set(AlarmManager.RTC_WAKEUP,
+													cal.getTimeInMillis(),
+													pendingIntent);
 
-				AlertDialog alert = alertDialogBuilder.create();
-				alert.show();
+											Intent backToMainIntent = new Intent(
+													FeelRightNow.this,
+													MainActivity.class);
+											backToMainIntent
+													.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+											FeelRightNow.this
+													.startActivity(backToMainIntent);
+
+											finish();
+										}
+									});
+
+					AlertDialog alert = alertDialogBuilder.create();
+					alert.show();
+				}
 			} else {
-			 Intent backToMainIntent = new
-			 Intent(FeelRightNow.this,
-			 MainActivity.class);
-			 backToMainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			 FeelRightNow.this.startActivity(backToMainIntent);
+				goingToBedAlert();
 			}
 		}
 	}
@@ -498,6 +537,99 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener,
 		Editor edit = sp.edit();
 		edit.putString(key, value);
 		edit.commit();
+	}
+	
+	public void goingToBedAlert(){
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+				FeelRightNow.this);
+		alertDialogBuilder
+				.setMessage("Are you ready to get into bed?")
+				.setCancelable(false)
+				.setPositiveButton("Yes",
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								// TODO Auto-generated method stub
+
+								AlertDialog.Builder alertWatchBuilder = new AlertDialog.Builder(
+										FeelRightNow.this);
+								alertWatchBuilder
+										.setTitle(
+												"Please put on your sleep watch now")
+										.setCancelable(false)
+										.setPositiveButton(
+												"Ok",
+												new DialogInterface.OnClickListener() {
+
+													@Override
+													public void onClick(
+															DialogInterface dialog,
+															int which) {
+														// TODO
+														// Auto-generated
+														// method stub
+
+														Intent backToMain = new Intent(
+																FeelRightNow.this,
+																MainActivity.class);
+														backToMain
+																.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+														FeelRightNow.this
+																.startActivity(backToMain);
+													}
+												});
+
+								alertWatchBuilder.show();
+							}
+						})
+				.setNegativeButton("No",
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								// TODO Auto-generated method stub
+								
+								if (entryType.equals("Scheduled")) {
+								// Create an offset from the current
+								// time in which the alarm will go off.
+								Calendar cal = Calendar.getInstance();
+								cal.add(Calendar.MINUTE, 10);
+
+								// Create a new PendingIntent and add it
+								// to the AlarmManager
+								Intent intent = new Intent(
+										FeelRightNow.this,
+										SleepAlarmReceiverActivity.class);
+								intent.putExtra("intentID", 12345);
+								PendingIntent pendingIntent = PendingIntent
+										.getActivity(
+												FeelRightNow.this,
+												12345,
+												intent,
+												PendingIntent.FLAG_CANCEL_CURRENT);
+								AlarmManager am = (AlarmManager) FeelRightNow.this
+										.getSystemService(ALARM_SERVICE);
+								am.set(AlarmManager.RTC_WAKEUP,
+										cal.getTimeInMillis(),
+										pendingIntent);
+								}
+
+								 Intent backToMainIntent = new
+										 Intent(FeelRightNow.this,
+										 MainActivity.class);
+										 backToMainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+										 FeelRightNow.this.startActivity(backToMainIntent);
+								
+								finish();
+							}
+						});
+
+		AlertDialog alert = alertDialogBuilder.create();
+		alert.show();
+		
 	}
 
 }

@@ -75,7 +75,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_marginLeft="37dp"
-                        android:layout_toRightOf="@+id/textView2" />
+                        android:layout_toRightOf="@+id/MorningGenText" />
 
                 </RelativeLayout>
 

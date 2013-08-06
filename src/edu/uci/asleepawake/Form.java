@@ -5,9 +5,11 @@ package edu.uci.asleepawake;
 
 import java.net.URLEncoder;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -44,7 +46,11 @@ public class Form extends Activity implements OnClickListener {
 
     static final int DATE_DIALOG_ID = 0;
     static final int TIME_DIALOG_ID = 1;
+    static final int SLEEP_TIME_DIALOG_ID = 2;
+    static final int WAKE_TIME_DIALOG_ID = 3;
     Button submit;
+    SharedPreferences sp;
+    Date formDate, formSleepTime, formWakeTime;
 	
     protected Dialog onCreateDialog(int id) {
 		
@@ -56,13 +62,56 @@ public class Form extends Activity implements OnClickListener {
         int chour = c.get(Calendar.HOUR_OF_DAY);
         int cminute = c.get(Calendar.MINUTE);
 
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        DateFormat timeFormat = DateFormat.getTimeInstance(3);
+        DateFormat dateFormat = DateFormat.getDateInstance(3);
+        String settingSleepTime = "";
+        String settingWakeTime = "";
+        String firstDay = sp.getString("Start", "");
+        System.out.println("firstDay: "+firstDay);
+
+			try {
+				formDate = dateFormat.parse(firstDay);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			Calendar settingDay = Calendar.getInstance();
+			settingDay.setTime(formDate);
+//			settingDay.set(Calendar.MONTH,formDate.getMonth());
+//			settingDay.set(Calendar.DAY_OF_MONTH,formDate.getDate());
+			int studyDay = -1;
+			for(int i = 0;i<7;i++){
+				if(cday == settingDay.get(Calendar.DAY_OF_MONTH)+i){
+					studyDay = i+1;
+				}
+			}
+			if(studyDay != -1){
+				settingSleepTime = sp.getString("Day"+studyDay+"Sleep", "");
+				settingWakeTime = sp.getString("Day"+studyDay+"Wake", "");
+			}
+	        System.out.println("StudyDay: "+studyDay);
+	        System.out.println("settingSleepTime: "+settingSleepTime);
+	        System.out.println("settingWakeTime: "+settingWakeTime);
+			
+			try {
+				formSleepTime = timeFormat.parse(settingSleepTime);
+				formWakeTime = timeFormat.parse(settingWakeTime);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         //create dialogs (pickers) for time and date
         switch (id) {
         case DATE_DIALOG_ID:
             return new DatePickerDialog(this,  mDateSetListener,  cyear, cmonth, cday);
-        case TIME_DIALOG_ID:
-        	return new TimePickerDialog(this, mTimeSetListener, chour, cminute, false);
-        }
+//        case TIME_DIALOG_ID:
+//        	return new TimePickerDialog(this, mTimeSetListener, chour, cminute, false);
+        case SLEEP_TIME_DIALOG_ID:
+        	return new TimePickerDialog(this, mSleepTimeSetListener, formSleepTime.getHours(), 0, false);
+        case WAKE_TIME_DIALOG_ID:
+        	return new TimePickerDialog(this, mWakeTimeSetListener, formWakeTime.getHours(), 0, false);        }
         return null;
     }
     private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -79,18 +128,43 @@ public class Form extends Activity implements OnClickListener {
         }
     };
 
-    private TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
-        // onTimeSet method
-        public void onTimeSet(TimePicker view, int hour, int minute) {
-        	//Save time to local var
-        	DateFormat timeFormat = DateFormat.getTimeInstance(3);
-        	c.set(Calendar.HOUR_OF_DAY,hour);
-        	c.set(Calendar.MINUTE,minute);
-        	time.setText(timeFormat.format(c.getTime()));
-//        	tempTime = c.getTime();
-        }
-    };
+//    private TimePickerDialog.OnTimeSetListener mTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+//        // onTimeSet method
+//        public void onTimeSet(TimePicker view, int hour, int minute) {
+//        	//Save time to local var
+//        	DateFormat timeFormat = DateFormat.getTimeInstance(3);
+//        	c.set(Calendar.HOUR_OF_DAY,hour);
+//        	c.set(Calendar.MINUTE,minute);
+//        	time.setText(timeFormat.format(c.getTime()));
+////        	tempTime = c.getTime();
+//        }
+//    };
 
+    private TimePickerDialog.OnTimeSetListener mSleepTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+//      mSleepTimeSetListener = new OnTimeSetListener() {
+          // onTimeSet method
+          public void onTimeSet(TimePicker view, int hour, int minute) {
+          	        	
+          	final DateFormat timeFormat = DateFormat.getTimeInstance(3);
+          	c.set(Calendar.HOUR_OF_DAY,hour);
+          	c.set(Calendar.MINUTE,minute);
+          	time.setText(timeFormat.format(c.getTime()));
+//          	tempTime = c.getTime();
+          }
+      };
+      private TimePickerDialog.OnTimeSetListener mWakeTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+//      mWakeTimeSetListener = new OnTimeSetListener() {
+          // onTimeSet method
+          public void onTimeSet(TimePicker view, int hour, int minute) {
+          	
+          	final DateFormat timeFormat = DateFormat.getTimeInstance(3);
+          	c.set(Calendar.HOUR_OF_DAY,hour);
+          	c.set(Calendar.MINUTE,minute);
+          	time.setText(timeFormat.format(c.getTime()));
+//          	tempTime = c.getTime();
+          }
+      };    
+    
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +190,7 @@ public class Form extends Activity implements OnClickListener {
 		 public boolean onTouch(View v, MotionEvent event) {
 			 if(v == sleepTime){
 				 time = sleepTime;
-				 showDialog(TIME_DIALOG_ID);
+				 showDialog(SLEEP_TIME_DIALOG_ID);
 			 }
 			 return false;
 		 }
@@ -126,7 +200,7 @@ public class Form extends Activity implements OnClickListener {
 		 public boolean onTouch(View v, MotionEvent event) {
 			 if(v == wakeTime){
 				 time = wakeTime;
-				 showDialog(TIME_DIALOG_ID);
+				 showDialog(WAKE_TIME_DIALOG_ID);
 			 }
 			 return false;
 		 }

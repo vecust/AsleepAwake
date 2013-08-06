@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -15,12 +16,14 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
 
 public class WakeAlarmReceiverActivity extends Activity {
 	private MediaPlayer mMediaPlayer;
+	SharedPreferences sp;
 
 
 	@Override
@@ -34,8 +37,16 @@ public class WakeAlarmReceiverActivity extends Activity {
 		final int intentID = getIntent().getIntExtra("intentID", 0);
 	    System.out.println("Wake Intent ID: "+intentID);
 		
+	    sp = PreferenceManager.getDefaultSharedPreferences(this);
+	    final String sleepLogged = sp.getString("sleepLogged", "");
+	    
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				WakeAlarmReceiverActivity.this);
+		if(sleepLogged.equals("YES")){
+			alertDialogBuilder.setMessage("Time to take off your sleep watch and put it in a safe place");
+		} else {
+			alertDialogBuilder.setMessage("Please log your sleep and wake time");			
+		}
 		alertDialogBuilder
 				.setTitle("Good morning!")
 				.setMessage("Time to take off your sleep watch and put it in a safe place")
@@ -57,9 +68,14 @@ public class WakeAlarmReceiverActivity extends Activity {
 						            (AlarmManager)WakeAlarmReceiverActivity.this.getSystemService(ALARM_SERVICE);
 						        am.cancel(pendingIntent);
 								
+						        if(sleepLogged.equals("YES")){
 								Intent backToMainIntent = new Intent(WakeAlarmReceiverActivity.this, MainActivity.class);
 //							    backToMainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 								WakeAlarmReceiverActivity.this.startActivity(backToMainIntent);
+						        } else {
+									Intent formIntent = new Intent(WakeAlarmReceiverActivity.this, Form.class);
+									WakeAlarmReceiverActivity.this.startActivity(formIntent);						        	
+						        }
 							}
 						})
 				.setNegativeButton("Snooze",

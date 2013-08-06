@@ -13,7 +13,9 @@ import java.util.Date;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -127,7 +129,39 @@ public class MainActivity extends Activity {
 	        	savePrefs("sleepLogged","YES");
 	        	savePrefs("wakeLogged","NO");
 				savePrefs("ManualEntry", "Scheduled");
-	        	   
+
+		    	Calendar c = Calendar.getInstance();
+		        int cday = c.get(Calendar.DAY_OF_MONTH);
+		        DateFormat dateCancelFormat = DateFormat.getDateInstance(3);
+		        String firstDay = sp.getString("Start", "");
+		        Date formDate = null;
+
+					try {
+						formDate = dateCancelFormat.parse(firstDay);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+					Calendar settingDay = Calendar.getInstance();
+					settingDay.setTime(formDate);
+					int studyDay = -1;
+					for(int i = 0;i<7;i++){
+						if(cday == settingDay.get(Calendar.DAY_OF_MONTH)+i){
+							studyDay = i+1;
+						}
+					}
+					if(studyDay != -1){
+				        Intent intent = new Intent(MainActivity.this, SurveyAlarmReceiverActivity.class);
+				        PendingIntent pendingSleepIntent = PendingIntent.getActivity(MainActivity.this,
+				            studyDay, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+				        AlarmManager am = 
+				            (AlarmManager)MainActivity.this.getSystemService(ALARM_SERVICE);
+				        am.cancel(pendingSleepIntent);
+				        System.out.println("Sleep Alarm Cancelled - Intent:"+studyDay);
+				        
+					}
+				
 				AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 				builder.setMessage("Are You Wearing the Watch?")
 				       .setCancelable(false)

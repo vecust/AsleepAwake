@@ -514,7 +514,7 @@ public class Settings extends Activity implements OnClickListener{
         DateFormat dateFormat = DateFormat.getDateInstance(3);
         String settingTime = mSettingTime;
         String firstDay = mFirstDay;
-        System.out.println("firstDay: "+firstDay);
+//        System.out.println("firstDay: "+firstDay);
         System.out.println("settingTime: "+settingTime);
 
 			try {
@@ -523,30 +523,52 @@ public class Settings extends Activity implements OnClickListener{
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			
+			}			
 			cal.set(Calendar.MONTH,alarmDate.getMonth());
 			cal.set(Calendar.DAY_OF_MONTH,alarmDate.getDate());
 			cal.set(Calendar.YEAR,2013);
 			cal.set(Calendar.HOUR,alarmTime.getHours());
 			cal.set(Calendar.MINUTE,alarmTime.getMinutes());
 			cal.set(Calendar.SECOND, 0);
+			
+			long milliseconds = cal.getTimeInMillis();
+			System.out.println("milliseconds: "+milliseconds);
+			
 			if(sleepWake == 1){
-				cal.add(Calendar.MINUTE, -15);
-				cal.add(Calendar.DAY_OF_MONTH, -1);
+				milliseconds -= 900000;
+				if(cal.get(Calendar.HOUR_OF_DAY) == 0 && cal.get(Calendar.MINUTE) < 15){
+					milliseconds += 86400000;
+				}
+				if(((cal.get(Calendar.HOUR_OF_DAY) == 0 && cal.get(Calendar.MINUTE) > 15) || cal.get(Calendar.HOUR_OF_DAY) > 0) && cal.get(Calendar.HOUR_OF_DAY) <= 12){
+					milliseconds += 86400000;					
+				}
+//				if(cal.get(Calendar.HOUR_OF_DAY) == 0 && cal.get(Calendar.MINUTE) < 15){
+//					cal.add(Calendar.HOUR_OF_DAY, 12);
+//					settingTime = "PM";
+//				} else {
+////					cal.add(Calendar.DAY_OF_MONTH, -1);					
+//				}
+//				if(cal.get(Calendar.HOUR_OF_DAY) >= 0 && cal.get(Calendar.HOUR_OF_DAY) <= 12){
+//					cal.add(Calendar.DAY_OF_MONTH, 1);					
+//				}
+//				cal.add(Calendar.MINUTE, -15);
 			}
 			else if(sleepWake == 0){
-				cal.add(Calendar.DAY_OF_MONTH, 1);
+//				cal.add(Calendar.DAY_OF_MONTH, 1);
+				milliseconds += 86400000;
 			}
 			if(day > 0){
-				cal.add(Calendar.DAY_OF_MONTH,day);
+//				cal.add(Calendar.DAY_OF_MONTH,day);
+				milliseconds += (86400000*day);
 			}
-			if(mSettingTime.contains("PM")){
-				cal.set(Calendar.AM_PM,1);
-			}
-			else if(mSettingTime.contains("AM")){
-				cal.set(Calendar.AM_PM,0);
-			}
+//			if(settingTime.contains("PM")){
+//				cal.set(Calendar.AM_PM,1);
+//			}
+//			else if(settingTime.contains("AM")){
+//				cal.set(Calendar.AM_PM,0);
+//			}
+			
+			cal.setTimeInMillis(milliseconds);
 			System.out.println("Alarm time: "+cal.getTime().toString());
 
 			return cal;
@@ -558,8 +580,8 @@ public class Settings extends Activity implements OnClickListener{
 		Intent intent;
 		Calendar today = Calendar.getInstance();
 		
-		if((sleepOrWake.equals("sleep") && cal.get(Calendar.DAY_OF_MONTH) < today.get(Calendar.DAY_OF_MONTH))
-				|| (sleepOrWake.equals("wake") && (cal.before(today) || cal.get(Calendar.DAY_OF_MONTH) == today.get(Calendar.DAY_OF_MONTH)))){
+		if((sleepOrWake.equals("sleep") && cal.get(Calendar.DAY_OF_YEAR) < today.get(Calendar.DAY_OF_YEAR))
+				|| (sleepOrWake.equals("wake") && (cal.before(today) || cal.get(Calendar.DAY_OF_YEAR) == today.get(Calendar.DAY_OF_YEAR)))){
 			System.out.println("Can't set alarm for "+cal.getTime().toString()+" because it is before today");
 		}else{
 		if(sleepOrWake.equals("sleep")){
