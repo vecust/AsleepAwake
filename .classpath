@@ -15,5 +15,6 @@
 	<classpathentry kind="lib" path="/Users/ecust/Downloads/google-api-java-client-1.15.0-rc/libs/gson-2.1.jar"/>
 	<classpathentry kind="lib" path="/Users/ecust/Downloads/google-api-java-client-1.15.0-rc/libs/httpclient-4.0.1.jar"/>
 	<classpathentry kind="lib" path="/Users/ecust/Downloads/google-api-java-client-1.15.0-rc/libs/httpcore-4.0.1.jar"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

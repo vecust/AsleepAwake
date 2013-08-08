@@ -17,6 +17,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
@@ -36,6 +37,7 @@ public class WakeAlarmReceiverActivity extends Activity {
 		
 		if(SurveyAlarmReceiverActivity.instance != null){
 			try {
+				savePrefs("sleepLogged", "NO");
 				SurveyAlarmReceiverActivity.instance.finish();
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -153,6 +155,14 @@ public class WakeAlarmReceiverActivity extends Activity {
 		}
 		return alert;
 	}
+	
+	//This method saves the preferences
+    private void savePrefs(String key, String value) {
+        Editor edit = sp.edit();
+        edit.putString(key, value);
+        edit.commit();
+    }
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
