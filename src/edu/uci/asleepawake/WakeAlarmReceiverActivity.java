@@ -34,6 +34,14 @@ public class WakeAlarmReceiverActivity extends Activity {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_wake_alarm_receiver);
 		
+		if(SurveyAlarmReceiverActivity.instance != null){
+			try {
+				SurveyAlarmReceiverActivity.instance.finish();
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		
 		final int intentID = getIntent().getIntExtra("intentID", 0);
 	    System.out.println("Wake Intent ID: "+intentID);
 		
@@ -49,7 +57,7 @@ public class WakeAlarmReceiverActivity extends Activity {
 		}
 		alertDialogBuilder
 				.setTitle("Good morning!")
-				.setMessage("Time to take off your sleep watch and put it in a safe place")
+//				.setMessage("Time to take off your sleep watch and put it in a safe place")
 				.setCancelable(false)
 				.setPositiveButton("Ok",
 						new DialogInterface.OnClickListener() {

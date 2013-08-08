@@ -25,6 +25,7 @@ import android.view.WindowManager;
 public class SurveyAlarmReceiverActivity extends Activity {
 	private MediaPlayer mMediaPlayer;
 	SharedPreferences sp;
+	public static SurveyAlarmReceiverActivity instance = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,8 @@ public class SurveyAlarmReceiverActivity extends Activity {
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_survey_alarm_receiver);
+		
+		instance = this;
 
         sp = PreferenceManager.getDefaultSharedPreferences(this);
 		
@@ -150,6 +153,12 @@ public class SurveyAlarmReceiverActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.wake_alarm_receiver, menu);
 		return true;
+	}
+	
+	@Override
+	public void finish() {
+		super.finish();
+		instance = null;
 	}
 
 }

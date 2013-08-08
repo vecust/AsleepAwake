@@ -523,13 +523,20 @@ public class Settings extends Activity implements OnClickListener{
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}			
-			cal.set(Calendar.MONTH,alarmDate.getMonth());
-			cal.set(Calendar.DAY_OF_MONTH,alarmDate.getDate());
-			cal.set(Calendar.YEAR,2013);
-			cal.set(Calendar.HOUR,alarmTime.getHours());
-			cal.set(Calendar.MINUTE,alarmTime.getMinutes());
-			cal.set(Calendar.SECOND, 0);
+			}
+			alarmTime.setDate(alarmDate.getDate());
+			alarmTime.setMonth(alarmDate.getMonth());
+			alarmTime.setYear(alarmDate.getYear());
+			System.out.println("Alarm time (DATE): "+alarmTime.toString());
+			
+			cal.setTime(alarmTime);
+			
+//			cal.set(Calendar.MONTH,alarmDate.getMonth());
+//			cal.set(Calendar.DAY_OF_MONTH,alarmDate.getDate());
+//			cal.set(Calendar.YEAR,2013);
+//			cal.set(Calendar.HOUR,alarmTime.getHours());
+//			cal.set(Calendar.MINUTE,alarmTime.getMinutes());
+//			cal.set(Calendar.SECOND, 0);
 			
 			long milliseconds = cal.getTimeInMillis();
 			System.out.println("milliseconds: "+milliseconds);
