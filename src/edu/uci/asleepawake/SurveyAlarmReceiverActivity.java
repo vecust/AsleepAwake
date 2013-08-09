@@ -26,6 +26,7 @@ public class SurveyAlarmReceiverActivity extends Activity {
 	private MediaPlayer mMediaPlayer;
 	SharedPreferences sp;
 	public static SurveyAlarmReceiverActivity instance = null;
+	AlertDialog alert;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class SurveyAlarmReceiverActivity extends Activity {
 		final int intentID = getIntent().getIntExtra("intentID", 0);
 	    System.out.println("Sleep Intent ID: "+intentID);
 		
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+	    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				SurveyAlarmReceiverActivity.this);
 		alertDialogBuilder
 				.setTitle("Getting Ready for Bed?")
@@ -59,6 +60,7 @@ public class SurveyAlarmReceiverActivity extends Activity {
 								
 								savePrefs("howDoYouFeelButtonPressed", "NO");
 								savePrefs("ManualSurveys", "Scheduled");
+								savePrefs("sleepID", intentID);
 								
 						        Intent intent = new Intent(SurveyAlarmReceiverActivity.this, SurveyAlarmReceiverActivity.class);
 //						        intent.putExtra("intentID", 12345);
@@ -104,7 +106,7 @@ public class SurveyAlarmReceiverActivity extends Activity {
 							}
 						});
 
-		AlertDialog alert = alertDialogBuilder.create();
+		alert = alertDialogBuilder.create();
 		alert.show();
 
 		playSound(this, getAlarmUri());
@@ -148,15 +150,24 @@ public class SurveyAlarmReceiverActivity extends Activity {
         edit.putString(key, value);
         edit.commit();
     }
-	@Override
+
+    private void savePrefs(String key, int value) {
+        Editor edit = sp.edit();
+        edit.putInt(key, value);
+        edit.commit();
+    }
+    
+    @Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.wake_alarm_receiver, menu);
 		return true;
 	}
-	
+    
 	@Override
 	public void finish() {
+		if(alert.isShowing())
+			alert.dismiss();
 		super.finish();
 		instance = null;
 	}

@@ -548,7 +548,9 @@ public class Settings extends Activity implements OnClickListener{
 				}
 				if(((cal.get(Calendar.HOUR_OF_DAY) == 0 && cal.get(Calendar.MINUTE) > 15) || cal.get(Calendar.HOUR_OF_DAY) > 0) && cal.get(Calendar.HOUR_OF_DAY) <= 12){
 					milliseconds += 86400000;					
-				}
+				} /*!!!Put this back after testing!!!*/
+				
+				
 //				if(cal.get(Calendar.HOUR_OF_DAY) == 0 && cal.get(Calendar.MINUTE) < 15){
 //					cal.add(Calendar.HOUR_OF_DAY, 12);
 //					settingTime = "PM";
@@ -562,7 +564,7 @@ public class Settings extends Activity implements OnClickListener{
 			}
 			else if(sleepWake == 0){
 //				cal.add(Calendar.DAY_OF_MONTH, 1);
-				milliseconds += 86400000;
+				milliseconds += 86400000; /*!!!Put this back after testing!!!*/
 			}
 			if(day > 0){
 //				cal.add(Calendar.DAY_OF_MONTH,day);
@@ -590,7 +592,7 @@ public class Settings extends Activity implements OnClickListener{
 		if((sleepOrWake.equals("sleep") && cal.get(Calendar.DAY_OF_YEAR) < today.get(Calendar.DAY_OF_YEAR))
 				|| (sleepOrWake.equals("wake") && (cal.before(today) || cal.get(Calendar.DAY_OF_YEAR) == today.get(Calendar.DAY_OF_YEAR)))){
 			System.out.println("Can't set alarm for "+cal.getTime().toString()+" because it is before today");
-		}else{
+		}else{/*!!!Put this back after testing!!!*/
 		if(sleepOrWake.equals("sleep")){
 			intent = new Intent(Settings.this, SurveyAlarmReceiverActivity.class);
 		} else {
@@ -602,7 +604,7 @@ public class Settings extends Activity implements OnClickListener{
         AlarmManager am = (AlarmManager)this.getSystemService(ALARM_SERVICE);
 	        am.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
 	                pendingIntent);	
-		}
+		}/*!!!Put this back after testing!!!*/
 	}
 	
 //	public boolean isValidAlarm(Calendar cal, Date start, String sleepOrWake){

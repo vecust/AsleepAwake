@@ -34,9 +34,22 @@ public class WakeAlarmReceiverActivity extends Activity {
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_wake_alarm_receiver);
+
+	    sp = PreferenceManager.getDefaultSharedPreferences(this);
+	    final int sleepID = sp.getInt("sleepID", -1);
 		
 		if(SurveyAlarmReceiverActivity.instance != null){
 			try {
+				if(sleepID > -1){
+		        Intent intent = new Intent(SurveyAlarmReceiverActivity.instance, SurveyAlarmReceiverActivity.class);
+//		        intent.putExtra("intentID", 12345);
+		        PendingIntent pendingIntent = PendingIntent.getActivity(SurveyAlarmReceiverActivity.instance,
+		        		sleepID, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+		        AlarmManager am = 
+		            (AlarmManager)SurveyAlarmReceiverActivity.instance.getSystemService(ALARM_SERVICE);
+		        am.cancel(pendingIntent);
+		        savePrefs("sleepID", -1);
+				}
 				savePrefs("sleepLogged", "NO");
 				SurveyAlarmReceiverActivity.instance.finish();
 			} catch (Exception e) {
@@ -47,7 +60,6 @@ public class WakeAlarmReceiverActivity extends Activity {
 		final int intentID = getIntent().getIntExtra("intentID", 0);
 	    System.out.println("Wake Intent ID: "+intentID);
 		
-	    sp = PreferenceManager.getDefaultSharedPreferences(this);
 	    final String sleepLogged = sp.getString("sleepLogged", "");
 	    
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
@@ -162,7 +174,13 @@ public class WakeAlarmReceiverActivity extends Activity {
         edit.putString(key, value);
         edit.commit();
     }
-	
+
+    private void savePrefs(String key, int value) {
+        Editor edit = sp.edit();
+        edit.putInt(key, value);
+        edit.commit();
+    }    
+    
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
