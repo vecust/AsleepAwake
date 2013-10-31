@@ -1,6 +1,8 @@
 package edu.uci.asleepawake;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.text.DateFormat;
 import java.util.Calendar;
 
 import android.media.AudioManager;
@@ -36,20 +38,21 @@ public class WakeAlarmReceiverActivity extends Activity {
 		setContentView(R.layout.activity_wake_alarm_receiver);
 
 	    sp = PreferenceManager.getDefaultSharedPreferences(this);
-	    final int sleepID = sp.getInt("sleepID", -1);
+//	    final int sleepID = sp.getInt("sleepID", -1);
+	    final String sleepLogged = sp.getString("sleepLogged", "");
 		
 		if(SurveyAlarmReceiverActivity.instance != null){
 			try {
-				if(sleepID > -1){
-		        Intent intent = new Intent(SurveyAlarmReceiverActivity.instance, SurveyAlarmReceiverActivity.class);
-//		        intent.putExtra("intentID", 12345);
-		        PendingIntent pendingIntent = PendingIntent.getActivity(SurveyAlarmReceiverActivity.instance,
-		        		sleepID, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-		        AlarmManager am = 
-		            (AlarmManager)SurveyAlarmReceiverActivity.instance.getSystemService(ALARM_SERVICE);
-		        am.cancel(pendingIntent);
-		        savePrefs("sleepID", -1);
-				}
+//				if(sleepID > -1){
+//		        Intent intent = new Intent(SurveyAlarmReceiverActivity.instance, SurveyAlarmReceiverActivity.class);
+////		        intent.putExtra("intentID", 12345);
+//		        PendingIntent pendingIntent = PendingIntent.getActivity(SurveyAlarmReceiverActivity.instance,
+//		        		sleepID, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+//		        AlarmManager am = 
+//		            (AlarmManager)SurveyAlarmReceiverActivity.instance.getSystemService(ALARM_SERVICE);
+//		        am.cancel(pendingIntent);
+//		        savePrefs("sleepID", -1);
+//				}
 				savePrefs("sleepLogged", "NO");
 				SurveyAlarmReceiverActivity.instance.finish();
 			} catch (Exception e) {
@@ -60,7 +63,6 @@ public class WakeAlarmReceiverActivity extends Activity {
 		final int intentID = getIntent().getIntExtra("intentID", 0);
 	    System.out.println("Wake Intent ID: "+intentID);
 		
-	    final String sleepLogged = sp.getString("sleepLogged", "");
 	    
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				WakeAlarmReceiverActivity.this);
@@ -91,6 +93,7 @@ public class WakeAlarmReceiverActivity extends Activity {
 						        am.cancel(pendingIntent);
 								
 						        if(sleepLogged.equals("YES")){
+						        postData();
 								Intent backToMainIntent = new Intent(WakeAlarmReceiverActivity.this, MainActivity.class);
 //							    backToMainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 								WakeAlarmReceiverActivity.this.startActivity(backToMainIntent);
@@ -179,7 +182,45 @@ public class WakeAlarmReceiverActivity extends Activity {
         Editor edit = sp.edit();
         edit.putInt(key, value);
         edit.commit();
-    }    
+    }
+    
+    public void postData(){
+		Calendar temp = Calendar.getInstance();
+		DateFormat timeFormat = DateFormat.getTimeInstance(3);
+		String wakeTime = timeFormat.format(temp.getTime());
+    	savePrefs("wakeTime",wakeTime);
+    	savePrefs("wakeLogged","YES");
+    	
+		//Make connection to Google Form
+		String fullUrl = "https://docs.google.com/a/uci.edu/forms/d/1x-YIb5tAnkImWDLaw0YtNIyqa0AXCroq26ogf_2yS9o/formResponse";
+		HttpRequest mReq = new HttpRequest();
+		
+		//Get preferences
+        //SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        String participant = sp.getString("Participant", "");
+		String date = sp.getString("timeStamp", "");
+		String sleep = sp.getString("sleepTime", "");
+		String wake = sp.getString("wakeTime", "");
+		String watch = sp.getString("wearingWatch", "");
+		String entryType = sp.getString("ManualEntry", "");
+
+		String data = "entry_1794600332=" + URLEncoder.encode(participant) + "&"
+				+"entry_2034720707=" + URLEncoder.encode(date) + "&"
+				+ "entry_2032879505=" + URLEncoder.encode(sleep) + "&"
+				+ "entry_1085709803=" + URLEncoder.encode(wake) + "&"
+				+ "entry_2052787681=" + URLEncoder.encode(watch) + "&"
+				+ "entry_12534346=" + URLEncoder.encode(entryType);
+		String response = mReq.sendPost(fullUrl, data);
+		System.out.println("postData response: " + response);
+
+		savePrefs("timeStamp","");
+		savePrefs("logIgnored","");
+		savePrefs("sleepLogged","NO");
+		savePrefs("wakeLogged","NO");
+		savePrefs("sleepIgnored","NO");
+		savePrefs("wakeIgnored","NO");
+
+    }
     
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

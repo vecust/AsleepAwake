@@ -531,13 +531,6 @@ public class Settings extends Activity implements OnClickListener{
 			
 			cal.setTime(alarmTime);
 			
-//			cal.set(Calendar.MONTH,alarmDate.getMonth());
-//			cal.set(Calendar.DAY_OF_MONTH,alarmDate.getDate());
-//			cal.set(Calendar.YEAR,2013);
-//			cal.set(Calendar.HOUR,alarmTime.getHours());
-//			cal.set(Calendar.MINUTE,alarmTime.getMinutes());
-//			cal.set(Calendar.SECOND, 0);
-			
 			long milliseconds = cal.getTimeInMillis();
 			System.out.println("milliseconds: "+milliseconds);
 			
@@ -550,32 +543,13 @@ public class Settings extends Activity implements OnClickListener{
 					milliseconds += 86400000;					
 				} /*!!!Put this back after testing!!!*/
 				
-				
-//				if(cal.get(Calendar.HOUR_OF_DAY) == 0 && cal.get(Calendar.MINUTE) < 15){
-//					cal.add(Calendar.HOUR_OF_DAY, 12);
-//					settingTime = "PM";
-//				} else {
-////					cal.add(Calendar.DAY_OF_MONTH, -1);					
-//				}
-//				if(cal.get(Calendar.HOUR_OF_DAY) >= 0 && cal.get(Calendar.HOUR_OF_DAY) <= 12){
-//					cal.add(Calendar.DAY_OF_MONTH, 1);					
-//				}
-//				cal.add(Calendar.MINUTE, -15);
 			}
 			else if(sleepWake == 0){
-//				cal.add(Calendar.DAY_OF_MONTH, 1);
 				milliseconds += 86400000; /*!!!Put this back after testing!!!*/
 			}
 			if(day > 0){
-//				cal.add(Calendar.DAY_OF_MONTH,day);
 				milliseconds += (86400000*day);
 			}
-//			if(settingTime.contains("PM")){
-//				cal.set(Calendar.AM_PM,1);
-//			}
-//			else if(settingTime.contains("AM")){
-//				cal.set(Calendar.AM_PM,0);
-//			}
 			
 			cal.setTimeInMillis(milliseconds);
 			System.out.println("Alarm time: "+cal.getTime().toString());
