@@ -57,6 +57,7 @@ public class WakeAlarmReceiverActivity extends Activity {
 				SurveyAlarmReceiverActivity.instance.finish();
 			} catch (Exception e) {
 				// TODO: handle exception
+				e.printStackTrace();
 			}
 		}
 		
@@ -91,13 +92,16 @@ public class WakeAlarmReceiverActivity extends Activity {
 						        AlarmManager am = 
 						            (AlarmManager)WakeAlarmReceiverActivity.this.getSystemService(ALARM_SERVICE);
 						        am.cancel(pendingIntent);
-								
+								pendingIntent.cancel();
+								System.out.println("Wake Alarm Cancelled - Intent: "+intentID);
+								savePrefs("ManualEntry", "Scheduled");
 						        if(sleepLogged.equals("YES")){
 						        postData();
 								Intent backToMainIntent = new Intent(WakeAlarmReceiverActivity.this, MainActivity.class);
 //							    backToMainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 								WakeAlarmReceiverActivity.this.startActivity(backToMainIntent);
 						        } else {
+						        	savePrefs("ManualEntry","Manual");
 									Intent formIntent = new Intent(WakeAlarmReceiverActivity.this, Form.class);
 									WakeAlarmReceiverActivity.this.startActivity(formIntent);						        	
 						        }
@@ -118,7 +122,7 @@ public class WakeAlarmReceiverActivity extends Activity {
 						        //Create an offset from the current time in which the alarm will go off.
 						        Calendar cal = Calendar.getInstance();
 						        cal.add(Calendar.MINUTE, 10);
-
+						        System.out.println("Wake Alarm Snooze: "+cal.getTime().toString());
 						        //Create a new PendingIntent and add it to the AlarmManager
 						        Intent intent = new Intent(WakeAlarmReceiverActivity.this, WakeAlarmReceiverActivity.class);
 						        System.out.println("Wake Intent ID: "+intentID);

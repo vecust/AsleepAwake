@@ -40,14 +40,18 @@ public class SurveyAlarmReceiverActivity extends Activity {
 
         sp = PreferenceManager.getDefaultSharedPreferences(this);
 		
+        final String surveyTaken = sp.getString("SurveysTaken", "");
+        
 		final int intentID = getIntent().getIntExtra("intentID", 0);
 	    System.out.println("Sleep Intent ID: "+intentID);
 		
 	    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				SurveyAlarmReceiverActivity.this);
+	    if(surveyTaken.equals(""))
+	    	alertDialogBuilder.setMessage("Please fill out the Relationship Survey, Sleepiness Survey, and How You Feel Currently using the Smart Phone");
 		alertDialogBuilder
 				.setTitle("Getting Ready for Bed?")
-				.setMessage("Please fill out the Relationship Survey, Sleepiness Survey, and How You Feel Currently using the Smart Phone")
+//				.setMessage("Please fill out the Relationship Survey, Sleepiness Survey, and How You Feel Currently using the Smart Phone")
 				.setCancelable(false)
 				.setPositiveButton("Ok",
 						new DialogInterface.OnClickListener() {
@@ -61,18 +65,34 @@ public class SurveyAlarmReceiverActivity extends Activity {
 								savePrefs("howDoYouFeelButtonPressed", "NO");
 								savePrefs("ManualSurveys", "Scheduled");
 								savePrefs("sleepID", intentID);
-								
+
+								//get this intent
 						        Intent intent = new Intent(SurveyAlarmReceiverActivity.this, SurveyAlarmReceiverActivity.class);
 //						        intent.putExtra("intentID", 12345);
+						        //cancel this pending intent
 						        PendingIntent pendingIntent = PendingIntent.getActivity(SurveyAlarmReceiverActivity.this,
 						            intentID, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+						        //cancel alarm
 						        AlarmManager am = 
 						            (AlarmManager)SurveyAlarmReceiverActivity.this.getSystemService(ALARM_SERVICE);
 						        am.cancel(pendingIntent);
-								
+						        
+						        pendingIntent.cancel();
+						        
+								if(surveyTaken.equals("YES")){
+									Intent backToMain = new Intent(
+											SurveyAlarmReceiverActivity.this,
+											MainActivity.class);
+									backToMain
+											.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+									SurveyAlarmReceiverActivity.this
+											.startActivity(backToMain);						        
+								} else {								
+						        //create intent to go to relationship survey
 								Intent surveyIntent = new Intent(SurveyAlarmReceiverActivity.this, Relationship.class);
 //							    backToMainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 							    SurveyAlarmReceiverActivity.this.startActivity(surveyIntent);
+								}
 							}
 						})
 				.setNegativeButton("Later",
@@ -93,7 +113,7 @@ public class SurveyAlarmReceiverActivity extends Activity {
 
 						        //Create a new PendingIntent and add it to the AlarmManager
 						        Intent intent = new Intent(SurveyAlarmReceiverActivity.this, SurveyAlarmReceiverActivity.class);
-						        System.out.println("Sleep Intent ID: "+intentID);
+						        System.out.println("Later Sleep Intent ID: "+intentID);
 						        intent.putExtra("intentID", intentID);
 						        PendingIntent pendingIntent = PendingIntent.getActivity(SurveyAlarmReceiverActivity.this,
 						        		intentID, intent, PendingIntent.FLAG_CANCEL_CURRENT);

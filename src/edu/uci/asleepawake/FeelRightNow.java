@@ -55,6 +55,7 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_feel_right_now);
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
 
 		// Assign ids of views on layout to local TextView objects
 		sittingReadingTextView = (TextView) findViewById(R.id.SittingReading);
@@ -113,8 +114,7 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener,
 		submit.setOnClickListener(this);
 
 		sp = PreferenceManager.getDefaultSharedPreferences(this);
-		entryType = sp.getString("ManualSurveys",
-				"");
+		entryType = sp.getString("ManualSurveys","");
 		System.out.println("Entry Type: "+entryType);
 	}
 
@@ -336,10 +336,10 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener,
 			String fullUrl = "https://docs.google.com/a/uci.edu/forms/d/1x-YIb5tAnkImWDLaw0YtNIyqa0AXCroq26ogf_2yS9o/formResponse";
 			HttpRequest mReq = new HttpRequest();
 
-			SharedPreferences sp = PreferenceManager
+			final SharedPreferences sp = PreferenceManager
 					.getDefaultSharedPreferences(this);
 			String participant = sp.getString("Participant", "");
-	        String entryType = sp.getString("ManualSurveys", "");
+	        final String entryType = sp.getString("ManualSurveys", "");
 
 			String data = "entry_1794600332="
 					+ URLEncoder.encode(participant)
@@ -382,12 +382,14 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener,
 			System.out.println("postData response: " + response);
 
 			savePrefs("feelRightNowSurveyIgnored", "NO");
+			savePrefs("SurveysTaken", "YES");
 			
-	    	Calendar c = Calendar.getInstance();
-	        int cday = c.get(Calendar.DAY_OF_MONTH);
-	        DateFormat dateFormat = DateFormat.getDateInstance(3);
-	        String firstDay = sp.getString("Start", "");
-	        Date formDate = null;
+			if (entryType.equals("Scheduled")) {
+				Calendar c = Calendar.getInstance();
+				int cday = c.get(Calendar.DAY_OF_MONTH);
+				DateFormat dateFormat = DateFormat.getDateInstance(3);
+				String firstDay = sp.getString("Start", "");
+				Date formDate = null;
 
 				try {
 					formDate = dateFormat.parse(firstDay);
@@ -399,37 +401,43 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener,
 				Calendar settingDay = Calendar.getInstance();
 				settingDay.setTime(formDate);
 				int studyDay = -1;
-				for(int i = 0;i<7;i++){
-					if(cday == settingDay.get(Calendar.DAY_OF_MONTH)+i){
-						studyDay = i+1;
+				for (int i = 0; i < 7; i++) {
+					if (cday == settingDay.get(Calendar.DAY_OF_MONTH) + i) {
+						studyDay = i + 1;
 					}
 				}
-				if(studyDay != -1){
-			        Intent intent = new Intent(FeelRightNow.this, SurveyAlarmReceiverActivity.class);
-			        PendingIntent pendingSleepIntent = PendingIntent.getActivity(FeelRightNow.this,
-			            studyDay, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-			        AlarmManager am = 
-			            (AlarmManager)FeelRightNow.this.getSystemService(ALARM_SERVICE);
-			        am.cancel(pendingSleepIntent);
-			        System.out.println("Sleep Alarm Cancelled - Intent:"+studyDay);
-			        
+				if (studyDay != -1) {
+					Intent intent = new Intent(FeelRightNow.this,
+							SurveyAlarmReceiverActivity.class);
+					PendingIntent pendingSleepIntent = PendingIntent
+							.getActivity(FeelRightNow.this, studyDay, intent,
+									PendingIntent.FLAG_CANCEL_CURRENT);
+					AlarmManager am = (AlarmManager) FeelRightNow.this
+							.getSystemService(ALARM_SERVICE);
+					am.cancel(pendingSleepIntent);
+					pendingSleepIntent.cancel();
+					System.out.println("Sleep Alarm Cancelled - Intent:"
+							+ studyDay);
+
 				}
 
-
+			}
 			
-			if (entryType.equals("Scheduled")) {
+//			if (entryType.equals("Scheduled")) {
 				
 				String surveysTaken = sp.getString("SurveysTaken", "");
 				
-				if(surveysTaken.equals("YES")){
-					goingToBedAlert();
-				} else {
+//				if(surveysTaken.equals("YES")){
+//					goingToBedAlert();
+//				} else {
 
 					AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 							FeelRightNow.this);
+					if(surveysTaken.equals("YES"))
+						alertDialogBuilder.setTitle("Thank you for completing the questionnaires!");
 					alertDialogBuilder
-							.setTitle(
-									"Thank you for completing the questionnaires!")
+//							.setTitle(
+//									"Thank you for completing the questionnaires!")
 							.setMessage("Are you ready to get into bed?")
 							.setCancelable(false)
 							.setPositiveButton("Yes",
@@ -459,7 +467,57 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener,
 																	// Auto-generated
 																	// method
 																	// stub
+																	savePrefs("sleepLogged", "YES");
+														        	savePrefs("wearingWatch","YES");
+														        	
+																	Calendar temp = Calendar.getInstance();
+														        	SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+																	String timeStamp = dateFormat.format(temp.getTime());
+																	DateFormat timeFormat = DateFormat.getTimeInstance(3);
+																	String sleepTime = timeFormat.format(temp.getTime());
+														        	//System.out.println("timeStamp: "+timeStamp);
+														        	//System.out.println("sleepTime: "+sleepTime);
+														        	//savePrefs("logIgnored",logIgnored);
+														        	savePrefs("timeStamp",timeStamp);
+														        	savePrefs("sleepTime",sleepTime);
+														        	savePrefs("sleepLogged","YES");
+														        	savePrefs("wakeLogged","NO");
+//																	savePrefs("ManualEntry", "Scheduled");
+																	savePrefs("SurveysTaken", "");
 
+															    	Calendar c = Calendar.getInstance();
+															        int cday = c.get(Calendar.DAY_OF_MONTH);
+															        DateFormat dateCancelFormat = DateFormat.getDateInstance(3);
+															        String firstDay = sp.getString("Start", "");
+															        Date formDate = null;
+
+																		try {
+																			formDate = dateCancelFormat.parse(firstDay);
+																		} catch (ParseException e) {
+																			// TODO Auto-generated catch block
+																			e.printStackTrace();
+																		}
+
+																		Calendar settingDay = Calendar.getInstance();
+																		settingDay.setTime(formDate);
+																		int studyDay = -1;
+																		for(int i = 0;i<7;i++){
+																			if(cday == settingDay.get(Calendar.DAY_OF_MONTH)+i){
+																				studyDay = i+1;
+																			}
+																		}
+																		if(studyDay != -1){
+																	        Intent intent = new Intent(FeelRightNow.this, SurveyAlarmReceiverActivity.class);
+																	        PendingIntent pendingSleepIntent = PendingIntent.getActivity(FeelRightNow.this,
+																	            studyDay, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+																	        AlarmManager am = 
+																	            (AlarmManager)FeelRightNow.this.getSystemService(ALARM_SERVICE);
+																	        am.cancel(pendingSleepIntent);
+																	        pendingSleepIntent.cancel();
+																	        System.out.println("Sleep Alarm Cancelled - Intent:"+studyDay);
+																	        
+																		}
+														        	
 																	Intent backToMain = new Intent(
 																			FeelRightNow.this,
 																			MainActivity.class);
@@ -482,14 +540,15 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener,
 												int which) {
 											// TODO Auto-generated method stub
 
-											savePrefs("SurveysTaken", "YES");
-
+//											savePrefs("SurveysTaken", "YES");
+											savePrefs("sleepLogged", "NO");
 											// Create an offset from the current
 											// time in which the alarm will go
 											// off.
 											Calendar cal = Calendar
 													.getInstance();
 											cal.add(Calendar.MINUTE, 10);
+											System.out.println("Post Survey Sleep Alarm Snooze: "+cal.getTime().toString());
 
 											// Create a new PendingIntent and
 											// add it
@@ -524,10 +583,10 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener,
 
 					AlertDialog alert = alertDialogBuilder.create();
 					alert.show();
-				}
-			} else {
-				goingToBedAlert();
-			}
+//				}
+//			} else {
+//				goingToBedAlert();
+//			}
 		}
 	}
 

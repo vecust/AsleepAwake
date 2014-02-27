@@ -281,7 +281,7 @@ public class Settings extends Activity implements OnClickListener{
      timeFields = getViewsByTag((ViewGroup)findViewById(android.R.id.content),"time");
      
      for(final EditText timeField : timeFields) {
-    	 System.out.println(timeField);
+//    	 System.out.println(timeField);
     	 
     	 timeField.setOnTouchListener(new OnTouchListener(){
     		 public boolean onTouch(View v, MotionEvent event) {
@@ -502,7 +502,8 @@ public class Settings extends Activity implements OnClickListener{
 		savePrefs("Day5Sleep",day5SleepTime.getText().toString());
 		savePrefs("Day6Sleep",day6SleepTime.getText().toString());
 		savePrefs("Day7Sleep",day7SleepTime.getText().toString());
-		
+		savePrefs("sleepLogged", "NO");
+		savePrefs("SurveysTaken","");
 		finish();
 		}
 	}
@@ -515,7 +516,7 @@ public class Settings extends Activity implements OnClickListener{
         String settingTime = mSettingTime;
         String firstDay = mFirstDay;
 //        System.out.println("firstDay: "+firstDay);
-        System.out.println("settingTime: "+settingTime);
+        //System.out.println("settingTime: "+settingTime);
 
 			try {
 				alarmTime = timeFormat.parse(settingTime);
@@ -527,29 +528,43 @@ public class Settings extends Activity implements OnClickListener{
 			alarmTime.setDate(alarmDate.getDate());
 			alarmTime.setMonth(alarmDate.getMonth());
 			alarmTime.setYear(alarmDate.getYear());
-			System.out.println("Alarm time (DATE): "+alarmTime.toString());
+			//System.out.println("Alarm time (DATE): "+alarmTime.toString());
 			
 			cal.setTime(alarmTime);
 			
 			long milliseconds = cal.getTimeInMillis();
-			System.out.println("milliseconds: "+milliseconds);
+			//System.out.println("milliseconds: "+milliseconds);
 			
-			if(sleepWake == 1){
-				milliseconds -= 900000;
-				if(cal.get(Calendar.HOUR_OF_DAY) == 0 && cal.get(Calendar.MINUTE) < 15){
+			//add "day" days after today
+			milliseconds += (86400000*day);
+			
+			if(sleepWake == 1){ //if sleep
+				if(cal.get(Calendar.HOUR_OF_DAY) >= 0 && cal.get(Calendar.HOUR_OF_DAY) <= 12)
+					//add 1 day if alarm time is 12:00am to 12:00pm
+					milliseconds += 86400000;
+
+				//subtract 10 min
+				milliseconds -= 600000;
+
+				
+/*				if(cal.get(Calendar.HOUR_OF_DAY) == 0 && cal.get(Calendar.MINUTE) < 15){
+					//add 1 day if current time is 12:00am to 12:14am
 					milliseconds += 86400000;
 				}
 				if(((cal.get(Calendar.HOUR_OF_DAY) == 0 && cal.get(Calendar.MINUTE) > 15) || cal.get(Calendar.HOUR_OF_DAY) > 0) && cal.get(Calendar.HOUR_OF_DAY) <= 12){
+					//add 1 day if current time is 12:16am to 12:59am or 1am to 12pm
 					milliseconds += 86400000;					
 				} /*!!!Put this back after testing!!!*/
 				
 			}
-			else if(sleepWake == 0){
+			else if(sleepWake == 0){ //if wake
+				//add  1 day
 				milliseconds += 86400000; /*!!!Put this back after testing!!!*/
 			}
-			if(day > 0){
-				milliseconds += (86400000*day);
-			}
+//			if(day > 0){
+//				//add "day" days after today
+//				milliseconds += (86400000*day);
+//			}
 			
 			cal.setTimeInMillis(milliseconds);
 			System.out.println("Alarm time: "+cal.getTime().toString());

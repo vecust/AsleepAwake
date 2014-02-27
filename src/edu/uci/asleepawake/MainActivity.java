@@ -64,18 +64,22 @@ public class MainActivity extends Activity {
         sleepinessSurveyIgnored = sp.getString("sleepinessSurveyIgnored","");
         relationshipSurveyIgnored = sp.getString("relationshipSurveyIgnored","");
         type = sp.getString("Type", "");
+        String surveyTaken = sp.getString("SurveysTaken", "");
         
         //Set "clickability" of goingToBedButton and wokeUpButton
 		if(sleepLogged.equals("YES")) {
 			goingToBedButton.setEnabled(false);
 			wokeUpButton.setEnabled(true);
+//	        if(surveyTaken.equals("YES")){
+//	        	goingToBedButton.performClick();
+//	        }
 		} else {
 			wokeUpButton.setEnabled(false);
 		}
 		
         String participant = sp.getString("Participant", "");
-		
-		//If participant number is blank, it is assumed that
+
+        //If participant number is blank, it is assumed that
         //the rest of the settings are not set yet.
         //An alert is issued.
 		if (participant.equals("")) {
@@ -128,7 +132,8 @@ public class MainActivity extends Activity {
 	        	savePrefs("sleepTime",sleepTime);
 	        	savePrefs("sleepLogged","YES");
 	        	savePrefs("wakeLogged","NO");
-				savePrefs("ManualEntry", "Scheduled");
+				savePrefs("ManualEntry", "Manual");
+				savePrefs("SurveysTaken", "");
 
 		    	Calendar c = Calendar.getInstance();
 		        int cday = c.get(Calendar.DAY_OF_MONTH);
@@ -154,7 +159,7 @@ public class MainActivity extends Activity {
 					if(studyDay != -1){
 				        Intent intent = new Intent(MainActivity.this, SurveyAlarmReceiverActivity.class);
 				        PendingIntent pendingSleepIntent = PendingIntent.getActivity(MainActivity.this,
-				            studyDay, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+				            studyDay, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 				        AlarmManager am = 
 				            (AlarmManager)MainActivity.this.getSystemService(ALARM_SERVICE);
 				        am.cancel(pendingSleepIntent);
@@ -200,7 +205,7 @@ public class MainActivity extends Activity {
 	        	//System.out.println("wakeTime: "+wakeTime);
 	        	savePrefs("wakeTime",wakeTime);
 	        	savePrefs("wakeLogged","YES");
-				savePrefs("ManualEntry", "Scheduled");
+				savePrefs("ManualEntry", "Manual");
 	        	
 	        	postData();
 			}
@@ -214,6 +219,7 @@ public class MainActivity extends Activity {
 				// TODO Auto-generated method stub
 				//Flag as manual entry
 				savePrefs("ManualSurveys", "Manual");
+				savePrefs("ManualEntry", "Manual");
 				Intent testRelationship = new Intent(MainActivity.this,Relationship.class);
 				MainActivity.this.startActivity(testRelationship);
 

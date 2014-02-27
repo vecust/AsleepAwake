@@ -59,7 +59,8 @@ public class HttpRequest{
                 httpPost.abort();
             }
         } catch (Exception e) {
-            System.out.println("Your App Name Here" + e);
+            System.out.println("SleepWake" + e);
+            e.printStackTrace();
         }
     }
 
@@ -81,7 +82,7 @@ public class HttpRequest{
 
         StringEntity tmp = null;        
 
-        Log.d("Your App Name Here", "Setting httpPost headers");
+        Log.d("SleepWake", "Setting httpPost headers");
 
         httpPost.setHeader("User-Agent", "SET YOUR USER AGENT STRING HERE");
         httpPost.setHeader("Accept", "text/html,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*;q=0.5");
@@ -95,12 +96,13 @@ public class HttpRequest{
         try {
             tmp = new StringEntity(data,"UTF-8");
         } catch (UnsupportedEncodingException e) {
-            Log.e("Your App Name Here", "HttpUtils : UnsupportedEncodingException : "+e);
+            Log.e("SleepWake", "HttpUtils : UnsupportedEncodingException : "+e);
+            e.printStackTrace();
         }
 
         httpPost.setEntity(tmp);
 
-        Log.d("Your App Name Here", url + "?" + data);
+        Log.d("SleepWake", url + "?" + data);
 
         try {
             response = httpClient.execute(httpPost,localContext);
@@ -109,10 +111,11 @@ public class HttpRequest{
                 ret = EntityUtils.toString(response.getEntity());
             }
         } catch (Exception e) {
-            Log.e("Your App Name Here", "HttpUtils: " + e);
+            Log.e("SleepWake", "HttpUtils: " + e);
+            e.printStackTrace();
         }
 
-        Log.d("Your App Name Here", "Returning value:" + ret);
+        Log.d("SleepWake", "Returning value:" + ret);
 
         return ret;
     }
@@ -123,7 +126,8 @@ public class HttpRequest{
         try {
             response = httpClient.execute(httpGet);  
         } catch (Exception e) {
-            Log.e("Your App Name Here", e.getMessage());
+            Log.e("SleepWake", e.getMessage());
+            e.printStackTrace();
         }
 
         //int status = response.getStatusLine().getStatusCode();  
@@ -132,7 +136,8 @@ public class HttpRequest{
         try {
             ret = EntityUtils.toString(response.getEntity());  
         } catch (IOException e) {
-            Log.e("Your App Name Here", e.getMessage());
+            Log.e("SleepWake", e.getMessage());
+            e.printStackTrace();
         }
 
         return ret;
