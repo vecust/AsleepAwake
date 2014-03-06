@@ -15,11 +15,10 @@
 
     <Button
         android:id="@+id/manualForm"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/RelationshipSurveyButton"
+		android:layout_toLeftOf="@+id/dummy"
         android:text="Manual Entry" />
 
 
@@ -34,26 +33,19 @@
 
     <Button
         android:id="@+id/TakeSurveys"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:text="How Do You Feel?" />
+		android:layout_toRightOf="@+id/dummy"
+        android:text="Take Your Surveys" />
 
     <Button
-        android:id="@+id/SleepinessSurveyButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/dummy" 
+        android:layout_width="0dp" 
+        android:layout_height="0dp"
         android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/TakeSurveys"
-        android:text="Sleepiness Survey" />
+        android:layout_centerHorizontal="true" 
+        android:visibility="invisible"/>
 
-    <Button
-        android:id="@+id/RelationshipSurveyButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/SleepinessSurveyButton"
-        android:text="Relationship Survey" />
 
 </RelativeLayout>

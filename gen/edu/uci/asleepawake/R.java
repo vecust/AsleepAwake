@@ -191,7 +191,6 @@ public final class R {
         public static final int SleepWakeLabelsRow=0x7f0a009c;
         public static final int SleepinessGenSubmitButton=0x7f0a00d2;
         public static final int SleepinessSchoolButton=0x7f0a00b9;
-        public static final int SleepinessSurveyButton=0x7f0a0059;
         public static final int StartDateRow=0x7f0a0099;
         public static final int Support=0x7f0a0061;
         public static final int SupportLabels=0x7f0a0063;
@@ -232,6 +231,7 @@ public final class R {
         public static final int action_settings=0x7f0a00e4;
         public static final int bar1=0x7f0a0007;
         public static final int description=0x7f0a0002;
+        public static final int dummy=0x7f0a0059;
         public static final int footer=0x7f0a0004;
         public static final int formDate=0x7f0a0050;
         public static final int formSleep=0x7f0a004f;
