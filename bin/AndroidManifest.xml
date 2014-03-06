@@ -20,7 +20,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="edu.uci.asleepawake.MainActivity"
-			android:screenOrientation="portrait"
+            android:configChanges="orientation"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,60 +30,49 @@
         </activity>
         <activity
             android:name="edu.uci.asleepawake.DisplayMessageActivity"
-			android:screenOrientation="portrait"
             android:label="@string/title_activity_display_message" >
         </activity>
         <activity
             android:name="edu.uci.asleepawake.Settings"
-			android:screenOrientation="portrait"
             android:label="@string/title_activity_settings" >
         </activity>
         <activity
             android:name="edu.uci.asleepawake.Login"
-			android:screenOrientation="portrait"
             android:label="@string/title_activity_login" >
         </activity>
         <activity
             android:name="edu.uci.asleepawake.Form"
-			android:screenOrientation="portrait"
             android:label="@string/title_activity_form" >
         </activity>
         <activity
             android:name="edu.uci.asleepawake.Sleepiness"
-			android:screenOrientation="portrait"
             android:label="@string/title_activity_sleepiness" >
         </activity>
         <activity
             android:name="edu.uci.asleepawake.SleepinessGeneral"
-			android:screenOrientation="portrait"
             android:label="@string/title_activity_sleepiness_general" >
         </activity>
         <activity
             android:name="edu.uci.asleepawake.Relationship"
-			android:screenOrientation="portrait"
             android:label="@string/title_activity_relationship" >
         </activity>
         <activity
             android:name="edu.uci.asleepawake.FeelRightNow"
-			android:screenOrientation="portrait"
             android:label="@string/title_activity_feel_right_now" >
         </activity>
         <activity
             android:name="edu.uci.asleepawake.SurveyAlarmReceiverActivity"
             android:label="@string/title_activity_wake_alarm_receiver"
-			android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" >
         </activity>
         <activity
             android:name="edu.uci.asleepawake.SleepAlarmReceiverActivity"
             android:label="@string/title_activity_sleep_alarm_receiver"
-			android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" >
         </activity>
         <activity
             android:name="edu.uci.asleepawake.WakeAlarmReceiverActivity"
             android:label="@string/title_activity_wake_alarm_receiver"
-			android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" >
         </activity>
     </application>
