@@ -83,7 +83,7 @@
                     android:layout_height="wrap_content" >
 
                     <TextView
-                        android:id="@+id/LaterDayGenText"
+                        android:id="@+id/WholeDayGenText"
                         android:layout_width="225dp"
                         android:layout_height="match_parent"
                         android:text="I got through the whole day without feeling tired."
@@ -132,7 +132,7 @@
                     android:layout_height="wrap_content" >
 
                     <TextView
-                        android:id="@+id/LaterDayGenText"
+                        android:id="@+id/CarGenText"
                         android:layout_width="225dp"
                         android:layout_height="match_parent"
                         android:text="I felt drowsy when I rode in a car for longer than 5 minutes."
@@ -230,7 +230,7 @@
                     android:layout_height="wrap_content" >
 
                     <TextView
-                        android:id="@+id/TextView07"
+                        android:id="@+id/RealizedGenText"
                         android:layout_width="225dp"
                         android:layout_height="match_parent"
                         android:text="During the day, there were times when I realized that I had just fallen asleep."

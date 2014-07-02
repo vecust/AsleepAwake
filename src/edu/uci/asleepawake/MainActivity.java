@@ -214,6 +214,41 @@ public class MainActivity extends Activity {
 				savePrefs("ManualEntry", "Manual");
 	        	
 	        	postData();
+
+		    	Calendar c = Calendar.getInstance();
+		        int cday = c.get(Calendar.DAY_OF_MONTH);
+		        DateFormat dateCancelFormat = DateFormat.getDateInstance(3);
+		        String firstDay = sp.getString("Start", "");
+		        Date formDate = null;
+
+					try {
+						formDate = dateCancelFormat.parse(firstDay);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+					Calendar settingDay = Calendar.getInstance();
+					settingDay.setTime(formDate);
+					int studyDay = -1;
+					for(int i = 0;i<7;i++){
+						if(cday == settingDay.get(Calendar.DAY_OF_MONTH)+i){
+							studyDay = i+1;
+						}
+					}
+					if(studyDay != -1){
+						studyDay += 9;
+						Intent sleepIntent = new Intent(MainActivity.this, WakeAlarmReceiverActivity.class);
+				        PendingIntent pendingSleepIntent = PendingIntent.getActivity(MainActivity.this,
+				            studyDay, sleepIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+				        AlarmManager amCancel = 
+				            (AlarmManager)MainActivity.this.getSystemService(ALARM_SERVICE);
+				        amCancel.cancel(pendingSleepIntent);
+				        pendingSleepIntent.cancel();
+				        System.out.println("Wake Alarm Cancelled - Intent:"+studyDay);
+				        
+					}
+
 			}
 			
 		});
@@ -339,6 +374,11 @@ public class MainActivity extends Activity {
         //SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         Editor edit = sp.edit();
         edit.putString(key, value);
+        edit.commit();
+    }
+    private void savePrefs(String key, int value) {
+        Editor edit = sp.edit();
+        edit.putInt(key, value);
         edit.commit();
     }
 	

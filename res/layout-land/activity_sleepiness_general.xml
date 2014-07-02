@@ -85,7 +85,7 @@
                     android:layout_weight="1" >
 
                     <TextView
-                        android:id="@+id/LaterDayGenText"
+                        android:id="@+id/WholeDayGenText"
                         android:layout_width="390dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.20"
@@ -140,7 +140,7 @@
                     android:layout_weight="1" >
 
                     <TextView
-                        android:id="@+id/LaterDayGenText"
+                        android:id="@+id/CarGenText"
                         android:layout_width="390dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.20"
@@ -248,7 +248,7 @@
                     android:layout_weight="1" >
 
                     <TextView
-                        android:id="@+id/TextView07"
+                        android:id="@+id/RealizedGenText"
                         android:layout_width="390dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.20"

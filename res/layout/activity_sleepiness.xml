@@ -108,7 +108,7 @@
                     android:layout_height="wrap_content" >
 
                     <TextView
-                        android:id="@+id/LaterDayGenText"
+                        android:id="@+id/LastClassText"
                         android:layout_width="225dp"
                         android:layout_height="match_parent"
                         android:text="I fell asleep during the last class of the day."
@@ -132,7 +132,7 @@
                     android:layout_height="wrap_content" >
 
                     <TextView
-                        android:id="@+id/LaterDayGenText"
+                        android:id="@+id/CarText"
                         android:layout_width="225dp"
                         android:layout_height="match_parent"
                         android:text="I felt drowsy when I rode in a car for longer than 5 minutes."
@@ -280,7 +280,7 @@
                     android:layout_height="wrap_content" >
 
                     <TextView
-                        android:id="@+id/TextView07"
+                        android:id="@+id/AwakeLastClassText"
                         android:layout_width="225dp"
                         android:layout_height="match_parent"
                         android:text="I felt wide-awake during the last class of the day."
@@ -305,7 +305,7 @@
                     android:layout_height="wrap_content" >
 
                     <TextView
-                        android:id="@+id/TextView07"
+                        android:id="@+id/BusCarTrainText"
                         android:layout_width="225dp"
                         android:layout_height="match_parent"
                         android:text="I fell asleep when I rode in a bus, car, or train."
@@ -330,7 +330,7 @@
                     android:layout_height="wrap_content" >
 
                     <TextView
-                        android:id="@+id/TextView07"
+                        android:id="@+id/RealizeText"
                         android:layout_width="225dp"
                         android:layout_height="match_parent"
                         android:text="During the school day, there were times when I realized that I had just fallen asleep."

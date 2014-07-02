@@ -260,7 +260,7 @@
                     android:layout_height="wrap_content" >
 
                     <TextView
-                        android:id="@+id/LaterDayGenText"
+                        android:id="@+id/FaultsText"
                         android:layout_width="225dp"
                         android:layout_height="match_parent"
                         android:text="How often did this person point out your faults or put you down today?"
@@ -344,7 +344,7 @@
                     android:layout_height="wrap_content" >
 
                     <TextView
-                        android:id="@+id/LaterDayGenText"
+                        android:id="@+id/EverythingText"
                         android:layout_width="225dp"
                         android:layout_height="match_parent"
                         android:text="How often did you tell this person everything that you are going through today?"
@@ -680,7 +680,7 @@
                     android:layout_height="wrap_content" >
 
                     <TextView
-                        android:id="@+id/TextView07"
+                        android:id="@+id/PressureText"
                         android:layout_width="225dp"
                         android:layout_height="match_parent"
                         android:text="How often did this person pressure you to do the things that he or she wants today?"

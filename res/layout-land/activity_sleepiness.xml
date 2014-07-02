@@ -115,7 +115,7 @@
                     android:layout_weight="1" >
 
                     <TextView
-                        android:id="@+id/LaterDayGenText"
+                        android:id="@+id/LastClassText"
                         android:layout_width="390dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.20"
@@ -142,7 +142,7 @@
                     android:layout_weight="1" >
 
                     <TextView
-                        android:id="@+id/LaterDayGenText"
+                        android:id="@+id/CarText"
                         android:layout_width="390dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.20"
@@ -308,7 +308,7 @@
                     android:layout_weight="1" >
 
                     <TextView
-                        android:id="@+id/TextView07"
+                        android:id="@+id/AwakeLastClassText"
                         android:layout_width="390dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.20"
@@ -336,7 +336,7 @@
                     android:layout_weight="1" >
 
                     <TextView
-                        android:id="@+id/TextView07"
+                        android:id="@+id/BusCarTrainText"
                         android:layout_width="390dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.20"
@@ -364,7 +364,7 @@
                     android:layout_weight="1" >
 
                     <TextView
-                        android:id="@+id/TextView07"
+                        android:id="@+id/RealizedText"
                         android:layout_width="390dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.20"
