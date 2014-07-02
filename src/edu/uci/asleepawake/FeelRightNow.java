@@ -35,6 +35,8 @@ import android.widget.SeekBar;
 import android.widget.TableRow;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.os.AsyncTask;
 
 public class FeelRightNow extends Activity implements OnSeekBarChangeListener,
 		OnClickListener {
@@ -50,6 +52,7 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener,
 	Button submit;
 	SharedPreferences sp;
 	String entryType;
+	String data;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -341,7 +344,7 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener,
 			String participant = sp.getString("Participant", "");
 	        final String entryType = sp.getString("ManualSurveys", "");
 
-			String data = "entry_1794600332="
+			data = "entry_1794600332="
 					+ URLEncoder.encode(participant)
 					+ "&"
 					+ "entry_2035552502="
@@ -378,8 +381,11 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener,
 					+ "entry_12534346="
 					+ URLEncoder
 							.encode(entryType);
-			String response = mReq.sendPost(fullUrl, data);
-			System.out.println("postData response: " + response);
+//			String response = mReq.sendPost(fullUrl, data);
+//			System.out.println("postData response: " + response);
+
+			UploadFormData doItNow = new UploadFormData();
+			doItNow.execute(fullUrl);
 
 			savePrefs("feelRightNowSurveyIgnored", "NO");
 			savePrefs("SurveysTaken", "YES");
@@ -590,6 +596,38 @@ public class FeelRightNow extends Activity implements OnSeekBarChangeListener,
 		}
 	}
 
+	private class UploadFormData extends AsyncTask<String, Void, String>{
+
+		@Override
+		protected String doInBackground(String... urls) {
+			// TODO Auto-generated method stub
+			String response = "";
+			for (String url : urls){
+			try{
+				HttpRequest mReq = new HttpRequest();
+				String mdata = data;
+				System.out.print(url);
+				response = mReq.sendPost(url, mdata);
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+			}
+			
+			return response;
+		}
+		
+		protected void onPostExecute(String result){
+			Context context = getApplicationContext();
+			CharSequence text = "Feel Right Now Form data submitted.";
+			int duration = Toast.LENGTH_SHORT;
+			
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
+		}
+		
+	}
+	
+	
 	private void savePrefs(String key, String value) {
 		SharedPreferences sp = PreferenceManager
 				.getDefaultSharedPreferences(this);

@@ -23,10 +23,13 @@ import android.content.SharedPreferences.Editor;
 import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
+import android.os.AsyncTask;
 
 public class WakeAlarmReceiverActivity extends Activity {
 	private MediaPlayer mMediaPlayer;
 	SharedPreferences sp;
+	String data;
 
 
 	@Override
@@ -208,14 +211,17 @@ public class WakeAlarmReceiverActivity extends Activity {
 		String watch = sp.getString("wearingWatch", "");
 		String entryType = sp.getString("ManualEntry", "");
 
-		String data = "entry_1794600332=" + URLEncoder.encode(participant) + "&"
+		data = "entry_1794600332=" + URLEncoder.encode(participant) + "&"
 				+"entry_2034720707=" + URLEncoder.encode(date) + "&"
 				+ "entry_2032879505=" + URLEncoder.encode(sleep) + "&"
 				+ "entry_1085709803=" + URLEncoder.encode(wake) + "&"
 				+ "entry_2052787681=" + URLEncoder.encode(watch) + "&"
 				+ "entry_12534346=" + URLEncoder.encode(entryType);
-		String response = mReq.sendPost(fullUrl, data);
-		System.out.println("postData response: " + response);
+//		String response = mReq.sendPost(fullUrl, data);
+//		System.out.println("postData response: " + response);
+
+		UploadFormData doItNow = new UploadFormData();
+		doItNow.execute(fullUrl);
 
 		savePrefs("timeStamp","");
 		savePrefs("logIgnored","");
@@ -225,6 +231,38 @@ public class WakeAlarmReceiverActivity extends Activity {
 		savePrefs("wakeIgnored","NO");
 
     }
+
+	private class UploadFormData extends AsyncTask<String, Void, String>{
+
+		@Override
+		protected String doInBackground(String... urls) {
+			// TODO Auto-generated method stub
+			String response = "";
+			for (String url : urls){
+			try{
+				HttpRequest mReq = new HttpRequest();
+				String mdata = data;
+				System.out.print(url);
+				response = mReq.sendPost(url, mdata);
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+			}
+			
+			return response;
+		}
+		
+		protected void onPostExecute(String result){
+			Context context = getApplicationContext();
+			CharSequence text = "Form data submitted.";
+			int duration = Toast.LENGTH_SHORT;
+			
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
+		}
+		
+	}
+    
     
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

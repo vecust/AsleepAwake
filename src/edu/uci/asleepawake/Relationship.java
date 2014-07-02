@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -22,6 +23,8 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.os.AsyncTask;
 
 public class Relationship extends Activity implements OnSeekBarChangeListener, OnClickListener{
 
@@ -35,6 +38,7 @@ public class Relationship extends Activity implements OnSeekBarChangeListener, O
 			argueSeekBar, cheerUpSeekBar;
 	Button submit;
 	String type;
+	String data;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -400,7 +404,7 @@ public class Relationship extends Activity implements OnSeekBarChangeListener, O
 	        String participant = sp.getString("Participant", "");
 	        String entryType = sp.getString("ManualSurveys", "");
 	        
-			String data = "entry_1794600332=" + URLEncoder.encode(participant) + "&"
+			data = "entry_1794600332=" + URLEncoder.encode(participant) + "&"
 					+ "entry_1626012679=" + URLEncoder.encode(funTimeTextView.getText().toString()) + "&"
 					+ "entry_898526966=" + URLEncoder.encode(supportTextView.getText().toString()) + "&"
 					+ "entry_1455635904=" + URLEncoder.encode(faultsTextView.getText().toString()) + "&"
@@ -412,8 +416,11 @@ public class Relationship extends Activity implements OnSeekBarChangeListener, O
 					+ "entry_610276760=" + URLEncoder.encode(argueTextView.getText().toString()) + "&"
 					+ "entry_1783259162=" + URLEncoder.encode(cheerUpTextView.getText().toString()) + "&"
 					+ "entry_12534346=" + URLEncoder.encode(entryType);
-			String response = mReq.sendPost(fullUrl, data);
-			System.out.println("postData response: " + response);
+//			String response = mReq.sendPost(fullUrl, data);
+//			System.out.println("postData response: " + response);
+			
+			UploadFormData doItNow = new UploadFormData();
+			doItNow.execute(fullUrl);
 			
 			savePrefs("relationshipSurveyIgnored","");
 			
@@ -430,6 +437,38 @@ public class Relationship extends Activity implements OnSeekBarChangeListener, O
      	   }
 		}
 	}
+
+	private class UploadFormData extends AsyncTask<String, Void, String>{
+
+		@Override
+		protected String doInBackground(String... urls) {
+			// TODO Auto-generated method stub
+			String response = "";
+			for (String url : urls){
+			try{
+				HttpRequest mReq = new HttpRequest();
+				String mdata = data;
+				System.out.print(url);
+				response = mReq.sendPost(url, mdata);
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+			}
+			
+			return response;
+		}
+		
+		protected void onPostExecute(String result){
+			Context context = getApplicationContext();
+			CharSequence text = "Relationship Form data submitted.";
+			int duration = Toast.LENGTH_SHORT;
+			
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
+		}
+		
+	}
+
 	
     private void savePrefs(String key, String value) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);

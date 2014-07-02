@@ -7,6 +7,7 @@ import java.net.URLEncoder;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,6 +22,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TableRow;
+import android.widget.Toast;
+import android.os.AsyncTask;
 
 public class Sleepiness extends Activity implements OnClickListener{
 
@@ -37,6 +40,7 @@ public class Sleepiness extends Activity implements OnClickListener{
     private Spinner awakeLastClass;
     private Spinner busCarTrain;
     private Spinner realized;
+    String data;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -246,7 +250,7 @@ public class Sleepiness extends Activity implements OnClickListener{
 	        String participant = sp.getString("Participant", "");
 	        String entryType = sp.getString("ManualSurveys", "");
 			
-			String data = "entry_1794600332=" + URLEncoder.encode(participant) + "&"
+			data = "entry_1794600332=" + URLEncoder.encode(participant) + "&"
 					+ "entry_877114785=" + URLEncoder.encode(morningClasses.getSelectedItem().toString()) + "&"
 					+ "entry_2107663340=" + URLEncoder.encode(schoolDay.getSelectedItem().toString()) + "&"
 					+ "entry_193970558=" + URLEncoder.encode(lastClass.getSelectedItem().toString()) + "&"
@@ -260,8 +264,12 @@ public class Sleepiness extends Activity implements OnClickListener{
 					+ "entry_502584888=" + URLEncoder.encode(busCarTrain.getSelectedItem().toString()) + "&"
 					+ "entry_860282205=" + URLEncoder.encode(realized.getSelectedItem().toString()) + "&"
 					+ "entry_12534346=" + URLEncoder.encode(entryType);
-			String response = mReq.sendPost(fullUrl, data);
-			System.out.println("postData response: " + response);
+//			String response = mReq.sendPost(fullUrl, data);
+//			System.out.println("postData response: " + response);
+			
+			UploadFormData doItNow = new UploadFormData();
+			doItNow.execute(fullUrl);
+
      	   savePrefs("sleepinessSurveyIgnored","NO");
 			
 //			finish();
@@ -271,6 +279,38 @@ public class Sleepiness extends Activity implements OnClickListener{
     	   Sleepiness.this.startActivity(surveyPage);	
 		}
 	}
+
+	private class UploadFormData extends AsyncTask<String, Void, String>{
+
+		@Override
+		protected String doInBackground(String... urls) {
+			// TODO Auto-generated method stub
+			String response = "";
+			for (String url : urls){
+			try{
+				HttpRequest mReq = new HttpRequest();
+				String mdata = data;
+				System.out.print(url);
+				response = mReq.sendPost(url, mdata);
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+			}
+			
+			return response;
+		}
+		
+		protected void onPostExecute(String result){
+			Context context = getApplicationContext();
+			CharSequence text = "Sleepiness Form data submitted.";
+			int duration = Toast.LENGTH_SHORT;
+			
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
+		}
+		
+	}
+
 	
     private void savePrefs(String key, String value) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);

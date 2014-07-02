@@ -17,6 +17,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -32,6 +33,8 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
+import android.os.AsyncTask;
 
 public class Form extends Activity implements OnClickListener {
 
@@ -51,6 +54,7 @@ public class Form extends Activity implements OnClickListener {
     Button submit;
     SharedPreferences sp;
     Date formDate, formSleepTime, formWakeTime;
+    String data;
 	
     protected Dialog onCreateDialog(int id) {
 		
@@ -276,14 +280,17 @@ public class Form extends Activity implements OnClickListener {
 				watch = "NO";
 			}
 			
-			String data = "entry_1794600332=" + URLEncoder.encode(participant) + "&"
+			data = "entry_1794600332=" + URLEncoder.encode(participant) + "&"
 					+"entry_2034720707=" + URLEncoder.encode(date.getText().toString()) + "&"
 					+ "entry_2032879505=" + URLEncoder.encode(sleepTime.getText().toString()) + "&"
 					+ "entry_1085709803=" + URLEncoder.encode(wakeTime.getText().toString()) + "&"
 					+ "entry_2052787681=" + URLEncoder.encode(watch) + "&"
 					+ "entry_12534346=" + URLEncoder.encode(entryType);
-			String response = mReq.sendPost(fullUrl, data);
-			System.out.println("postData response: " + response);
+//			String response = mReq.sendPost(fullUrl, data);
+//			System.out.println("postData response: " + response);
+			
+			UploadFormData doItNow = new UploadFormData();
+			doItNow.execute(fullUrl);
 			
 			savePrefs("logIgnored","");
 			savePrefs("sleepLogged","");
@@ -291,6 +298,37 @@ public class Form extends Activity implements OnClickListener {
 			
 			finish();
 	}
+	}
+	
+	private class UploadFormData extends AsyncTask<String, Void, String>{
+
+		@Override
+		protected String doInBackground(String... urls) {
+			// TODO Auto-generated method stub
+			String response = "";
+			for (String url : urls){
+			try{
+				HttpRequest mReq = new HttpRequest();
+				String mdata = data;
+				System.out.print(url);
+				response = mReq.sendPost(url, mdata);
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+			}
+			
+			return response;
+		}
+		
+		protected void onPostExecute(String result){
+			Context context = getApplicationContext();
+			CharSequence text = "Form data submitted.";
+			int duration = Toast.LENGTH_SHORT;
+			
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
+		}
+		
 	}
 	
     private void savePrefs(String key, String value) {
